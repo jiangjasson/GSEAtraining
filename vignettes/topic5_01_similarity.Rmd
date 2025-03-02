@@ -69,7 +69,6 @@ look at the following three methods:
 
 
 ```{r}
-library(simplifyEnrichment)
 m1 = term_similarity(gs_pathway, method = "jaccard")
 m2 = term_similarity(gs_pathway, method = "overlap")
 m3 = term_similarity(gs_pathway, method = "kappa")

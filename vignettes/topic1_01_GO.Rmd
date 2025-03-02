@@ -255,16 +255,16 @@ head(Ontology(GOTERM))
 Moreover, you can get subset the `GOTERM` object:
 
 ```{r}
-GOTERM[c("GO:0000001", "GO:0000002", "GO:0000003")]
+GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")]
 ```
 
 With `Term()`, `Definition()` and `Ontology()`, it is convinient to add additional 
 information of GO terms:
 
 ```{r}
-Term(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000003")])
-Definition(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000003")])
-Ontology(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000003")])
+Term(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
+Definition(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
+Ontology(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
 ```
 
 

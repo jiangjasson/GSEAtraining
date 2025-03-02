@@ -221,18 +221,20 @@ There are mainly two sources to obtain TSS definitions: 1. from NCBI, 2. from En
 
 ### Get TSS from NCBI
 
+**Currently some service from NCBI is not available, so we skip this and the next section**.
+
 We need to first know the "accession number" of an organism's genome. Taking
 dolphin as an example, its web page on NCBI Genome is https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_011762595.1/. In **rGREAT**, there is a `getGenomeDataFromNCBI()` function which
 can automatically retrieve gene definitions from NCBI.
 
-```{r}
+```{r, eval = FALSE}
 genes = getGenomeDataFromNCBI("GCF_011762595.1", return_granges = TRUE)
 genes
 ```
 
 As we have already introduced, retrieve GO gene sets for an organism is easy:
 
-```{r}
+```{r, eval = FALSE}
 library(AnnotationHub)
 ah = AnnotationHub()
 orgdb = ah[["AH112418"]]
@@ -261,7 +263,7 @@ on KEGG, and this accession number can be directly used in `getGenomeDataFromNCB
 
 In the following example, `"mgp"` is the organism code for Meleagris gallopavo (turkey).
 
-```{r}
+```{r, eval = FALSE}
 genes = getGenomeDataFromNCBI(getKEGGGenome("mgp"), return_granges = TRUE)
 head(genes)
 gene_sets = getKEGGPathways("mgp")

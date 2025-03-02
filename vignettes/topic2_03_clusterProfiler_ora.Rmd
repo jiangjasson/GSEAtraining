@@ -199,7 +199,7 @@ Taking dolphin as an example.
 ```{r}
 library(AnnotationHub)
 ah = AnnotationHub()
-org_db = ah[["AH112418"]]
+org_db = ah[["AH118180"]]
 
 diff_gene = random_genes(org_db, 1000, "ENTREZID")
 tb = enrichGO(diff_gene, ont = "BP", OrgDb = org_db, 

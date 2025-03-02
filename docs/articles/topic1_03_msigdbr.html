@@ -6,20 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Topic 1-03: Get pathways from MSigDB • GSEAtraining</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Topic 1-03: Get pathways from MSigDB">
-<meta property="og:description" content="GSEAtraining">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GSEAtraining</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.20.0</span>
       </span>
     </div>
 
@@ -45,7 +44,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -128,7 +127,7 @@
 <li>
   <a href="https://github.com/jokergoo/GSEAtraining/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -139,7 +138,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -148,7 +147,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2024-01-26</h4>
+            <h4 data-toc-skip class="date">2025-03-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtraining/blob/HEAD/vignettes/topic1_03_msigdbr.Rmd" class="external-link"><code>vignettes/topic1_03_msigdbr.Rmd</code></a></small>
       <div class="hidden name"><code>topic1_03_msigdbr.Rmd</code></div>
@@ -260,14 +259,13 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">##     IQR, mad, sd, var, xtabs</span></span></code></pre>
 <pre><code><span><span class="co">## The following objects are masked from 'package:base':</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##     Filter, Find, Map, Position, Reduce, anyDuplicated, aperm, append,</span></span>
-<span><span class="co">##     as.data.frame, basename, cbind, colnames, dirname, do.call,</span></span>
-<span><span class="co">##     duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted,</span></span>
-<span><span class="co">##     lapply, mapply, match, mget, order, paste, pmax, pmax.int, pmin,</span></span>
-<span><span class="co">##     pmin.int, rank, rbind, rownames, sapply, setdiff, sort, table,</span></span>
-<span><span class="co">##     tapply, union, unique, unsplit, which.max, which.min</span></span></code></pre>
+<span><span class="co">##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,</span></span>
+<span><span class="co">##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,</span></span>
+<span><span class="co">##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,</span></span>
+<span><span class="co">##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,</span></span>
+<span><span class="co">##     Position, rank, rbind, Reduce, rownames, sapply, saveRDS, setdiff,</span></span>
+<span><span class="co">##     table, tapply, union, unique, unsplit, which.max, which.min</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: S4Vectors</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: package 'S4Vectors' was built under R version 4.3.2</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'S4Vectors'</span></span></code></pre>
 <pre><code><span><span class="co">## The following object is masked from 'package:utils':</span></span>
@@ -275,13 +273,13 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">##     findMatches</span></span></code></pre>
 <pre><code><span><span class="co">## The following objects are masked from 'package:base':</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##     I, expand.grid, unname</span></span></code></pre>
+<span><span class="co">##     expand.grid, I, unname</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: IRanges</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: GenomeInfoDb</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span></code></pre>
 <pre><code><span><span class="co">## </span></span></code></pre>
 <pre><code><span><span class="co">## ========================================</span></span>
-<span><span class="co">## rGREAT version 2.5.1</span></span>
+<span><span class="co">## rGREAT version 2.8.0</span></span>
 <span><span class="co">## Bioconductor page: http://bioconductor.org/packages/rGREAT/</span></span>
 <span><span class="co">## Github page: https://github.com/jokergoo/rGREAT</span></span>
 <span><span class="co">## </span></span>
@@ -294,7 +292,7 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## </span></span>
 <span><span class="co">## Note: On Aug 19 2019 GREAT released version 4 where it supports `hg38`</span></span>
 <span><span class="co">## genome and removes some ontologies such pathways. `submitGreatJob()`</span></span>
-<span><span class="co">## still takes `hg19` as default. `hg38` can be specified by the `species</span></span>
+<span><span class="co">## still takes `hg19` as default. `hg38` can be specified by the `genome</span></span>
 <span><span class="co">## = 'hg38'` argument. To use the older versions such as 3.0.0, specify as</span></span>
 <span><span class="co">## `submitGreatJob(..., version = '3.0.0')`.</span></span>
 <span><span class="co">## </span></span>
@@ -303,7 +301,7 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## ecosystem. By default it supports more than 500 organisms. Check the</span></span>
 <span><span class="co">## new function `great()` and the new vignette.</span></span>
 <span><span class="co">## ========================================</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rGREAT/man/read_gmt.html" class="external-link">read_gmt</a></span><span class="op">(</span><span class="st">"h.all.v2023.2.Hs.symbols.gmt"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">gs2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/rGREAT/man/read_gmt.html" class="external-link">read_gmt</a></span><span class="op">(</span><span class="st">"h.all.v2023.2.Hs.symbols.gmt"</span>, </span>
@@ -340,24 +338,24 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## [109] "ENSG00000146701" "ENSG00000065833" "ENSG00000074416" "ENSG00000143198"</span></span>
 <span><span class="co">## [113] "ENSG00000148343" "ENSG00000170262" "ENSG00000137547" "ENSG00000117791"</span></span>
 <span><span class="co">## [117] "ENSG00000065534" "ENSG00000173559" "ENSG00000128609" "ENSG00000004779"</span></span>
-<span><span class="co">## [121] "ENSG00000099795" "ENSG00000197885" "ENSG00000136448" "ENSG00000127083"</span></span>
+<span><span class="co">## [121] "ENSG00000099795" "ENSG00000213619" "ENSG00000197885" "ENSG00000136448"</span></span>
 <span><span class="co">## [125] "ENSG00000229314" "ENSG00000150593" "ENSG00000133027" "ENSG00000142655"</span></span>
 <span><span class="co">## [129] "ENSG00000170525" "ENSG00000141959" "ENSG00000079739" "ENSG00000019144"</span></span>
 <span><span class="co">## [133] "ENSG00000107537" "ENSG00000198355" "ENSG00000147872" "ENSG00000127948"</span></span>
 <span><span class="co">## [137] "ENSG00000132170" "ENSG00000138032" "ENSG00000158615" "ENSG00000165672"</span></span>
 <span><span class="co">## [141] "ENSG00000138073" "ENSG00000132300" "ENSG00000050628" "ENSG00000151552"</span></span>
 <span><span class="co">## [145] "ENSG00000109113" "ENSG00000129625" "ENSG00000115255" "ENSG00000104918"</span></span>
-<span><span class="co">## [149] "ENSG00000042445" "ENSG00000101782" "ENSG00000137824" "ENSG00000123091"</span></span>
-<span><span class="co">## [153] "ENSG00000124782" "ENSG00000133318" "ENSG00000100347" "ENSG00000073060"</span></span>
-<span><span class="co">## [157] "ENSG00000116171" "ENSG00000117118" "ENSG00000143252" "ENSG00000173638"</span></span>
-<span><span class="co">## [161] "ENSG00000105281" "ENSG00000100075" "ENSG00000183048" "ENSG00000130304"</span></span>
-<span><span class="co">## [165] "ENSG00000138074" "ENSG00000162976" "ENSG00000173267" "ENSG00000142168"</span></span>
-<span><span class="co">## [169] "ENSG00000095637" "ENSG00000198142" "ENSG00000152583" "ENSG00000137767"</span></span>
-<span><span class="co">## [173] "ENSG00000123096" "ENSG00000126561" "ENSG00000148175" "ENSG00000163541"</span></span>
-<span><span class="co">## [177] "ENSG00000177156" "ENSG00000136560" "ENSG00000163931" "ENSG00000141232"</span></span>
-<span><span class="co">## [181] "ENSG00000128311" "ENSG00000150991" "ENSG00000135018" "ENSG00000130717"</span></span>
-<span><span class="co">## [185] "ENSG00000175567" "ENSG00000184076" "ENSG00000127540" "ENSG00000010256"</span></span>
-<span><span class="co">## [189] "ENSG00000164405" "ENSG00000173511" "ENSG00000170027"</span></span>
+<span><span class="co">## [149] "ENSG00000101782" "ENSG00000137824" "ENSG00000123091" "ENSG00000124782"</span></span>
+<span><span class="co">## [153] "ENSG00000133318" "ENSG00000100347" "ENSG00000073060" "ENSG00000116171"</span></span>
+<span><span class="co">## [157] "ENSG00000117118" "ENSG00000143252" "ENSG00000173638" "ENSG00000105281"</span></span>
+<span><span class="co">## [161] "ENSG00000100075" "ENSG00000183048" "ENSG00000130304" "ENSG00000138074"</span></span>
+<span><span class="co">## [165] "ENSG00000162976" "ENSG00000173267" "ENSG00000142168" "ENSG00000095637"</span></span>
+<span><span class="co">## [169] "ENSG00000198142" "ENSG00000152583" "ENSG00000137767" "ENSG00000123096"</span></span>
+<span><span class="co">## [173] "ENSG00000126561" "ENSG00000148175" "ENSG00000163541" "ENSG00000177156"</span></span>
+<span><span class="co">## [177] "ENSG00000136560" "ENSG00000163931" "ENSG00000141232" "ENSG00000128311"</span></span>
+<span><span class="co">## [181] "ENSG00000150991" "ENSG00000135018" "ENSG00000130717" "ENSG00000175567"</span></span>
+<span><span class="co">## [185] "ENSG00000184076" "ENSG00000127540" "ENSG00000010256" "ENSG00000164405"</span></span>
+<span><span class="co">## [189] "ENSG00000173511" "ENSG00000170027"</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $HALLMARK_ALLOGRAFT_REJECTION</span></span>
 <span><span class="co">##   [1] "ENSG00000090861" "ENSG00000164163" "ENSG00000136754" "ENSG00000087085"</span></span>
@@ -391,27 +389,27 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## [113] "ENSG00000005844" "ENSG00000160255" "ENSG00000113263" "ENSG00000096968"</span></span>
 <span><span class="co">## [117] "ENSG00000134539" "ENSG00000167768" "ENSG00000182866" "ENSG00000043462"</span></span>
 <span><span class="co">## [121] "ENSG00000128342" "ENSG00000054219" "ENSG00000112799" "ENSG00000254087"</span></span>
-<span><span class="co">## [125] "ENSG00000135341" "ENSG00000165471" "ENSG00000100985" "ENSG00000114686"</span></span>
-<span><span class="co">## [129] "ENSG00000085760" "ENSG00000158092" "ENSG00000162711" "ENSG00000239672"</span></span>
-<span><span class="co">## [133] "ENSG00000007171" "ENSG00000181163" "ENSG00000163737" "ENSG00000180644"</span></span>
-<span><span class="co">## [137] "ENSG00000166501" "ENSG00000126583" "ENSG00000205220" "ENSG00000111679"</span></span>
-<span><span class="co">## [141] "ENSG00000113643" "ENSG00000104312" "ENSG00000198918" "ENSG00000140986"</span></span>
-<span><span class="co">## [145] "ENSG00000163682" "ENSG00000105372" "ENSG00000145425" "ENSG00000137078"</span></span>
-<span><span class="co">## [149] "ENSG00000185338" "ENSG00000171150" "ENSG00000066336" "ENSG00000122862"</span></span>
-<span><span class="co">## [153] "ENSG00000113532" "ENSG00000010327" "ENSG00000115415" "ENSG00000138378"</span></span>
-<span><span class="co">## [157] "ENSG00000105329" "ENSG00000092969" "ENSG00000154096" "ENSG00000102265"</span></span>
-<span><span class="co">## [161] "ENSG00000174125" "ENSG00000137462" "ENSG00000164342" "ENSG00000174130"</span></span>
-<span><span class="co">## [165] "ENSG00000076554" "ENSG00000127191" "ENSG00000163519" "ENSG00000072401"</span></span>
-<span><span class="co">## [169] "ENSG00000177889" "ENSG00000140105" "ENSG00000015285" "ENSG00000115085"</span></span></code></pre>
+<span><span class="co">## [125] "ENSG00000135341" "ENSG00000104814" "ENSG00000165471" "ENSG00000100985"</span></span>
+<span><span class="co">## [129] "ENSG00000114686" "ENSG00000085760" "ENSG00000158092" "ENSG00000162711"</span></span>
+<span><span class="co">## [133] "ENSG00000239672" "ENSG00000007171" "ENSG00000181163" "ENSG00000163737"</span></span>
+<span><span class="co">## [137] "ENSG00000180644" "ENSG00000166501" "ENSG00000126583" "ENSG00000205220"</span></span>
+<span><span class="co">## [141] "ENSG00000111679" "ENSG00000113643" "ENSG00000104312" "ENSG00000198918"</span></span>
+<span><span class="co">## [145] "ENSG00000163682" "ENSG00000105372" "ENSG00000137078" "ENSG00000185338"</span></span>
+<span><span class="co">## [149] "ENSG00000171150" "ENSG00000066336" "ENSG00000122862" "ENSG00000113532"</span></span>
+<span><span class="co">## [153] "ENSG00000010327" "ENSG00000115415" "ENSG00000138378" "ENSG00000105329"</span></span>
+<span><span class="co">## [157] "ENSG00000092969" "ENSG00000154096" "ENSG00000102265" "ENSG00000174125"</span></span>
+<span><span class="co">## [161] "ENSG00000137462" "ENSG00000164342" "ENSG00000174130" "ENSG00000076554"</span></span>
+<span><span class="co">## [165] "ENSG00000127191" "ENSG00000163519" "ENSG00000072401" "ENSG00000177889"</span></span>
+<span><span class="co">## [169] "ENSG00000140105" "ENSG00000015285"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="the-msigdbr-package">The msigdbr package<a class="anchor" aria-label="anchor" href="#the-msigdbr-package"></a>
 </h2>
 <p>There is already an R package <strong>msigdbr</strong> which has integerated all MSigDB gene sets.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igordot.github.io/msigdbr/" class="external-link">msigdbr</a></span><span class="op">)</span></span></code></pre></div>
 <p>The major advantage is, MSigDB only supports human and mouse, <strong>msigdbr</strong> supports more organisms by mapping to the orthologe genes.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr_species.html" class="external-link">msigdbr_species</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 2</span></span></span>
 <span><span class="co">##    species_name                    species_common_name                          </span></span>
@@ -437,7 +435,7 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> Sus scrofa                      pig, pigs, swine, wild boar                  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> Xenopus tropicalis              tropical clawed frog, western clawed frog</span></span></code></pre>
 <p>All categories of gene sets:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr_collections.html" class="external-link">msigdbr_collections</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    gs_cat       gs_subcat num_genesets</span></span>
 <span><span class="co">## 1      C1                          299</span></span>
@@ -464,7 +462,7 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## 22     C8                          700</span></span>
 <span><span class="co">## 23      H                           50</span></span></code></pre>
 <p>Values in the <code>gs_cat</code> column and the <code>gs_subcat</code> column can be used to retrieve gene sets in a specific category. E.g., we want to extract genesets in C2 category and CP:KEGG sub-category:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr.html" class="external-link">msigdbr</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"C2"</span>, subcategory <span class="op">=</span> <span class="st">"CP:KEGG"</span><span class="op">)</span></span>
 <span><span class="va">gene_sets</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 16,283 × 15</span></span></span>
@@ -485,7 +483,7 @@ gene_set_2  gene_set_description    gene4   gene5
 <span><span class="co">## <span style="color: #949494;">#   human_ensembl_gene &lt;chr&gt;, gs_id &lt;chr&gt;, gs_pmid &lt;chr&gt;, gs_geoid &lt;chr&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   gs_exact_source &lt;chr&gt;, gs_url &lt;chr&gt;, gs_description &lt;chr&gt;</span></span></span></code></pre>
 <p>If you don’t like the <code>tibble</code> format, you can change it to a data frame.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">gene_sets</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_sets</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   gs_cat gs_subcat               gs_name gene_symbol entrez_gene</span></span>
@@ -529,7 +527,7 @@ blockquote {
 <p><strong>Danger zone:</strong> The <code>entrez_gene</code> column is saved in integer. This may cause unseeable problems. Convert it explicitely to character: <code>gene_set$entrez_gene = as.character(gene_set$entrez_gene)</code>.</p>
 </blockquote>
 <p>Another advantage of <strong>misgdbr</strong> is that it provides all three major gene ID types. For example, if you need Ensembl gene IDs, you can obtain the gene sets by:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gs_name"</span>, <span class="st">"ensembl_gene"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 gs_name    ensembl_gene</span></span>
 <span><span class="co">## 1 KEGG_ABC_TRANSPORTERS ENSG00000165029</span></span>
@@ -539,7 +537,7 @@ blockquote {
 <span><span class="co">## 5 KEGG_ABC_TRANSPORTERS ENSG00000107331</span></span>
 <span><span class="co">## 6 KEGG_ABC_TRANSPORTERS ENSG00000167972</span></span></code></pre>
 <p>By default it retrieves data for human. The <code>species</code> argument can be used for other supported species.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr.html" class="external-link">msigdbr</a></span><span class="op">(</span>species <span class="op">=</span> <span class="st">"dog"</span>, category <span class="op">=</span> <span class="st">"C2"</span>, subcategory <span class="op">=</span> <span class="st">"CP:BIOCARTA"</span><span class="op">)</span></span>
 <span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">gene_sets</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_sets</span><span class="op">)</span></span></code></pre></div>
@@ -590,13 +588,13 @@ blockquote {
 <h2 id="a-safer-check">A safer check<a class="anchor" aria-label="anchor" href="#a-safer-check"></a>
 </h2>
 <p>The table contains mappings between gene sets and all the three gene ID types. Since Symbol-EntreZ-Ensembl mapping is not 1:1, it is possible rows are duplicated if only taking two columns from the complete table:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr.html" class="external-link">msigdbr</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"C5"</span>, subcategory <span class="op">=</span> <span class="st">"GO:BP"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="va">gene_sets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gs_name"</span>, <span class="st">"gene_symbol"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 721379      2</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 633008      2</span></span></code></pre>
 <p>So, additionally applying <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> is always safe.</p>
@@ -605,13 +603,13 @@ blockquote {
 <h2 id="functions-in-the-gseatraining-package">Functions in the GSEAtraining package<a class="anchor" aria-label="anchor" href="#functions-in-the-gseatraining-package"></a>
 </h2>
 <p>We also have several functions in <strong>GSEAtraining</strong> to retrieve gene sets from MSigDB. It directly downloads data from MSigDB web server.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtraining" class="external-link">GSEAtraining</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/msigdb.html">list_msigdb_versions</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "6.0"       "6.1"       "6.2"       "7.0"       "7.1"       "7.2"      </span></span>
 <span><span class="co">##  [7] "7.3"       "7.4"       "7.5.1"     "7.5"       "2022.1.Hs" "2022.1.Mm"</span></span>
-<span><span class="co">## [13] "2023.1.Hs" "2023.1.Mm" "2023.2.Hs" "2023.2.Mm"</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<span><span class="co">## [13] "2023.1.Hs" "2023.1.Mm" "2023.2.Hs" "2023.2.Mm" "2024.1.Hs" "2024.1.Mm"</span></span></code></pre>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/msigdb.html">list_msigdb_collections</a></span><span class="op">(</span><span class="st">"2023.2.Hs"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "c1.all"             "c2.all"             "c2.cgp"            </span></span>
 <span><span class="co">##  [4] "c2.cp.biocarta"     "c2.cp.kegg_legacy"  "c2.cp.kegg_medicus"</span></span>
@@ -624,7 +622,7 @@ blockquote {
 <span><span class="co">## [25] "c5.go.mf"           "c5.go"              "c5.hpo"            </span></span>
 <span><span class="co">## [28] "c6.all"             "c7.all"             "c7.immunesigdb"    </span></span>
 <span><span class="co">## [31] "c7.vax"             "c8.all"             "h.all"</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="../reference/msigdb.html">get_msigdb</a></span><span class="op">(</span>version <span class="op">=</span> <span class="st">"2023.2.Hs"</span>, collection <span class="op">=</span> <span class="st">"h.all"</span><span class="op">)</span></span>
 <span><span class="va">lt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $HALLMARK_ADIPOGENESIS</span></span>
@@ -694,7 +692,7 @@ blockquote {
 <div class="section level4">
 <h4 id="solution">Solution<a class="anchor" aria-label="anchor" href="#solution"></a>
 </h4>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="st">"https://maayanlab.cloud/Enrichr/geneSetLibrary?mode=text&amp;libraryName=COVID-19_Related_Gene_Sets"</span>, destfile <span class="op">=</span> <span class="st">"covid-19.gmt"</span><span class="op">)</span></span>
 <span><span class="va">ln</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"covid-19.gmt"</span><span class="op">)</span></span>
 <span><span class="va">ln</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">ln</span>, <span class="st">"\t"</span><span class="op">)</span></span>
@@ -711,7 +709,7 @@ blockquote {
 <span><span class="co">## [19] "TUBGCP3"  "AKAP8L"   "FASTKD5"  "ETFA"     "BZW2"     "PSMD8"   </span></span>
 <span><span class="co">## [25] "ACADM"    "PITRM1"   "STOM"     "PMPCB"    "PMPCA"    "SLC25A21"</span></span></code></pre>
 <p>Convert <code>gs</code> to a data frame</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gs</span><span class="op">)</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">gs</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    gene <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">gs</span><span class="op">)</span></span>
@@ -732,7 +730,7 @@ blockquote {
 <span><span class="co">## COVID19-E protein host PPI from Krogan5   AP3B1</span></span>
 <span><span class="co">## COVID19-E protein host PPI from Krogan6   CWC27</span></span></code></pre>
 <p>Or use the <code><a href="../reference/list_to_dataframe.html">list_to_dataframe()</a></code> function in <strong>GSEAtraining</strong>:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/list_to_dataframe.html">list_to_dataframe</a></span><span class="op">(</span><span class="va">gs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                 gene_set    gene</span></span>
@@ -749,9 +747,7 @@ blockquote {
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -764,16 +760,16 @@ blockquote {
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

@@ -61,6 +61,7 @@ I first extract all the human genes, which will be the primary keys for the orth
 ```{r}
 keys = keys(Orthology.eg.db, keytype = "Homo.sapiens")
 head(keys)
+length(keys)
 ```
 
 The keys are in EntreZ ID type.

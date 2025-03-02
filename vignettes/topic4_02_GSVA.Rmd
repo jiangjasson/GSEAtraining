@@ -33,7 +33,7 @@ The returned value `gs_mat` is a set-sample matrix that contains "single sample-
 
 ```{r}
 library(GSVA)
-gs_mat = gsva(expr, gs, verbose = FALSE)
+gs_mat = gsva(gsvaParam(expr, gs), verbose = FALSE)
 dim(gs_mat)
 ```
 

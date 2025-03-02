@@ -541,3 +541,79 @@ gsea_gene_perm = function(s, geneset, perm = FALSE, power = 1) {
 
     max(f1 - f2)
 }
+
+
+#' Similarity between terms based on overlap
+#'
+#' @param gl A list of items
+#' @param method The similarity measurement.
+#' @param all The universe set.
+#' @param remove_negative If the value is negative, reset to zero
+#'
+#' @return A symmetric matrix.
+#' @rdname similarity
+#' @export
+#' @import Matrix
+#' @importFrom methods as
+term_similarity = function(gl, method = c("kappa", "jaccard", "dice", "overlap"), all = NULL, remove_negative = TRUE) {
+    if(is.null(all)) {
+        all = unique(unlist(gl))
+    } else {
+        gl = lapply(gl, intersect, all)
+    }
+    gl = lapply(gl, function(x) as.numeric(factor(x, levels = all)))
+    n = length(gl)
+
+    mg = matrix(0, ncol = length(all), nrow = n)
+    for(i in seq_len(n)) {
+        mg[i, gl[[i]]] = 1
+    }
+    mg = as(mg, "sparseMatrix")
+
+    method = match.arg(method)[1]
+    if(method == "kappa") {
+        mat = kappa_dist(mg, remove_negative = remove_negative)
+    } else if(method == "overlap") {
+        mat = overlap_dist(mg)
+    } else {
+        mat = proxyC::simil(mg, method = method)
+    }
+
+    mat = as.matrix(mat)
+    diag(mat) = 1
+    rownames(mat) = colnames(mat) = names(gl)
+    return(mat)
+}
+
+
+kappa = function(x, y) {
+    tab = length(x)
+    oab = sum(x == y)/tab
+    aab = (sum(x)*sum(y) + sum(!x)*sum(!y))/tab/tab
+    k = (oab - aab)/(1 - aab)
+    # if(k < 0) k = 0
+    return(k)
+}
+
+# by rows
+kappa_dist = function(m, remove_negative = TRUE) {
+    tab = ncol(m)
+    oab = proxyC::simil(m, method = "simple matching")
+    m1 = sparseMatrixStats::rowSums2(m)
+    m2 = abs(sparseMatrixStats::rowSums2(m - 1))
+    aab = (outer(m1, m1) + outer(m2, m2))/tab/tab
+    k = (oab - aab)/(1 - aab)
+    if(remove_negative) k[k < 0] = 0
+    return(k)
+}
+
+overlap_dist = function(m) {
+    n = sparseMatrixStats::rowSums2(m)
+    proxyC::simil(m, method = "dice")*outer(n, n, "+")/2/outer(n, n, pmin)
+}
+
+# only for testing
+overlap_single = function(x, y) {
+    sum(x & y)/min(sum(x), sum(y))
+}
+

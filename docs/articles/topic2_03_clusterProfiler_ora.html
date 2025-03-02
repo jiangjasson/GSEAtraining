@@ -6,20 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Topic 2-03: Use clusterProfiler for ORA • GSEAtraining</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Topic 2-03: Use clusterProfiler for ORA">
-<meta property="og:description" content="GSEAtraining">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">GSEAtraining</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.20.0</span>
       </span>
     </div>
 
@@ -45,7 +44,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -128,7 +127,7 @@
 <li>
   <a href="https://github.com/jokergoo/GSEAtraining/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -139,7 +138,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
@@ -148,7 +147,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2024-01-26</h4>
+            <h4 data-toc-skip class="date">2025-03-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtraining/blob/HEAD/vignettes/topic2_03_clusterProfiler_ora.Rmd" class="external-link"><code>vignettes/topic2_03_clusterProfiler_ora.Rmd</code></a></small>
       <div class="hidden name"><code>topic2_03_clusterProfiler_ora.Rmd</code></div>
@@ -166,14 +165,14 @@
 <pre><code><span><span class="co">## [1] "FGR"    "NIPAL3" "LAP3"   "CASP10" "CAMKK1" "PRSS22"</span></span></code></pre>
 <p>Load the <strong>clusterProfiler</strong> package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" class="external-link">clusterProfiler</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/contribution-knowledge-mining/" class="external-link">clusterProfiler</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>clusterProfiler</strong> supports several major gene ID types in the input, but it is suggested to use Entrez IDs as the input because it is the “central gene ID type” in many databases/datasets.</p>
 <p>We convert <code>diff_gene</code> to Entrez IDs. Note some genes may be lost due to the conversion.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtraining" class="external-link">GSEAtraining</a></span><span class="op">)</span></span>
 <span><span class="va">diff_gene</span> <span class="op">=</span> <span class="fu"><a href="../reference/convert_to_entrez_id.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="va">diff_gene</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span></code></pre>
-<pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.990 )</span></span></code></pre>
+<pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.980 )</span></span></code></pre>
 <pre><code><span><span class="co">## 'select()' returned 1:many mapping between keys and columns</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">diff_gene</span><span class="op">)</span></span></code></pre></div>
@@ -181,91 +180,120 @@
 <span><span class="co">##  "2268" "57185" "51056"   "843" "84254" "64063"</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">diff_gene</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 837</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 835</span></span></code></pre>
 <p>Next we perform ORA on different gene set sources.</p>
 <div class="section level2">
 <h2 id="go-enrichment">GO enrichment<a class="anchor" aria-label="anchor" href="#go-enrichment"></a>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'S4Vectors' was built under R version 4.3.2</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
+<span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                    ID                                Description GeneRatio</span></span>
-<span><span class="co">## GO:0001819 GO:0001819 positive regulation of cytokine production    79/777</span></span>
-<span><span class="co">## GO:0031349 GO:0031349    positive regulation of defense response    68/777</span></span>
-<span><span class="co">## GO:0002237 GO:0002237   response to molecule of bacterial origin    61/777</span></span>
-<span><span class="co">## GO:0002274 GO:0002274               myeloid leukocyte activation    49/777</span></span>
-<span><span class="co">## GO:0032496 GO:0032496             response to lipopolysaccharide    59/777</span></span>
-<span><span class="co">## GO:0019221 GO:0019221        cytokine-mediated signaling pathway    71/777</span></span>
-<span><span class="co">##              BgRatio       pvalue     p.adjust       qvalue</span></span>
-<span><span class="co">## GO:0001819 489/18614 1.285130e-25 6.579865e-22 5.102642e-22</span></span>
-<span><span class="co">## GO:0031349 441/18614 5.345810e-21 1.368527e-17 1.061284e-17</span></span>
-<span><span class="co">## GO:0002237 366/18614 1.127385e-20 1.375774e-17 1.066904e-17</span></span>
-<span><span class="co">## GO:0002274 240/18614 1.151399e-20 1.375774e-17 1.066904e-17</span></span>
-<span><span class="co">## GO:0032496 345/18614 1.343530e-20 1.375774e-17 1.066904e-17</span></span>
-<span><span class="co">## GO:0019221 492/18614 3.280167e-20 2.799076e-17 2.170665e-17</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                                                                                        geneID</span></span>
-<span><span class="co">## GO:0001819 2268/4843/7305/6556/3082/11119/50943/8692/5743/3595/2219/58484/54209/5008/50487/51311/4210/80381/5054/59341/55801/3458/942/7474/3552/6772/9173/8809/22954/8013/29126/1958/729230/3659/3553/2867/10288/3620/1116/948/3569/7097/6653/834/116/5795/115362/26060/2207/10417/4332/5196/6850/26253/64127/3965/5724/136/929/1051/64581/10855/6288/4023/8877/247/353514/1604/246778/728/2214/3133/3134/93978/150372/11027/4321/338382/6348</span></span>
-<span><span class="co">## GO:0031349                                                    7305/8692/3430/5743/2219/58484/54209/5008/50487/3055/51311/730249/4210/5054/59341/3458/7474/57142/9173/8807/729230/81030/3659/3553/2867/5819/3620/84034/8638/948/3569/7097/834/83666/84166/8547/6279/64332/7941/2209/115362/26060/1520/6280/6283/4332/6850/26253/64127/11314/136/929/2358/1051/64581/4023/353514/5320/5359/145741/3133/3134/388125/93978/11027/4321/338382/6348</span></span>
-<span><span class="co">## GO:0002237                                                                                                               4843/6401/6556/50943/22904/5743/2920/3595/54209/3055/54/730249/5054/1440/6347/1594/57379/6648/942/7474/3552/29126/6590/6372/3553/10288/3620/948/3569/7097/10068/834/4283/6279/64332/133/10417/249/6280/9076/2921/6374/5196/2919/80149/717/64127/3965/3627/6373/5724/3576/2353/929/1051/9516/1604/728/6891/11027/6348</span></span>
-<span><span class="co">## GO:0002274                                                                                                                                                                 2268/7305/6556/22904/8692/3430/54209/50487/3696/3458/7474/9173/8807/8013/729230/3598/55509/6372/30817/5819/8291/3569/7097/2207/6283/80149/81501/6850/338339/11314/116071/6338/3965/5724/3576/136/712/8877/2624/3579/2242/5320/5359/728/2214/57126/10537/11027/6348</span></span>
-<span><span class="co">## GO:0032496                                                                                                                        4843/6401/6556/50943/22904/5743/2920/3595/54209/3055/54/730249/5054/1440/6347/1594/57379/6648/942/7474/3552/29126/6590/6372/3553/10288/3620/948/3569/7097/10068/834/4283/6279/64332/133/10417/249/6280/9076/2921/6374/5196/2919/80149/717/64127/3965/3627/6373/5724/3576/2353/929/1051/9516/1604/11027/6348</span></span>
-<span><span class="co">## GO:0019221                                              608/51208/2920/3595/54209/5008/3055/11024/1440/6354/6347/3458/7474/3552/6772/7850/9173/8809/8807/22954/1441/1958/729230/3598/81030/6372/3659/3553/51554/10288/3601/8638/3569/3557/834/83666/4283/50506/84166/79092/10410/64332/5795/2180/26060/2207/8986/3577/2921/6374/5196/2919/6850/3429/3627/6373/3576/54625/8877/1237/3579/10581/8519/7293/8784/353514/11027/4321/6351/6349/6348</span></span>
+<pre><code><span><span class="co">##                    ID                                  Description GeneRatio</span></span>
+<span><span class="co">## GO:0002274 GO:0002274                 myeloid leukocyte activation    51/779</span></span>
+<span><span class="co">## GO:0002237 GO:0002237     response to molecule of bacterial origin    63/779</span></span>
+<span><span class="co">## GO:0032496 GO:0032496               response to lipopolysaccharide    61/779</span></span>
+<span><span class="co">## GO:0050729 GO:0050729 positive regulation of inflammatory response    40/779</span></span>
+<span><span class="co">## GO:0050727 GO:0050727          regulation of inflammatory response    66/779</span></span>
+<span><span class="co">## GO:0002697 GO:0002697        regulation of immune effector process    63/779</span></span>
+<span><span class="co">##              BgRatio RichFactor FoldEnrichment   zScore       pvalue</span></span>
+<span><span class="co">## GO:0002274 247/18986  0.2064777       5.032331 13.19430 5.149704e-22</span></span>
+<span><span class="co">## GO:0002237 375/18986  0.1680000       4.094542 12.51936 6.945328e-22</span></span>
+<span><span class="co">## GO:0032496 354/18986  0.1723164       4.199742 12.57018 8.355530e-22</span></span>
+<span><span class="co">## GO:0050729 162/18986  0.2469136       6.017845 13.26703 1.676133e-20</span></span>
+<span><span class="co">## GO:0050727 438/18986  0.1506849       3.672534 11.70487 3.037134e-20</span></span>
+<span><span class="co">## GO:0002697 410/18986  0.1536585       3.745008 11.62289 8.217123e-20</span></span>
+<span><span class="co">##                p.adjust       qvalue</span></span>
+<span><span class="co">## GO:0002274 1.409021e-18 1.099119e-18</span></span>
+<span><span class="co">## GO:0002237 1.409021e-18 1.099119e-18</span></span>
+<span><span class="co">## GO:0032496 1.409021e-18 1.099119e-18</span></span>
+<span><span class="co">## GO:0050729 2.119890e-17 1.653638e-17</span></span>
+<span><span class="co">## GO:0050727 3.072972e-17 2.397098e-17</span></span>
+<span><span class="co">## GO:0002697 6.928404e-17 5.404561e-17</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                        geneID</span></span>
+<span><span class="co">## GO:0002274                                                                                       2268/7305/6556/22904/8692/3430/54209/50487/3696/3458/7474/9173/8807/8013/729230/3598/55509/6372/30817/5819/8291/3569/7097/2207/6283/80149/81501/6850/338339/11314/116071/6338/3965/5724/3576/136/712/8877/2624/2205/3579/2242/2204/5320/5359/728/2214/57126/10537/11027/6348</span></span>
+<span><span class="co">## GO:0002237                                   4843/6401/6556/50943/22904/5743/2920/3595/54209/3055/54/730249/5054/1440/6347/1594/57379/6648/942/7474/3552/29126/6590/6372/3553/10288/3620/948/3569/7097/10068/834/4283/6279/64332/133/4314/115362/10417/249/2634/9076/2921/6374/5196/2919/80149/717/64127/3965/3627/6373/5724/3576/2353/929/1051/2204/9516/1604/728/6891/11027</span></span>
+<span><span class="co">## GO:0032496                                            4843/6401/6556/50943/22904/5743/2920/3595/54209/3055/54/730249/5054/1440/6347/1594/57379/6648/942/7474/3552/29126/6590/6372/3553/10288/3620/948/3569/7097/10068/834/4283/6279/64332/133/4314/115362/10417/249/2634/9076/2921/6374/5196/2919/80149/717/64127/3965/3627/6373/5724/3576/2353/929/1051/2204/9516/1604/11027</span></span>
+<span><span class="co">## GO:0050729                                                                                                                                               8692/3430/5743/58484/54209/5008/50487/4210/5054/59341/3458/7474/9173/2633/729230/81030/3553/2867/3620/3569/7097/834/838/6279/64332/7941/2209/115362/2634/6280/6283/136/1051/4023/353514/5320/145741/3133/388125/6348</span></span>
+<span><span class="co">## GO:0050727 2268/6401/3082/50943/22904/8692/3430/55737/5743/58484/54209/5008/50487/25807/3055/54/730249/4210/5054/59341/3458/7474/8087/9173/2633/729230/7130/81030/3553/2867/3620/4907/3569/8870/7097/834/838/64116/90527/405753/6279/64332/7941/4314/2209/115362/56833/2634/6280/6283/6850/64127/136/2358/1051/6288/4023/8877/9021/338557/353514/5320/145741/3133/388125/6348</span></span>
+<span><span class="co">## GO:0002697                       2268/4843/7305/50943/7037/2219/3383/54209/50487/54/3458/942/7474/57142/8809/8807/8013/29126/729230/3598/722/725/6372/3553/2867/30817/5819/948/3569/8547/64332/2209/26060/910/56833/10417/8741/6280/80149/6850/64127/11314/3965/5724/136/51237/3726/115727/64581/2624/2242/7293/441168/9516/1604/246778/6891/3107/3133/3134/57126/3106/387837</span></span>
 <span><span class="co">##            Count</span></span>
-<span><span class="co">## GO:0001819    79</span></span>
-<span><span class="co">## GO:0031349    68</span></span>
-<span><span class="co">## GO:0002237    61</span></span>
-<span><span class="co">## GO:0002274    49</span></span>
-<span><span class="co">## GO:0032496    59</span></span>
-<span><span class="co">## GO:0019221    71</span></span></code></pre>
+<span><span class="co">## GO:0002274    51</span></span>
+<span><span class="co">## GO:0002237    63</span></span>
+<span><span class="co">## GO:0032496    61</span></span>
+<span><span class="co">## GO:0050729    40</span></span>
+<span><span class="co">## GO:0050727    66</span></span>
+<span><span class="co">## GO:0002697    63</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="kegg-enrichment">KEGG enrichment<a class="anchor" aria-label="anchor" href="#kegg-enrichment"></a>
 </h2>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html" class="external-link">enrichKEGG</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, organism <span class="op">=</span> <span class="st">"hsa"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                ID                                                   Description</span></span>
-<span><span class="co">## hsa04060 hsa04060                        Cytokine-cytokine receptor interaction</span></span>
-<span><span class="co">## hsa04061 hsa04061 Viral protein interaction with cytokine and cytokine receptor</span></span>
-<span><span class="co">## hsa04657 hsa04657                                       IL-17 signaling pathway</span></span>
-<span><span class="co">## hsa04380 hsa04380                                    Osteoclast differentiation</span></span>
-<span><span class="co">## hsa05323 hsa05323                                          Rheumatoid arthritis</span></span>
-<span><span class="co">## hsa04668 hsa04668                                         TNF signaling pathway</span></span>
-<span><span class="co">##          GeneRatio  BgRatio       pvalue     p.adjust       qvalue</span></span>
-<span><span class="co">## hsa04060    50/452 297/8662 7.690187e-14 2.399338e-11 2.072303e-11</span></span>
-<span><span class="co">## hsa04061    27/452 100/8662 6.100715e-13 9.517115e-11 8.219910e-11</span></span>
-<span><span class="co">## hsa04657    25/452  94/8662 6.469192e-12 6.727960e-10 5.810923e-10</span></span>
-<span><span class="co">## hsa04380    29/452 135/8662 4.113147e-11 3.208254e-09 2.770962e-09</span></span>
-<span><span class="co">## hsa05323    23/452  93/8662 2.278678e-10 1.421895e-08 1.228088e-08</span></span>
-<span><span class="co">## hsa04668    25/452 114/8662 5.910829e-10 3.073631e-08 2.654688e-08</span></span>
+<pre><code><span><span class="co">##                                      category</span></span>
+<span><span class="co">## hsa04060 Environmental Information Processing</span></span>
+<span><span class="co">## hsa04061 Environmental Information Processing</span></span>
+<span><span class="co">## hsa04657                   Organismal Systems</span></span>
+<span><span class="co">## hsa04380                   Organismal Systems</span></span>
+<span><span class="co">## hsa04668 Environmental Information Processing</span></span>
+<span><span class="co">## hsa05323                       Human Diseases</span></span>
+<span><span class="co">##                                  subcategory       ID</span></span>
+<span><span class="co">## hsa04060 Signaling molecules and interaction hsa04060</span></span>
+<span><span class="co">## hsa04061 Signaling molecules and interaction hsa04061</span></span>
+<span><span class="co">## hsa04657                       Immune system hsa04657</span></span>
+<span><span class="co">## hsa04380        Development and regeneration hsa04380</span></span>
+<span><span class="co">## hsa04668                 Signal transduction hsa04668</span></span>
+<span><span class="co">## hsa05323                      Immune disease hsa05323</span></span>
+<span><span class="co">##                                                            Description</span></span>
+<span><span class="co">## hsa04060                        Cytokine-cytokine receptor interaction</span></span>
+<span><span class="co">## hsa04061 Viral protein interaction with cytokine and cytokine receptor</span></span>
+<span><span class="co">## hsa04657                                       IL-17 signaling pathway</span></span>
+<span><span class="co">## hsa04380                                    Osteoclast differentiation</span></span>
+<span><span class="co">## hsa04668                                         TNF signaling pathway</span></span>
+<span><span class="co">## hsa05323                                          Rheumatoid arthritis</span></span>
+<span><span class="co">##          GeneRatio  BgRatio RichFactor FoldEnrichment   zScore       pvalue</span></span>
+<span><span class="co">## hsa04060    50/452 298/8535  0.1677852       3.168246 9.009305 1.539612e-13</span></span>
+<span><span class="co">## hsa04061    27/452 100/8535  0.2700000       5.098341 9.748207 8.613618e-13</span></span>
+<span><span class="co">## hsa04657    25/452  95/8535  0.2631579       4.969143 9.199126 1.148639e-11</span></span>
+<span><span class="co">## hsa04380    29/452 143/8535  0.2027972       3.829368 8.068334 2.535667e-10</span></span>
+<span><span class="co">## hsa04668    26/452 119/8535  0.2184874       4.125641 8.119308 3.971319e-10</span></span>
+<span><span class="co">## hsa05323    23/452  95/8535  0.2421053       4.571612 8.277783 4.807896e-10</span></span>
+<span><span class="co">##              p.adjust       qvalue</span></span>
+<span><span class="co">## hsa04060 4.926759e-11 4.294708e-11</span></span>
+<span><span class="co">## hsa04061 1.378179e-10 1.201373e-10</span></span>
+<span><span class="co">## hsa04657 1.225215e-09 1.068033e-09</span></span>
+<span><span class="co">## hsa04380 2.028533e-08 1.768294e-08</span></span>
+<span><span class="co">## hsa04668 2.541644e-08 2.215578e-08</span></span>
+<span><span class="co">## hsa05323 2.564211e-08 2.235250e-08</span></span>
 <span><span class="co">##                                                                                                                                                                                                                                                                   geneID</span></span>
 <span><span class="co">## hsa04060 53832/608/2920/3595/3589/5008/1440/6354/6347/55801/3458/3552/7850/9173/8809/8807/1441/729230/3624/3598/6372/3553/51554/9518/3601/3569/3557/4283/94/56477/58191/8741/3577/2921/6374/5196/2919/3627/6373/3576/8794/1237/3579/7293/8784/246778/6351/9560/6349/6348</span></span>
 <span><span class="co">## hsa04061                                                                                                                     53832/2920/6354/6347/8809/8807/729230/6372/51554/3569/4283/56477/3577/2921/6374/5196/2919/3627/6373/3576/8794/1237/3579/6351/9560/6349/6348</span></span>
 <span><span class="co">## hsa04657                                                                                                                                  5743/2920/1440/6354/6347/3458/727897/6372/3553/2354/3569/4322/6279/3934/4314/6280/2921/6374/2919/3627/3576/2353/1051/8061/4312</span></span>
 <span><span class="co">## hsa04380                                                                                                       7305/54209/10326/54/11024/3458/3552/6772/2274/4688/8503/3553/2354/10288/7006/2212/2209/2215/6850/2353/126014/3726/8061/9021/353514/2214/11025/11027/79168</span></span>
+<span><span class="co">## hsa04668                                                                                                                            843/64285/6401/5743/2920/3383/6347/8809/8503/6372/3659/3553/3569/4314/4323/8986/2921/6374/2919/64127/197259/3627/2353/3726/1051/9021</span></span>
 <span><span class="co">## hsa05323                                                                                                                                                2920/3383/3589/54/6347/10312/3458/942/3552/6372/3553/3569/7097/4314/8741/2921/6374/2919/3576/2353/4312/6349/6348</span></span>
-<span><span class="co">## hsa04668                                                                                                                                  843/6401/5743/2920/3383/6347/8809/8503/6372/3659/3553/3569/4314/4323/8986/2921/6374/2919/64127/197259/3627/2353/3726/1051/9021</span></span>
 <span><span class="co">##          Count</span></span>
 <span><span class="co">## hsa04060    50</span></span>
 <span><span class="co">## hsa04061    27</span></span>
 <span><span class="co">## hsa04657    25</span></span>
 <span><span class="co">## hsa04380    29</span></span>
-<span><span class="co">## hsa05323    23</span></span>
-<span><span class="co">## hsa04668    25</span></span></code></pre>
+<span><span class="co">## hsa04668    26</span></span>
+<span><span class="co">## hsa05323    23</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="reactome-enrichment">Reactome enrichment<a class="anchor" aria-label="anchor" href="#reactome-enrichment"></a>
 </h2>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" class="external-link">ReactomePA</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## ReactomePA v1.44.0  For help: https://yulab-smu.top/biomedical-knowledge-mining-book/</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/contribution-knowledge-mining/" class="external-link">ReactomePA</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## ReactomePA v1.50.0 Learn more at https://yulab-smu.top/contribution-knowledge-mining/</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## If you use ReactomePA in published research, please cite:</span></span>
-<span><span class="co">## Guangchuang Yu, Qing-Yu He. ReactomePA: an R/Bioconductor package for reactome pathway analysis and visualization. Molecular BioSystems 2016, 12(2):477-479</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<span><span class="co">## Please cite:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Guangchuang Yu, Qing-Yu He. ReactomePA: an R/Bioconductor package for</span></span>
+<span><span class="co">## reactome pathway analysis and visualization. Molecular BioSystems.</span></span>
+<span><span class="co">## 2016, 12(2):477-479</span></span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ReactomePA/man/enrichPathway.html" class="external-link">enrichPathway</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, organism <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                          ID</span></span>
@@ -282,68 +310,85 @@
 <span><span class="co">## R-HSA-449147                                                 Signaling by Interleukins</span></span>
 <span><span class="co">## R-HSA-198933  Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell</span></span>
 <span><span class="co">## R-HSA-6785807                               Interleukin-4 and Interleukin-13 signaling</span></span>
-<span><span class="co">##               GeneRatio   BgRatio       pvalue     p.adjust       qvalue</span></span>
-<span><span class="co">## R-HSA-6798695    72/592 481/10955 1.196852e-15 1.345261e-12 1.277482e-12</span></span>
-<span><span class="co">## R-HSA-6783783    21/592  47/10955 5.765865e-15 3.240416e-12 3.077151e-12</span></span>
-<span><span class="co">## R-HSA-380108     22/592  59/10955 1.224584e-13 4.588108e-11 4.356940e-11</span></span>
-<span><span class="co">## R-HSA-449147     64/592 473/10955 5.748719e-12 1.615390e-09 1.534000e-09</span></span>
-<span><span class="co">## R-HSA-198933     28/592 134/10955 4.464142e-10 1.003539e-07 9.529767e-08</span></span>
-<span><span class="co">## R-HSA-6785807    23/592 108/10955 1.113243e-08 2.085475e-06 1.980401e-06</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                                                          geneID</span></span>
-<span><span class="co">## R-HSA-6798695 2268/64386/5329/7305/55/6556/2219/4680/4069/5836/10326/10562/3614/10493/10312/5768/5328/10549/7130/6590/27180/10288/1116/6947/948/10970/7097/6386/53831/2212/6279/3934/5795/2207/3101/2215/5284/1520/6282/6280/6283/3577/4332/2919/1508/338339/11314/6036/5724/929/126014/1084/2358/2357/116844/160364/10855/3310/4973/196527/3579/222487/199675/2204/1604/728/3107/11025/57126/3106/150372/81567</span></span>
-<span><span class="co">## R-HSA-6783783                                                                                                                                                                                                                                                                                         5743/2920/3383/7076/1440/6347/942/3552/7850/729230/3553/3569/3557/2919/3627/5724/3576/2357/6351/6349/6348</span></span>
-<span><span class="co">## R-HSA-380108                                                                                                                                                                                                                                                                                 2920/6354/6347/729230/6372/51554/4283/56477/58191/3577/2921/6374/5196/2919/3627/6373/3576/1237/3579/6351/6349/6348</span></span>
-<span><span class="co">## R-HSA-449147                                                                4843/53832/3082/6196/5743/2920/3595/3383/3589/5008/3055/7076/1440/6347/595/55801/3458/6648/942/3552/6772/7850/9173/8809/8807/8503/1441/729230/3598/3553/759/3601/948/7006/3569/3557/10068/834/1848/84166/3934/4314/6283/2919/6850/64127/3965/3627/5724/3576/2353/2357/3726/6288/9021/4582/4312/246778/5696/5699/5698/6351/6349/6348</span></span>
-<span><span class="co">## R-HSA-198933                                                                                                                                                                                                                                       7305/57823/1308/29992/3383/54209/11024/54210/27180/5819/10288/1280/2209/910/10871/11314/27036/126014/8519/342510/353514/2214/3107/11025/3133/3134/3106/11027</span></span>
-<span><span class="co">## R-HSA-6785807                                                                                                                                                                                                                                                                                  4843/3082/5743/3383/5008/7076/6347/595/3552/6772/3598/3553/948/3569/3934/4314/3576/2353/3726/6288/9021/4582/4312</span></span>
+<span><span class="co">##               GeneRatio   BgRatio RichFactor FoldEnrichment    zScore</span></span>
+<span><span class="co">## R-HSA-6798695    71/599 479/11146  0.1482255       2.758132  9.373182</span></span>
+<span><span class="co">## R-HSA-6783783    21/599  47/11146  0.4468085       8.314070 11.974436</span></span>
+<span><span class="co">## R-HSA-380108     22/599  59/11146  0.3728814       6.938457 10.898872</span></span>
+<span><span class="co">## R-HSA-449147     64/599 473/11146  0.1353066       2.517741  8.038480</span></span>
+<span><span class="co">## R-HSA-198933     27/599 133/11146  0.2030075       3.777499  7.679198</span></span>
+<span><span class="co">## R-HSA-6785807    23/599 108/11146  0.2129630       3.962747  7.373101</span></span>
+<span><span class="co">##                     pvalue     p.adjust       qvalue</span></span>
+<span><span class="co">## R-HSA-6798695 2.519471e-15 2.935183e-12 2.797938e-12</span></span>
+<span><span class="co">## R-HSA-6783783 5.190031e-15 3.023193e-12 2.881833e-12</span></span>
+<span><span class="co">## R-HSA-380108  1.099867e-13 4.271149e-11 4.071437e-11</span></span>
+<span><span class="co">## R-HSA-449147  4.612427e-12 1.343369e-09 1.280555e-09</span></span>
+<span><span class="co">## R-HSA-198933  1.607939e-09 3.746498e-07 3.571317e-07</span></span>
+<span><span class="co">## R-HSA-6785807 1.007665e-08 1.956549e-06 1.865064e-06</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                                                    geneID</span></span>
+<span><span class="co">## R-HSA-6798695 2268/64386/5329/7305/55/6556/2219/4680/4069/5836/10326/10562/3614/10493/10312/5768/5328/10549/7130/6590/27180/10288/1116/6947/948/10970/7097/6386/53831/2212/6279/3934/5795/2207/3101/2215/5284/1520/6282/6280/6283/3577/4332/2919/1508/338339/11314/6036/5724/929/126014/1084/2358/2357/116844/160364/10855/3310/4973/196527/3579/222487/199675/2204/1604/728/3107/57126/3106/150372/81567</span></span>
+<span><span class="co">## R-HSA-6783783                                                                                                                                                                                                                                                                                   5743/2920/3383/7076/1440/6347/942/3552/7850/729230/3553/3569/3557/2919/3627/5724/3576/2357/6351/6349/6348</span></span>
+<span><span class="co">## R-HSA-380108                                                                                                                                                                                                                                                                           2920/6354/6347/729230/6372/51554/4283/56477/58191/3577/2921/6374/5196/2919/3627/6373/3576/1237/3579/6351/6349/6348</span></span>
+<span><span class="co">## R-HSA-449147                                                          4843/53832/3082/6196/5743/2920/3595/3383/3589/5008/3055/7076/1440/6347/595/55801/3458/6648/942/3552/6772/7850/9173/8809/8807/8503/1441/729230/3598/3553/759/3601/948/7006/3569/3557/10068/834/1848/84166/3934/4314/6283/2919/6850/64127/3965/3627/5724/3576/2353/2357/3726/6288/9021/4582/4312/246778/5696/5699/5698/6351/6349/6348</span></span>
+<span><span class="co">## R-HSA-198933                                                                                                                                                                                                                                       7305/57823/1308/29992/3383/54209/11024/54210/27180/5819/10288/1280/2209/910/10871/11314/27036/126014/8519/342510/353514/2214/3107/3133/3134/3106/11027</span></span>
+<span><span class="co">## R-HSA-6785807                                                                                                                                                                                                                                                                            4843/3082/5743/3383/5008/7076/6347/595/3552/6772/3598/3553/948/3569/3934/4314/3576/2353/3726/6288/9021/4582/4312</span></span>
 <span><span class="co">##               Count</span></span>
-<span><span class="co">## R-HSA-6798695    72</span></span>
+<span><span class="co">## R-HSA-6798695    71</span></span>
 <span><span class="co">## R-HSA-6783783    21</span></span>
 <span><span class="co">## R-HSA-380108     22</span></span>
 <span><span class="co">## R-HSA-449147     64</span></span>
-<span><span class="co">## R-HSA-198933     28</span></span>
+<span><span class="co">## R-HSA-198933     27</span></span>
 <span><span class="co">## R-HSA-6785807    23</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="do-enrichment">DO enrichment<a class="anchor" aria-label="anchor" href="#do-enrichment"></a>
 </h2>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/biomedical-knowledge-mining-book/" class="external-link">DOSE</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## DOSE v3.26.2  For help: https://yulab-smu.top/biomedical-knowledge-mining-book/</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yulab-smu.top/contribution-knowledge-mining/" class="external-link">DOSE</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## DOSE v4.0.0 Learn more at https://yulab-smu.top/contribution-knowledge-mining/</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## If you use DOSE in published research, please cite:</span></span>
-<span><span class="co">## Guangchuang Yu, Li-Gen Wang, Guang-Rong Yan, Qing-Yu He. DOSE: an R/Bioconductor package for Disease Ontology Semantic and Enrichment analysis. Bioinformatics 2015, 31(4):608-609</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<span><span class="co">## Please cite:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Guangchuang Yu, Li-Gen Wang, Guang-Rong Yan, Qing-Yu He. DOSE: an</span></span>
+<span><span class="co">## R/Bioconductor package for Disease Ontology Semantic and Enrichment</span></span>
+<span><span class="co">## analysis. Bioinformatics. 2015, 31(4):608-609</span></span></code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/DOSE/man/enrichDO.html" class="external-link">enrichDO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                  ID                     Description GeneRatio   BgRatio</span></span>
-<span><span class="co">## DOID:824   DOID:824                   periodontitis    44/569 147/10312</span></span>
-<span><span class="co">## DOID:3388 DOID:3388             periodontal disease    47/569 169/10312</span></span>
-<span><span class="co">## DOID:403   DOID:403                   mouth disease    58/569 266/10312</span></span>
-<span><span class="co">## DOID:104   DOID:104    bacterial infectious disease    68/569 359/10312</span></span>
-<span><span class="co">## DOID:974   DOID:974 upper respiratory tract disease    49/569 202/10312</span></span>
-<span><span class="co">## DOID:552   DOID:552                       pneumonia    44/569 164/10312</span></span>
-<span><span class="co">##                 pvalue     p.adjust       qvalue</span></span>
-<span><span class="co">## DOID:824  2.827079e-21 2.025173e-18 1.005913e-18</span></span>
-<span><span class="co">## DOID:3388 3.675451e-21 2.025173e-18 1.005913e-18</span></span>
-<span><span class="co">## DOID:403  3.669020e-20 1.347753e-17 6.694352e-18</span></span>
-<span><span class="co">## DOID:104  6.427655e-20 1.770819e-17 8.795738e-18</span></span>
-<span><span class="co">## DOID:974  3.074551e-19 6.077593e-17 3.018768e-17</span></span>
-<span><span class="co">## DOID:552  3.309034e-19 6.077593e-17 3.018768e-17</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                            geneID</span></span>
-<span><span class="co">## DOID:824                                                                                                                        4843/6401/50943/5743/2920/3595/4069/3589/5008/7076/10135/5054/9126/6354/6347/3458/3552/7850/29126/729230/54210/6372/3553/3569/3557/7097/4322/2212/6279/133/4314/10630/2215/9076/64127/3576/929/2357/1051/3579/4312/2214/3106/4321</span></span>
-<span><span class="co">## DOID:3388                                                                                                        4843/6401/3082/50943/5743/2920/3595/5243/4069/3589/5008/7076/10135/5054/9126/6354/6347/3458/3552/7850/29126/729230/5328/54210/6372/3553/3569/3557/7097/4322/2212/6279/133/4314/10630/2215/9076/64127/3576/929/2357/1051/3579/4312/2214/3106/4321</span></span>
-<span><span class="co">## DOID:403                                                4843/6401/3082/50943/5743/2920/3595/5243/4069/3589/5008/7076/4210/10135/5054/9126/6354/6347/54757/3458/7474/3552/7850/29126/729230/5328/6590/6615/54210/6372/3553/80326/10970/3569/3557/7097/4322/2212/6279/3934/133/4314/10630/249/2215/9076/6469/64127/3576/929/2357/1051/3579/4312/7052/2214/3106/4321</span></span>
-<span><span class="co">## DOID:104  4843/6401/5329/6556/50943/5743/5243/3383/54209/5008/7076/4210/5054/6347/7450/3458/1839/942/3552/6772/29126/729230/54210/3659/3553/3620/948/3569/3557/7097/4322/834/4283/50506/2212/3934/133/4314/2209/910/58191/2215/467/6469/64127/6890/3627/6373/5724/3576/929/2358/6288/9332/3579/338442/9021/4582/4312/246778/728/5696/6891/3106/5698/629/6351/6348</span></span>
-<span><span class="co">## DOID:974                                                                                                    4843/5329/50943/5243/3383/4210/5054/6354/3458/942/3552/9173/727897/729230/5328/3598/6372/3553/3569/3557/7097/834/3067/2212/4585/3486/133/2209/6374/2919/64127/6890/3627/3576/929/4023/627/2205/3579/729238/4582/7293/728/2214/6891/3107/3106/629/6351</span></span>
-<span><span class="co">## DOID:552                                                                                                                        5743/2920/3383/3589/5054/1440/6354/6347/595/4891/3458/3552/9173/727897/29126/5328/3598/6590/54210/3553/3569/3557/7097/4316/4283/3486/10630/2921/6374/2919/6469/64127/6890/3965/3576/929/627/9332/729238/4582/4312/57016/2214/6351</span></span>
-<span><span class="co">##           Count</span></span>
-<span><span class="co">## DOID:824     44</span></span>
-<span><span class="co">## DOID:3388    47</span></span>
-<span><span class="co">## DOID:403     58</span></span>
-<span><span class="co">## DOID:104     68</span></span>
-<span><span class="co">## DOID:974     49</span></span>
-<span><span class="co">## DOID:552     44</span></span></code></pre>
+<pre><code><span><span class="co">##                        ID                     Description GeneRatio  BgRatio</span></span>
+<span><span class="co">## DOID:934         DOID:934        viral infectious disease    69/410 336/7865</span></span>
+<span><span class="co">## DOID:0050161 DOID:0050161 lower respiratory tract disease    82/410 482/7865</span></span>
+<span><span class="co">## DOID:850         DOID:850                    lung disease    70/410 367/7865</span></span>
+<span><span class="co">## DOID:1176       DOID:1176               bronchial disease    55/410 277/7865</span></span>
+<span><span class="co">## DOID:2841       DOID:2841                          asthma    54/410 273/7865</span></span>
+<span><span class="co">## DOID:418         DOID:418            systemic scleroderma    31/410  94/7865</span></span>
+<span><span class="co">##              RichFactor FoldEnrichment   zScore       pvalue     p.adjust</span></span>
+<span><span class="co">## DOID:934      0.2053571       3.939351 12.91345 3.995847e-24 3.492370e-21</span></span>
+<span><span class="co">## DOID:0050161  0.1701245       3.263485 12.02748 6.172746e-23 2.697490e-20</span></span>
+<span><span class="co">## DOID:850      0.1907357       3.658869 12.23340 1.708620e-22 4.977780e-20</span></span>
+<span><span class="co">## DOID:1176     0.1985560       3.808884 11.16092 1.415077e-18 3.091944e-16</span></span>
+<span><span class="co">## DOID:2841     0.1978022       3.794425 11.02010 3.596275e-18 6.286288e-16</span></span>
+<span><span class="co">## DOID:418      0.3297872       6.326284 12.18259 1.810804e-17 2.637738e-15</span></span>
+<span><span class="co">##                    qvalue</span></span>
+<span><span class="co">## DOID:934     2.006336e-21</span></span>
+<span><span class="co">## DOID:0050161 1.549684e-20</span></span>
+<span><span class="co">## DOID:850     2.859690e-20</span></span>
+<span><span class="co">## DOID:1176    1.776295e-16</span></span>
+<span><span class="co">## DOID:2841    3.611417e-16</span></span>
+<span><span class="co">## DOID:418     1.515357e-15</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                                                                                      geneID</span></span>
+<span><span class="co">## DOID:934                                                                     6401/5329/3082/50943/5743/2920/5243/3383/51311/5054/768/1440/6354/6347/1594/3458/57379/6648/6772/9173/29126/729230/5328/722/725/6590/54210/6372/3659/3553/3620/3569/7097/4283/10410/2212/6279/4585/3934/58191/3577/2921/6374/2919/80149/54578/3627/3576/929/1051/713/627/9332/9021/4582/8784/5320/4312/246778/728/2214/6891/3107/8505/3106/6351/9560/6349/6348</span></span>
+<span><span class="co">## DOID:0050161 4843/5329/637/3082/50943/5743/2920/5243/3383/7076/4210/5054/259/1440/6354/6347/7450/4891/3458/6648/942/3552/6772/2744/9173/8809/727897/1490/1958/729230/5328/3598/6590/54210/3659/3553/1131/1116/9365/948/3569/3557/7097/10068/4322/834/4283/3067/2212/7941/3486/4314/10630/2921/6374/2919/64127/6890/6338/3627/6373/5724/3576/929/627/9332/2205/1237/3579/729238/4582/5320/4312/246778/728/2214/6891/3107/3133/3106/5698/6351</span></span>
+<span><span class="co">## DOID:850                                                                4843/5329/637/3082/50943/5743/2920/3383/7076/4210/5054/259/1440/6354/6347/7450/4891/3458/6648/942/3552/6772/2744/9173/8809/727897/1490/1958/729230/5328/3598/6590/54210/3659/3553/1131/1116/9365/948/3569/3557/7097/10068/4322/4283/3486/4314/10630/2921/6374/2919/64127/6890/3627/6373/3576/929/627/9332/1237/3579/729238/4582/5320/4312/246778/728/2214/5698/6351</span></span>
+<span><span class="co">## DOID:1176                                                                                                                                            4843/50943/5743/5243/3383/4210/5054/259/1440/6354/6347/3458/6648/942/3552/6772/9173/8809/727897/1958/729230/5328/3598/3659/3553/1131/1116/3569/3557/7097/834/3067/2212/7941/6374/2919/64127/6890/6338/3627/3576/929/627/2205/1237/729238/4582/246778/728/2214/6891/3107/3133/3106/6351</span></span>
+<span><span class="co">## DOID:2841                                                                                                                                                 4843/50943/5743/5243/3383/4210/5054/259/1440/6354/6347/3458/6648/942/3552/6772/9173/8809/727897/1958/729230/5328/3598/3659/3553/1131/1116/3569/3557/7097/834/3067/2212/7941/6374/2919/64127/6890/3627/3576/929/627/2205/1237/729238/4582/246778/728/2214/6891/3107/3133/3106/6351</span></span>
+<span><span class="co">## DOID:418                                                                                                                                                                                                                                                                          6556/3082/5743/3383/5054/6347/7450/3458/942/3553/1116/3569/7097/4283/2212/3486/4314/58191/6374/5196/308/6890/3627/627/4582/4312/246778/6891/629/6351/6348</span></span>
+<span><span class="co">##              Count</span></span>
+<span><span class="co">## DOID:934        69</span></span>
+<span><span class="co">## DOID:0050161    82</span></span>
+<span><span class="co">## DOID:850        70</span></span>
+<span><span class="co">## DOID:1176       55</span></span>
+<span><span class="co">## DOID:2841       54</span></span>
+<span><span class="co">## DOID:418        31</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="msigdb-enrichment">MSigDB enrichment<a class="anchor" aria-label="anchor" href="#msigdb-enrichment"></a>
@@ -353,7 +398,7 @@
 <li>the first column is the gene set ID</li>
 <li>the second column is the gene ID</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igordot.github.io/msigdbr/" class="external-link">msigdbr</a></span><span class="op">)</span></span>
 <span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr.html" class="external-link">msigdbr</a></span><span class="op">(</span>category <span class="op">=</span> <span class="st">"H"</span><span class="op">)</span></span>
 <span><span class="va">map</span> <span class="op">=</span> <span class="va">gene_sets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gs_name"</span>, <span class="st">"entrez_gene"</span><span class="op">)</span><span class="op">]</span></span>
@@ -367,7 +412,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> HALLMARK_ADIPOGENESIS          33</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> HALLMARK_ADIPOGENESIS          34</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> HALLMARK_ADIPOGENESIS          35</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enricher.html" class="external-link">enricher</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, TERM2GENE <span class="op">=</span> <span class="va">map</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                                                    ID</span></span>
@@ -384,20 +429,20 @@
 <span><span class="co">## HALLMARK_TNFA_SIGNALING_VIA_NFKB     HALLMARK_TNFA_SIGNALING_VIA_NFKB    49/347</span></span>
 <span><span class="co">## HALLMARK_COMPLEMENT                               HALLMARK_COMPLEMENT    39/347</span></span>
 <span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING     HALLMARK_IL6_JAK_STAT3_SIGNALING    22/347</span></span>
-<span><span class="co">##                                     BgRatio       pvalue     p.adjust</span></span>
-<span><span class="co">## HALLMARK_INTERFERON_GAMMA_RESPONSE 200/4383 1.283631e-17 6.033064e-16</span></span>
-<span><span class="co">## HALLMARK_INFLAMMATORY_RESPONSE     200/4383 6.465947e-17 1.519498e-15</span></span>
-<span><span class="co">## HALLMARK_INTERFERON_ALPHA_RESPONSE  97/4383 8.600159e-14 1.347358e-12</span></span>
-<span><span class="co">## HALLMARK_TNFA_SIGNALING_VIA_NFKB   200/4383 1.359501e-13 1.597414e-12</span></span>
-<span><span class="co">## HALLMARK_COMPLEMENT                200/4383 6.053975e-08 5.690736e-07</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING    87/4383 5.774922e-07 4.523689e-06</span></span>
-<span><span class="co">##                                          qvalue</span></span>
-<span><span class="co">## HALLMARK_INTERFERON_GAMMA_RESPONSE 4.594047e-16</span></span>
-<span><span class="co">## HALLMARK_INFLAMMATORY_RESPONSE     1.157064e-15</span></span>
-<span><span class="co">## HALLMARK_INTERFERON_ALPHA_RESPONSE 1.025984e-12</span></span>
-<span><span class="co">## HALLMARK_TNFA_SIGNALING_VIA_NFKB   1.216396e-12</span></span>
-<span><span class="co">## HALLMARK_COMPLEMENT                4.333372e-07</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING   3.444690e-06</span></span>
+<span><span class="co">##                                     BgRatio RichFactor FoldEnrichment    zScore</span></span>
+<span><span class="co">## HALLMARK_INTERFERON_GAMMA_RESPONSE 200/4383  0.2750000       3.473559 10.498293</span></span>
+<span><span class="co">## HALLMARK_INFLAMMATORY_RESPONSE     200/4383  0.2700000       3.410403 10.230248</span></span>
+<span><span class="co">## HALLMARK_INTERFERON_ALPHA_RESPONSE  97/4383  0.3402062       4.297186  9.627835</span></span>
+<span><span class="co">## HALLMARK_TNFA_SIGNALING_VIA_NFKB   200/4383  0.2450000       3.094625  8.890021</span></span>
+<span><span class="co">## HALLMARK_COMPLEMENT                200/4383  0.1950000       2.463069  6.209566</span></span>
+<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING    87/4383  0.2528736       3.194077  6.060448</span></span>
+<span><span class="co">##                                          pvalue     p.adjust       qvalue</span></span>
+<span><span class="co">## HALLMARK_INTERFERON_GAMMA_RESPONSE 1.283631e-17 6.033064e-16 4.594047e-16</span></span>
+<span><span class="co">## HALLMARK_INFLAMMATORY_RESPONSE     6.465947e-17 1.519498e-15 1.157064e-15</span></span>
+<span><span class="co">## HALLMARK_INTERFERON_ALPHA_RESPONSE 8.600159e-14 1.347358e-12 1.025984e-12</span></span>
+<span><span class="co">## HALLMARK_TNFA_SIGNALING_VIA_NFKB   1.359501e-13 1.597414e-12 1.216396e-12</span></span>
+<span><span class="co">## HALLMARK_COMPLEMENT                6.053975e-08 5.690736e-07 4.333372e-07</span></span>
+<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING   5.774922e-07 4.523689e-06 3.444690e-06</span></span>
 <span><span class="co">##                                                                                                                                                                                                                                                                                                                                    geneID</span></span>
 <span><span class="co">## HALLMARK_INTERFERON_GAMMA_RESPONSE 51056/57823/10797/3430/5743/3383/10135/6354/6347/6648/942/6772/29126/7130/81030/3659/3620/6737/94240/3601/8638/10906/3569/10068/834/10561/4283/7453/5371/84166/10410/2209/81894/9246/115361/3429/116071/6890/10791/3627/6373/2357/3669/54625/219285/9021/10581/7127/5359/5696/5699/10437/3106/5698/629</span></span>
 <span><span class="co">## HALLMARK_INFLAMMATORY_RESPONSE                                6401/5329/2769/490/3383/5008/7076/4210/366/3249/6324/10135/3696/5054/1440/6354/6347/4891/1839/3552/8809/8807/1441/3624/7130/3759/6372/3659/3553/2867/3601/3569/7097/9153/4283/7162/133/4323/10630/60675/64127/3627/6373/5724/3576/136/929/2357/4973/8877/8519/1604/3269/728</span></span>
@@ -417,49 +462,49 @@
 <h2 id="setting-background">Setting background<a class="anchor" aria-label="anchor" href="#setting-background"></a>
 </h2>
 <p>Note, in <strong>clusterProfiler</strong>, the background is intersect(all genes in the gene sets, user’s background genes).</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bg_gene</span> <span class="op">=</span> <span class="fu"><a href="../reference/convert_to_entrez_id.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="va">bg_gene</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.990 )</span></span></code></pre>
+<pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.980 )</span></span></code></pre>
 <pre><code><span><span class="co">## 'select()' returned 1:many mapping between keys and columns</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bg_gene</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/Bimap-envirAPI.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">bg_gene</span>, <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span>, universe <span class="op">=</span> <span class="va">bg_gene</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                    ID</span></span>
-<span><span class="co">## GO:0002237 GO:0002237</span></span>
-<span><span class="co">## GO:0030593 GO:0030593</span></span>
-<span><span class="co">## GO:0032496 GO:0032496</span></span>
-<span><span class="co">## GO:1990266 GO:1990266</span></span>
-<span><span class="co">## GO:0009617 GO:0009617</span></span>
-<span><span class="co">## GO:1903557 GO:1903557</span></span>
-<span><span class="co">##                                                                             Description</span></span>
-<span><span class="co">## GO:0002237                                     response to molecule of bacterial origin</span></span>
-<span><span class="co">## GO:0030593                                                        neutrophil chemotaxis</span></span>
-<span><span class="co">## GO:0032496                                               response to lipopolysaccharide</span></span>
-<span><span class="co">## GO:1990266                                                         neutrophil migration</span></span>
-<span><span class="co">## GO:0009617                                                        response to bacterium</span></span>
-<span><span class="co">## GO:1903557 positive regulation of tumor necrosis factor superfamily cytokine production</span></span>
-<span><span class="co">##            GeneRatio  BgRatio       pvalue    p.adjust      qvalue</span></span>
-<span><span class="co">## GO:0002237    35/777 176/8844 3.073905e-06 0.008514811 0.008511081</span></span>
-<span><span class="co">## GO:0030593    18/777  63/8844 4.657375e-06 0.008514811 0.008511081</span></span>
-<span><span class="co">## GO:0032496    33/777 167/8844 6.768490e-06 0.008514811 0.008511081</span></span>
-<span><span class="co">## GO:1990266    19/777  72/8844 9.193310e-06 0.008514811 0.008511081</span></span>
-<span><span class="co">## GO:0009617    53/777 335/8844 1.524654e-05 0.008514811 0.008511081</span></span>
-<span><span class="co">## GO:1903557    16/777  56/8844 1.569064e-05 0.008514811 0.008511081</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                      geneID</span></span>
-<span><span class="co">## GO:0002237                                                                                                 4843/6401/6556/2920/3595/730249/5054/1440/1594/57379/942/7474/3552/29126/6590/6372/10288/3620/948/7097/6279/64332/249/6374/5196/2919/717/64127/3576/929/1051/1604/728/6891/11027</span></span>
-<span><span class="co">## GO:0030593                                                                                                                                                                                       2920/7130/54210/6372/6279/2207/6283/6374/5196/2919/6850/64127/3576/6288/3579/728/6351/6349</span></span>
-<span><span class="co">## GO:0032496                                                                                                          4843/6401/6556/2920/3595/730249/5054/1440/1594/57379/942/7474/3552/29126/6590/6372/10288/3620/948/7097/6279/64332/249/6374/5196/2919/717/64127/3576/929/1051/1604/11027</span></span>
-<span><span class="co">## GO:1990266                                                                                                                                                                                  2920/3552/7130/54210/6372/6279/2207/6283/6374/5196/2919/6850/64127/3576/6288/3579/728/6351/6349</span></span>
-<span><span class="co">## GO:0009617 4843/6401/6556/2920/3595/730249/5054/8029/1440/54757/1594/57379/942/7474/3552/29126/722/6590/54210/6372/10288/3620/948/7097/10561/84166/6279/64332/2209/2207/249/2634/6283/6374/5196/2919/6850/717/26253/338339/64127/6338/3576/929/2358/1051/5320/1604/728/6891/3133/3106/11027</span></span>
-<span><span class="co">## GO:1903557                                                                                                                                                                                                7305/3458/942/7474/3552/948/7097/5795/5196/6850/64127/929/64581/353514/3133/11027</span></span>
+<pre><code><span><span class="co">##                    ID                                         Description</span></span>
+<span><span class="co">## GO:0002274 GO:0002274                        myeloid leukocyte activation</span></span>
+<span><span class="co">## GO:0006954 GO:0006954                               inflammatory response</span></span>
+<span><span class="co">## GO:0032496 GO:0032496                      response to lipopolysaccharide</span></span>
+<span><span class="co">## GO:0002237 GO:0002237            response to molecule of bacterial origin</span></span>
+<span><span class="co">## GO:0009617 GO:0009617                               response to bacterium</span></span>
+<span><span class="co">## GO:0002275 GO:0002275 myeloid cell activation involved in immune response</span></span>
+<span><span class="co">##            GeneRatio  BgRatio RichFactor FoldEnrichment   zScore       pvalue</span></span>
+<span><span class="co">## GO:0002274    31/779 123/8993  0.2520325       2.909536 6.566563 3.400639e-08</span></span>
+<span><span class="co">## GO:0006954    68/779 426/8993  0.1596244       1.842750 5.487933 3.945138e-07</span></span>
+<span><span class="co">## GO:0032496    34/779 162/8993  0.2098765       2.422875 5.627803 8.611459e-07</span></span>
+<span><span class="co">## GO:0002237    34/779 169/8993  0.2011834       2.322519 5.344809 2.375508e-06</span></span>
+<span><span class="co">## GO:0009617    56/779 347/8993  0.1613833       1.863055 5.049114 3.084574e-06</span></span>
+<span><span class="co">## GO:0002275    16/779  51/8993  0.3137255       3.621737 5.781978 3.421354e-06</span></span>
+<span><span class="co">##                p.adjust       qvalue</span></span>
+<span><span class="co">## GO:0002274 0.0001418067 0.0001418067</span></span>
+<span><span class="co">## GO:0006954 0.0008225613 0.0008225613</span></span>
+<span><span class="co">## GO:0032496 0.0011969928 0.0011969928</span></span>
+<span><span class="co">## GO:0002237 0.0020381496 0.0020381496</span></span>
+<span><span class="co">## GO:0009617 0.0020381496 0.0020381496</span></span>
+<span><span class="co">## GO:0002275 0.0020381496 0.0020381496</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                                                                                                                              geneID</span></span>
+<span><span class="co">## GO:0002274                                                                                                                                                                                                     2268/7305/22904/8692/3430/50487/3696/7474/8807/8013/3598/30817/5819/8291/6283/80149/6850/338339/11314/116071/3965/5724/3576/8877/2624/2205/3579/5320/5359/2214/11027</span></span>
+<span><span class="co">## GO:0006954 2268/4843/6401/7305/22904/8692/3430/55737/5743/4069/58484/50487/25807/3055/730249/4210/6347/10312/7474/8087/3552/57142/8807/81030/2867/30817/6737/6289/8870/834/2212/6279/133/4314/115362/26060/8986/2634/6283/60675/2921/6374/80149/6850/3965/6373/5724/3576/2353/929/2358/2357/1051/4973/4023/8877/2205/3579/9021/7293/353514/5320/5359/246778/2214/388125/150372/6349</span></span>
+<span><span class="co">## GO:0032496                                                                                                                                                                                        4843/6401/22904/5743/3055/730249/6347/1594/57379/7474/3552/29126/6590/10288/10068/834/6279/133/4314/115362/10417/2634/2921/6374/80149/717/3965/6373/5724/3576/2353/929/1051/11027</span></span>
+<span><span class="co">## GO:0002237                                                                                                                                                                                        4843/6401/22904/5743/3055/730249/6347/1594/57379/7474/3552/29126/6590/10288/10068/834/6279/133/4314/115362/10417/2634/2921/6374/80149/717/3965/6373/5724/3576/2353/929/1051/11027</span></span>
+<span><span class="co">## GO:0009617                                                               2268/4843/6401/22904/5743/4069/58484/3055/730249/6347/54757/1594/57379/7474/3552/29126/722/5266/6590/10288/3512/10068/4316/834/10561/6279/3934/133/4314/115362/10417/2634/115361/6283/2921/6374/80149/6850/717/338339/3965/6373/5724/3576/2353/929/2358/116844/115727/1051/4023/5320/246778/3106/11027/358</span></span>
+<span><span class="co">## GO:0002275                                                                                                                                                                                                                                                                                     2268/7305/22904/3430/50487/8013/3598/30817/8291/6850/11314/3965/5724/2624/2205/11027</span></span>
 <span><span class="co">##            Count</span></span>
-<span><span class="co">## GO:0002237    35</span></span>
-<span><span class="co">## GO:0030593    18</span></span>
-<span><span class="co">## GO:0032496    33</span></span>
-<span><span class="co">## GO:1990266    19</span></span>
-<span><span class="co">## GO:0009617    53</span></span>
-<span><span class="co">## GO:1903557    16</span></span></code></pre>
+<span><span class="co">## GO:0002274    31</span></span>
+<span><span class="co">## GO:0006954    68</span></span>
+<span><span class="co">## GO:0032496    34</span></span>
+<span><span class="co">## GO:0002237    34</span></span>
+<span><span class="co">## GO:0009617    56</span></span>
+<span><span class="co">## GO:0002275    16</span></span></code></pre>
 <style>
 blockquote {
     padding: 10px 20px;
@@ -473,7 +518,7 @@ blockquote {
 <p><strong>Warning:</strong> It seems when setting <code>universe</code>, the input gene list <code>diff_gene</code> is not intersected to <code>universe</code> in the analysis. You can check the values in <code>GeneRatio</code> which is 777 for all DE genes, and this number is the same as when <code>universe</code> is not manually set. So be careful with this “improper” behaviour.</p>
 </blockquote>
 <p>We can compare ORA with different backgrounds:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
 <span><span class="va">tb2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Hs.eg.db</span>, universe <span class="op">=</span> <span class="va">bg_gene</span><span class="op">)</span></span>
 <span></span>
@@ -486,7 +531,7 @@ blockquote {
 <span>    xlab <span class="op">=</span> <span class="st">"default background"</span>, ylab <span class="op">=</span> <span class="st">"self-defined background"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic2_03_clusterProfiler_ora_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Or overlap between the significant GO terms:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jolars/eulerr" class="external-link">eulerr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"default_background"</span> <span class="op">=</span> <span class="va">tb1</span><span class="op">$</span><span class="va">ID</span><span class="op">[</span><span class="va">tb1</span><span class="op">$</span><span class="va">p.adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span>,</span>
 <span>                <span class="st">"bg_gene"</span> <span class="op">=</span> <span class="va">tb2</span><span class="op">$</span><span class="va">ID</span><span class="op">[</span><span class="va">tb2</span><span class="op">$</span><span class="va">p.adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -500,133 +545,161 @@ blockquote {
 <li>GO enrichment</li>
 </ol>
 <p><code><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO()</a></code> accepts an <code>OrgDb</code> object as the source of the GO gene sets. We take pig as an example. <code><a href="../reference/random_genes.html">random_genes()</a></code> is from <strong>GSEAtraining</strong> package.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Ss.eg.db</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diff_gene</span> <span class="op">=</span> <span class="fu"><a href="../reference/random_genes.html">random_genes</a></span><span class="op">(</span><span class="va">org.Ss.eg.db</span>, <span class="fl">1000</span>, <span class="st">"ENTREZID"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## 'select()' returned 1:many mapping between keys and columns</span></span></code></pre>
 <p>Here we set <code>pvalueCutoff = 1, qvalueCutoff = 1</code> because genes are random genes and it is expected there won’t be too much significant terms left.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org.Ss.eg.db</span>, </span>
 <span>    pvalueCutoff <span class="op">=</span> <span class="fl">1</span>, qvalueCutoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                    ID</span></span>
-<span><span class="co">## GO:0034311 GO:0034311</span></span>
-<span><span class="co">## GO:0019439 GO:0019439</span></span>
-<span><span class="co">## GO:2000144 GO:2000144</span></span>
-<span><span class="co">## GO:0022900 GO:0022900</span></span>
-<span><span class="co">## GO:0006778 GO:0006778</span></span>
-<span><span class="co">## GO:1901361 GO:1901361</span></span>
-<span><span class="co">##                                                              Description</span></span>
-<span><span class="co">## GO:0034311                                        diol metabolic process</span></span>
-<span><span class="co">## GO:0019439                           aromatic compound catabolic process</span></span>
-<span><span class="co">## GO:2000144 positive regulation of DNA-templated transcription initiation</span></span>
-<span><span class="co">## GO:0022900                                      electron transport chain</span></span>
-<span><span class="co">## GO:0006778               porphyrin-containing compound metabolic process</span></span>
-<span><span class="co">## GO:1901361                     organic cyclic compound catabolic process</span></span>
-<span><span class="co">##            GeneRatio  BgRatio      pvalue  p.adjust    qvalue</span></span>
-<span><span class="co">## GO:0034311     4/323  15/7101 0.003848599 0.9325015 0.9325015</span></span>
-<span><span class="co">## GO:0019439    15/323 155/7101 0.004479722 0.9325015 0.9325015</span></span>
-<span><span class="co">## GO:2000144     4/323  16/7101 0.004949998 0.9325015 0.9325015</span></span>
-<span><span class="co">## GO:0022900     8/323  60/7101 0.005445520 0.9325015 0.9325015</span></span>
-<span><span class="co">## GO:0006778     4/323  17/7101 0.006244531 0.9325015 0.9325015</span></span>
-<span><span class="co">## GO:1901361    15/323 161/7101 0.006364444 0.9325015 0.9325015</span></span>
-<span><span class="co">##                                                                                                                                                     geneID</span></span>
-<span><span class="co">## GO:0034311                                                                                                         100622165/100515451/100512419/100521367</span></span>
-<span><span class="co">## GO:0019439    414433/100515013/100623102/100155078/100622956/414425/100512966/445512/100624677/100154442/100513840/100621123/100511756/100517314/100526240</span></span>
-<span><span class="co">## GO:2000144                                                                                                            100525205/100515933/100515423/406188</span></span>
-<span><span class="co">## GO:0022900                                                                       100526209/100154130/100521478/808513/733605/100524239/100520959/100038000</span></span>
-<span><span class="co">## GO:0006778                                                                                                               396581/100152910/445512/100156375</span></span>
-<span><span class="co">## GO:1901361 414433/100515013/100152910/100623102/100155078/100622956/100512966/445512/100624677/100154442/100513840/100621123/100511756/100517314/100526240</span></span>
+<span><span class="co">## GO:0046686 GO:0046686</span></span>
+<span><span class="co">## GO:0071276 GO:0071276</span></span>
+<span><span class="co">## GO:1901137 GO:1901137</span></span>
+<span><span class="co">## GO:0009100 GO:0009100</span></span>
+<span><span class="co">## GO:0042058 GO:0042058</span></span>
+<span><span class="co">## GO:0043368 GO:0043368</span></span>
+<span><span class="co">##                                                                 Description</span></span>
+<span><span class="co">## GO:0046686                                          response to cadmium ion</span></span>
+<span><span class="co">## GO:0071276                                 cellular response to cadmium ion</span></span>
+<span><span class="co">## GO:1901137                     carbohydrate derivative biosynthetic process</span></span>
+<span><span class="co">## GO:0009100                                   glycoprotein metabolic process</span></span>
+<span><span class="co">## GO:0042058 regulation of epidermal growth factor receptor signaling pathway</span></span>
+<span><span class="co">## GO:0043368                                        positive T cell selection</span></span>
+<span><span class="co">##            GeneRatio  BgRatio RichFactor FoldEnrichment   zScore       pvalue</span></span>
+<span><span class="co">## GO:0046686     4/394  10/7920  0.4000000       8.040609 5.097100 0.0009969006</span></span>
+<span><span class="co">## GO:0071276     4/394  10/7920  0.4000000       8.040609 5.097100 0.0009969006</span></span>
+<span><span class="co">## GO:1901137    23/394 244/7920  0.0942623       1.894816 3.248345 0.0023067425</span></span>
+<span><span class="co">## GO:0009100    16/394 152/7920  0.1052632       2.115950 3.178433 0.0035629169</span></span>
+<span><span class="co">## GO:0042058     4/394  14/7920  0.2857143       5.743292 4.064121 0.0040541352</span></span>
+<span><span class="co">## GO:0043368     4/394  15/7920  0.2666667       5.360406 3.867433 0.0053141264</span></span>
+<span><span class="co">##             p.adjust    qvalue</span></span>
+<span><span class="co">## GO:0046686 0.9876963 0.9876963</span></span>
+<span><span class="co">## GO:0071276 0.9876963 0.9876963</span></span>
+<span><span class="co">## GO:1901137 0.9876963 0.9876963</span></span>
+<span><span class="co">## GO:0009100 0.9876963 0.9876963</span></span>
+<span><span class="co">## GO:0042058 0.9876963 0.9876963</span></span>
+<span><span class="co">## GO:0043368 0.9876963 0.9876963</span></span>
+<span><span class="co">##                                                                                                                                                                                                                               geneID</span></span>
+<span><span class="co">## GO:0046686                                                                                                                                                                                            396609/397417/396610/100127139</span></span>
+<span><span class="co">## GO:0071276                                                                                                                                                                                            396609/397417/396610/100127139</span></span>
+<span><span class="co">## GO:1901137 397385/414851/100627727/100157880/100512485/100517301/397599/100124379/100523821/100620659/100156098/100520822/100525767/100157902/100524201/100522057/100738545/100512094/100520587/100233182/397634/100522426/100155947</span></span>
+<span><span class="co">## GO:0009100                                                                             397385/414851/100627727/397599/100124379/396926/100620659/100156098/100525767/733672/100524201/100522057/100738545/397634/100522426/100155947</span></span>
+<span><span class="co">## GO:0042058                                                                                                                                                                                   100624229/100154116/100157266/100518854</span></span>
+<span><span class="co">## GO:0043368                                                                                                                                                                                         100155546/396926/100155958/733648</span></span>
 <span><span class="co">##            Count</span></span>
-<span><span class="co">## GO:0034311     4</span></span>
-<span><span class="co">## GO:0019439    15</span></span>
-<span><span class="co">## GO:2000144     4</span></span>
-<span><span class="co">## GO:0022900     8</span></span>
-<span><span class="co">## GO:0006778     4</span></span>
-<span><span class="co">## GO:1901361    15</span></span></code></pre>
+<span><span class="co">## GO:0046686     4</span></span>
+<span><span class="co">## GO:0071276     4</span></span>
+<span><span class="co">## GO:1901137    23</span></span>
+<span><span class="co">## GO:0009100    16</span></span>
+<span><span class="co">## GO:0042058     4</span></span>
+<span><span class="co">## GO:0043368     4</span></span></code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>KEGG enrichment</li>
 </ol>
 <p>The KEGG code of a specific organism can be found at <a href="https://rest.kegg.jp/list/organism" class="external-link uri">https://rest.kegg.jp/list/organism</a></p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html" class="external-link">enrichKEGG</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, organism <span class="op">=</span> <span class="st">"ssc"</span>, pvalueCutoff <span class="op">=</span> <span class="fl">1</span>, qvalueCutoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                ID                                      Description GeneRatio</span></span>
-<span><span class="co">## ssc04970 ssc04970                               Salivary secretion    12/466</span></span>
-<span><span class="co">## ssc00860 ssc00860                             Porphyrin metabolism     7/466</span></span>
-<span><span class="co">## ssc04270 ssc04270               Vascular smooth muscle contraction    15/466</span></span>
-<span><span class="co">## ssc04912 ssc04912                           GnRH signaling pathway    11/466</span></span>
-<span><span class="co">## ssc04666 ssc04666                 Fc gamma R-mediated phagocytosis    11/466</span></span>
-<span><span class="co">## ssc04750 ssc04750 Inflammatory mediator regulation of TRP channels    12/466</span></span>
-<span><span class="co">##           BgRatio      pvalue  p.adjust    qvalue</span></span>
-<span><span class="co">## ssc04970  90/9240 0.001784139 0.2877204 0.2736484</span></span>
-<span><span class="co">## ssc00860  36/9240 0.001850292 0.2877204 0.2736484</span></span>
-<span><span class="co">## ssc04270 137/9240 0.003725696 0.3862305 0.3673406</span></span>
-<span><span class="co">## ssc04912  90/9240 0.005396305 0.4195627 0.3990426</span></span>
-<span><span class="co">## ssc04666  94/9240 0.007481341 0.4382332 0.4167999</span></span>
-<span><span class="co">## ssc04750 109/9240 0.008628408 0.4382332 0.4167999</span></span>
-<span><span class="co">##                                                                                                                                                geneID</span></span>
-<span><span class="co">## ssc04970                                     100522091/100516395/397184/100157641/100623628/100154056/396898/100620994/396888/100511702/397434/552898</span></span>
-<span><span class="co">## ssc00860                                                                              396581/110255665/100621486/445512/100625356/100152603/100156375</span></span>
-<span><span class="co">## ssc04270 100153927/100522091/100514711/100154587/100524227/397184/100157641/100623628/100154056/100620994/100514745/100514811/397434/100152637/552898</span></span>
-<span><span class="co">## ssc04912                                            100153927/414423/397184/100157641/100623628/100154056/100620994/574062/397516/100514745/100514811</span></span>
-<span><span class="co">## ssc04666                                      100153927/100514711/100626125/397184/100038328/100518663/100127478/613130/100515451/100514811/100512419</span></span>
-<span><span class="co">## ssc04750                            100514711/397184/100157641/100623628/100626904/100154056/100620994/574062/100518663/100514811/110255240/100152637</span></span>
+<pre><code><span><span class="co">##                    category               subcategory       ID</span></span>
+<span><span class="co">## ssc00040         Metabolism   Carbohydrate metabolism ssc00040</span></span>
+<span><span class="co">## ssc04662 Organismal Systems             Immune system ssc04662</span></span>
+<span><span class="co">## ssc05167     Human Diseases Infectious disease: viral ssc05167</span></span>
+<span><span class="co">## ssc04210 Cellular Processes     Cell growth and death ssc04210</span></span>
+<span><span class="co">## ssc04215 Cellular Processes     Cell growth and death ssc04215</span></span>
+<span><span class="co">## ssc00330         Metabolism     Amino acid metabolism ssc00330</span></span>
+<span><span class="co">##                                              Description GeneRatio  BgRatio</span></span>
+<span><span class="co">## ssc00040        Pentose and glucuronate interconversions     5/415  26/9198</span></span>
+<span><span class="co">## ssc04662               B cell receptor signaling pathway     9/415  84/9198</span></span>
+<span><span class="co">## ssc05167 Kaposi sarcoma-associated herpesvirus infection    16/415 196/9198</span></span>
+<span><span class="co">## ssc04210                                       Apoptosis    12/415 135/9198</span></span>
+<span><span class="co">## ssc04215                    Apoptosis - multiple species     5/415  35/9198</span></span>
+<span><span class="co">## ssc00330                 Arginine and proline metabolism     6/415  50/9198</span></span>
+<span><span class="co">##          RichFactor FoldEnrichment   zScore      pvalue  p.adjust    qvalue</span></span>
+<span><span class="co">## ssc00040 0.19230769       4.262280 3.620775 0.005472404 0.8368088 0.8320657</span></span>
+<span><span class="co">## ssc04662 0.10714286       2.374699 2.751176 0.013094621 0.8368088 0.8320657</span></span>
+<span><span class="co">## ssc05167 0.08163265       1.809294 2.489377 0.015705317 0.8368088 0.8320657</span></span>
+<span><span class="co">## ssc04210 0.08888889       1.970120 2.468211 0.018745757 0.8368088 0.8320657</span></span>
+<span><span class="co">## ssc04215 0.14285714       3.166265 2.790953 0.019394478 0.8368088 0.8320657</span></span>
+<span><span class="co">## ssc00330 0.12000000       2.659663 2.557805 0.024134925 0.8368088 0.8320657</span></span>
+<span><span class="co">##                                                                                                                                                       geneID</span></span>
+<span><span class="co">## ssc00040                                                                                                         100627727/100525819/397337/100623255/396816</span></span>
+<span><span class="co">## ssc04662                                                              100521529/100518663/100511898/100125346/780427/100737448/100134969/100522792/100518251</span></span>
+<span><span class="co">## ssc05167 100518663/100135029/100151828/100512852/100519790/396826/396609/100170126/100511902/100737448/100134969/100526085/100518251/733648/396610/100155666</span></span>
+<span><span class="co">## ssc04210                                            100515575/100510978/396926/396826/396609/100737448/397266/100622769/100049693/100518917/100518251/396610</span></span>
+<span><span class="co">## ssc04215                                                                                                            100515575/396609/397266/110257143/396610</span></span>
+<span><span class="co">## ssc00330                                                                                                  397264/100037299/100512885/100153961/397557/396968</span></span>
 <span><span class="co">##          Count</span></span>
-<span><span class="co">## ssc04970    12</span></span>
-<span><span class="co">## ssc00860     7</span></span>
-<span><span class="co">## ssc04270    15</span></span>
-<span><span class="co">## ssc04912    11</span></span>
-<span><span class="co">## ssc04666    11</span></span>
-<span><span class="co">## ssc04750    12</span></span></code></pre>
+<span><span class="co">## ssc00040     5</span></span>
+<span><span class="co">## ssc04662     9</span></span>
+<span><span class="co">## ssc05167    16</span></span>
+<span><span class="co">## ssc04210    12</span></span>
+<span><span class="co">## ssc04215     5</span></span>
+<span><span class="co">## ssc00330     6</span></span></code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>MSigDB</li>
 </ol>
 <p>Use <code><a href="https://igordot.github.io/msigdbr/reference/msigdbr_species.html" class="external-link">msigdbr::msigdbr_species()</a></code> to see which organisms are supported.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://igordot.github.io/msigdbr/reference/msigdbr.html" class="external-link">msigdbr</a></span><span class="op">(</span>species <span class="op">=</span> <span class="st">"pig"</span>, category <span class="op">=</span> <span class="st">"H"</span><span class="op">)</span></span>
 <span><span class="va">map</span> <span class="op">=</span> <span class="va">gene_sets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gs_name"</span>, <span class="st">"entrez_gene"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">map</span><span class="op">$</span><span class="va">entrez_gene</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">map</span><span class="op">$</span><span class="va">entrez_gene</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enricher.html" class="external-link">enricher</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, TERM2GENE <span class="op">=</span> <span class="va">map</span>, pvalueCutoff <span class="op">=</span> <span class="fl">1</span>, qvalueCutoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                                                                ID</span></span>
-<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS HALLMARK_CHOLESTEROL_HOMEOSTASIS</span></span>
-<span><span class="co">## HALLMARK_MYOGENESIS                           HALLMARK_MYOGENESIS</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING HALLMARK_IL6_JAK_STAT3_SIGNALING</span></span>
-<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING HALLMARK_PI3K_AKT_MTOR_SIGNALING</span></span>
-<span><span class="co">## HALLMARK_ADIPOGENESIS                       HALLMARK_ADIPOGENESIS</span></span>
-<span><span class="co">## HALLMARK_UV_RESPONSE_DN                   HALLMARK_UV_RESPONSE_DN</span></span>
-<span><span class="co">##                                                       Description GeneRatio</span></span>
-<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS HALLMARK_CHOLESTEROL_HOMEOSTASIS     7/198</span></span>
-<span><span class="co">## HALLMARK_MYOGENESIS                           HALLMARK_MYOGENESIS    14/198</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING HALLMARK_IL6_JAK_STAT3_SIGNALING     7/198</span></span>
-<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING HALLMARK_PI3K_AKT_MTOR_SIGNALING     8/198</span></span>
-<span><span class="co">## HALLMARK_ADIPOGENESIS                       HALLMARK_ADIPOGENESIS    13/198</span></span>
-<span><span class="co">## HALLMARK_UV_RESPONSE_DN                   HALLMARK_UV_RESPONSE_DN    10/198</span></span>
-<span><span class="co">##                                   BgRatio     pvalue  p.adjust    qvalue</span></span>
-<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS  72/4191 0.05190873 0.7115993 0.7115993</span></span>
-<span><span class="co">## HALLMARK_MYOGENESIS              192/4191 0.06787965 0.7115993 0.7115993</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING  82/4191 0.09085960 0.7115993 0.7115993</span></span>
-<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING 103/4191 0.11197106 0.7115993 0.7115993</span></span>
-<span><span class="co">## HALLMARK_ADIPOGENESIS            193/4191 0.12247680 0.7115993 0.7115993</span></span>
-<span><span class="co">## HALLMARK_UV_RESPONSE_DN          140/4191 0.12372568 0.7115993 0.7115993</span></span>
-<span><span class="co">##                                                                                                                                                           geneID</span></span>
-<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS                                                           100113409/100514510/110256064/100152303/100152230/100153858/100520925</span></span>
-<span><span class="co">## HALLMARK_MYOGENESIS              100523293/780410/397630/100518681/100170845/110255887/100154420/574062/448812/100127478/100525465/110255240/100622921/100515564</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING                                                                    396814/100626904/100524265/445512/100518854/397253/100511702</span></span>
-<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING                                                       100153927/100517077/100153160/780418/397324/100513840/100620726/100240743</span></span>
-<span><span class="co">## HALLMARK_ADIPOGENESIS                   100511191/100737726/397604/100154990/100522734/414425/100524239/100511925/100627513/100579176/102160946/100125343/397583</span></span>
-<span><span class="co">## HALLMARK_UV_RESPONSE_DN                                            100620787/100515047/100522469/102162332/110262114/397184/100518559/100512419/397434/106508649</span></span>
-<span><span class="co">##                                  Count</span></span>
-<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS     7</span></span>
-<span><span class="co">## HALLMARK_MYOGENESIS                 14</span></span>
-<span><span class="co">## HALLMARK_IL6_JAK_STAT3_SIGNALING     7</span></span>
-<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING     8</span></span>
-<span><span class="co">## HALLMARK_ADIPOGENESIS               13</span></span>
-<span><span class="co">## HALLMARK_UV_RESPONSE_DN             10</span></span></code></pre>
+<pre><code><span><span class="co">##                                                                                    ID</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                                               HALLMARK_MYOGENESIS</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING                     HALLMARK_PI3K_AKT_MTOR_SIGNALING</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS                     HALLMARK_CHOLESTEROL_HOMEOSTASIS</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                                               HALLMARK_GLYCOLYSIS</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                                     HALLMARK_MITOTIC_SPINDLE</span></span>
+<span><span class="co">##                                                                           Description</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                                               HALLMARK_MYOGENESIS</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING                     HALLMARK_PI3K_AKT_MTOR_SIGNALING</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS                     HALLMARK_CHOLESTEROL_HOMEOSTASIS</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                                               HALLMARK_GLYCOLYSIS</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                                     HALLMARK_MITOTIC_SPINDLE</span></span>
+<span><span class="co">##                                            GeneRatio  BgRatio RichFactor</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                           14/204 192/4191 0.07291667</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION    14/204 194/4191 0.07216495</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING               8/204 103/4191 0.07766990</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS               6/204  72/4191 0.08333333</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                           13/204 196/4191 0.06632653</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                      13/204 196/4191 0.06632653</span></span>
+<span><span class="co">##                                            FoldEnrichment   zScore     pvalue</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                              1.498009 1.597757 0.08238532</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION       1.482565 1.556642 0.08797199</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING                 1.595660 1.384396 0.12688504</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS                 1.712010 1.378337 0.13621701</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                              1.362620 1.176036 0.15653848</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                         1.362620 1.176036 0.15653848</span></span>
+<span><span class="co">##                                             p.adjust    qvalue</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                        0.9940567 0.9940567</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION 0.9940567 0.9940567</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING           0.9940567 0.9940567</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS           0.9940567 0.9940567</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                        0.9940567 0.9940567</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                   0.9940567 0.9940567</span></span>
+<span><span class="co">##                                                                                                                                                                           geneID</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                        397264/100049656/100736818/100302506/397667/100151828/100520244/100739757/100153623/100155338/100101928/100049693/100522432/100155578</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION       100154530/100738910/100302506/100624264/397532/396826/100155607/100519746/100521017/100525583/396769/397092/100515628/100048956</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING                                                                       100624229/100519790/396609/100737448/100522792/100523972/100620726/396610</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS                                                                                           100152230/100144419/100521017/397269/397561/100155380</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                                           397136/100233197/100037299/100514793/733639/100525583/100514523/100512094/100621300/397628/396968/100156052/553107</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                          100518983/100517117/100625051/100523340/100514649/100626498/397266/100512860/100516187/100049693/100738172/100624059/100153677</span></span>
+<span><span class="co">##                                            Count</span></span>
+<span><span class="co">## HALLMARK_MYOGENESIS                           14</span></span>
+<span><span class="co">## HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION    14</span></span>
+<span><span class="co">## HALLMARK_PI3K_AKT_MTOR_SIGNALING               8</span></span>
+<span><span class="co">## HALLMARK_CHOLESTEROL_HOMEOSTASIS               6</span></span>
+<span><span class="co">## HALLMARK_GLYCOLYSIS                           13</span></span>
+<span><span class="co">## HALLMARK_MITOTIC_SPINDLE                      13</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="examples-for-less-well-studied-organisms">Examples for less well-studied organisms<a class="anchor" aria-label="anchor" href="#examples-for-less-well-studied-organisms"></a>
@@ -636,7 +709,7 @@ blockquote {
 </h3>
 <p>You can use <code><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO()</a></code> as long as you have an <code>OrgDb</code> object:</p>
 <p>Taking dolphin as an example.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: BiocFileCache</span></span></code></pre>
 <pre><code><span><span class="co">## Loading required package: dbplyr</span></span></code></pre>
@@ -645,62 +718,62 @@ blockquote {
 <pre><code><span><span class="co">## The following object is masked from 'package:Biobase':</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     cache</span></span></code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ah</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationHub/man/AnnotationHub-class.html" class="external-link">AnnotationHub</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">org_db</span> <span class="op">=</span> <span class="va">ah</span><span class="op">[[</span><span class="st">"AH112418"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">org_db</span> <span class="op">=</span> <span class="va">ah</span><span class="op">[[</span><span class="st">"AH118180"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## loading from cache</span></span></code></pre>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diff_gene</span> <span class="op">=</span> <span class="fu"><a href="../reference/random_genes.html">random_genes</a></span><span class="op">(</span><span class="va">org_db</span>, <span class="fl">1000</span>, <span class="st">"ENTREZID"</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html" class="external-link">enrichGO</a></span><span class="op">(</span><span class="va">diff_gene</span>, ont <span class="op">=</span> <span class="st">"BP"</span>, OrgDb <span class="op">=</span> <span class="va">org_db</span>, </span>
 <span>    pvalueCutoff <span class="op">=</span> <span class="fl">1</span>, qvalueCutoff <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                    ID</span></span>
-<span><span class="co">## GO:0051346 GO:0051346</span></span>
-<span><span class="co">## GO:0050727 GO:0050727</span></span>
-<span><span class="co">## GO:0032501 GO:0032501</span></span>
-<span><span class="co">## GO:0043086 GO:0043086</span></span>
-<span><span class="co">## GO:2000142 GO:2000142</span></span>
-<span><span class="co">## GO:2000144 GO:2000144</span></span>
-<span><span class="co">##                                                              Description</span></span>
-<span><span class="co">## GO:0051346                     negative regulation of hydrolase activity</span></span>
-<span><span class="co">## GO:0050727                           regulation of inflammatory response</span></span>
-<span><span class="co">## GO:0032501                              multicellular organismal process</span></span>
-<span><span class="co">## GO:0043086                     negative regulation of catalytic activity</span></span>
-<span><span class="co">## GO:2000142          regulation of DNA-templated transcription initiation</span></span>
-<span><span class="co">## GO:2000144 positive regulation of DNA-templated transcription initiation</span></span>
-<span><span class="co">##            GeneRatio  BgRatio      pvalue  p.adjust    qvalue</span></span>
-<span><span class="co">## GO:0051346     4/167  19/4458 0.004737161 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0050727     4/167  20/4458 0.005751044 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0032501    29/167 484/4458 0.006467817 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0043086     6/167  46/4458 0.006820774 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:2000142     3/167  11/4458 0.006823258 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:2000144     3/167  11/4458 0.006823258 0.7436095 0.7436095</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                                       geneID</span></span>
-<span><span class="co">## GO:0051346                                                                                                                                                                                                                                                           101332097/101315793/101337749/101333718</span></span>
-<span><span class="co">## GO:0050727                                                                                                                                                                                                                                                           101326011/101320522/101337436/101338049</span></span>
-<span><span class="co">## GO:0032501 101320545/101315588/101339773/101323188/101333312/101323047/101325153/101339561/101319663/101330468/101337145/101319299/101320522/101338710/101336375/101337436/101322448/101318072/101328812/101337563/101327555/101331351/101337921/101337923/101338049/101329403/101334628/101326070/101322077</span></span>
-<span><span class="co">## GO:0043086                                                                                                                                                                                                                                       101332097/101315793/101337749/101337436/101327555/101333718</span></span>
-<span><span class="co">## GO:2000142                                                                                                                                                                                                                                                                     101325153/101339522/101337671</span></span>
-<span><span class="co">## GO:2000144                                                                                                                                                                                                                                                                     101325153/101339522/101337671</span></span>
+<pre><code><span><span class="co">##                    ID                                            Description</span></span>
+<span><span class="co">## GO:0006188 GO:0006188                               IMP biosynthetic process</span></span>
+<span><span class="co">## GO:0032543 GO:0032543                              mitochondrial translation</span></span>
+<span><span class="co">## GO:0071900 GO:0071900 regulation of protein serine/threonine kinase activity</span></span>
+<span><span class="co">## GO:0120036 GO:0120036   plasma membrane bounded cell projection organization</span></span>
+<span><span class="co">## GO:0006473 GO:0006473                                    protein acetylation</span></span>
+<span><span class="co">## GO:0046040 GO:0046040                                  IMP metabolic process</span></span>
+<span><span class="co">##            GeneRatio   BgRatio RichFactor FoldEnrichment   zScore      pvalue</span></span>
+<span><span class="co">## GO:0006188     3/453  10/13726 0.30000000       9.090066 4.727800 0.003603571</span></span>
+<span><span class="co">## GO:0032543     5/453  33/13726 0.15151515       4.590943 3.815372 0.004236004</span></span>
+<span><span class="co">## GO:0071900     7/453  66/13726 0.10606061       3.213660 3.330261 0.005916926</span></span>
+<span><span class="co">## GO:0120036    26/453 473/13726 0.05496829       1.665551 2.721295 0.007733292</span></span>
+<span><span class="co">## GO:0006473     3/453  13/13726 0.23076923       6.992359 3.993227 0.007978294</span></span>
+<span><span class="co">## GO:0046040     3/453  13/13726 0.23076923       6.992359 3.993227 0.007978294</span></span>
+<span><span class="co">##            p.adjust   qvalue</span></span>
+<span><span class="co">## GO:0006188 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0032543 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0071900 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0120036 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0006473 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0046040 0.943299 0.943299</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                         geneID</span></span>
+<span><span class="co">## GO:0006188                                                                                                                                                                                                                                       101315901/101322662/101323582</span></span>
+<span><span class="co">## GO:0032543                                                                                                                                                                                                                   101325303/101324614/101327888/101317961/101328773</span></span>
+<span><span class="co">## GO:0071900                                                                                                                                                                                               101330246/101325657/117313024/117308306/101338481/101321085/101334943</span></span>
+<span><span class="co">## GO:0120036 101315722/101332080/117310101/101337789/101335043/101327264/101333027/101335978/101331724/101329010/101322494/101319665/101330777/101337069/101323465/101321040/101339730/101338906/101321994/101334024/101322276/101319062/101336302/109547263/101317632/117308159</span></span>
+<span><span class="co">## GO:0006473                                                                                                                                                                                                                                       101322089/101319574/117309525</span></span>
+<span><span class="co">## GO:0046040                                                                                                                                                                                                                                       101315901/101322662/101323582</span></span>
 <span><span class="co">##            Count</span></span>
-<span><span class="co">## GO:0051346     4</span></span>
-<span><span class="co">## GO:0050727     4</span></span>
-<span><span class="co">## GO:0032501    29</span></span>
-<span><span class="co">## GO:0043086     6</span></span>
-<span><span class="co">## GO:2000142     3</span></span>
-<span><span class="co">## GO:2000144     3</span></span></code></pre>
+<span><span class="co">## GO:0006188     3</span></span>
+<span><span class="co">## GO:0032543     5</span></span>
+<span><span class="co">## GO:0071900     7</span></span>
+<span><span class="co">## GO:0120036    26</span></span>
+<span><span class="co">## GO:0006473     3</span></span>
+<span><span class="co">## GO:0046040     3</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="enrichkegg-also-supports-many-other-orgainsms">enrichKEGG() also supports many other orgainsms<a class="anchor" aria-label="anchor" href="#enrichkegg-also-supports-many-other-orgainsms"></a>
 </h3>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enrichKEGG.html" class="external-link">enrichKEGG</a></span><span class="op">(</span>gene <span class="op">=</span> <span class="va">diff_gene</span>, organism <span class="op">=</span> <span class="va">...</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="manually-construct-the-gene-sets">Manually construct the gene sets<a class="anchor" aria-label="anchor" href="#manually-construct-the-gene-sets"></a>
 </h3>
 <p>We have introduced many ways to obtain gene sets for less well-studies organisms. The only thing to do here is to convert gene sets to a two-column data frame where gene sets are in the first column and genes are in the second column. Then use <code><a href="https://rdrr.io/pkg/clusterProfiler/man/enricher.html" class="external-link">enricher()</a></code>.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/clusterProfiler/man/enricher.html" class="external-link">enricher</a></span><span class="op">(</span><span class="va">diff_gene</span>, TERM2GENE <span class="op">=</span> <span class="va">...</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -708,133 +781,136 @@ blockquote {
 <h2 id="look-at-the-tb-object">Look at the <code>tb</code> object<a class="anchor" aria-label="anchor" href="#look-at-the-tb-object"></a>
 </h2>
 <p>We used the same variable name <code>tb</code> for the object returned by the various enrichment functions. They are all in the same format. It looks like a table, but be careful, it is actually not:</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "enrichResult"</span></span>
 <span><span class="co">## attr(,"package")</span></span>
 <span><span class="co">## [1] "DOSE"</span></span></code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Formal class 'enrichResult' [package "DOSE"] with 15 slots</span></span>
-<span><span class="co">##   ..@ result       :'data.frame':    1004 obs. of  9 variables:</span></span>
-<span><span class="co">##   .. ..$ ID         : chr [1:1004] "GO:0051346" "GO:0050727" "GO:0032501" "GO:0043086" ...</span></span>
-<span><span class="co">##   .. ..$ Description: chr [1:1004] "negative regulation of hydrolase activity" "regulation of inflammatory response" "multicellular organismal process" "negative regulation of catalytic activity" ...</span></span>
-<span><span class="co">##   .. ..$ GeneRatio  : chr [1:1004] "4/167" "4/167" "29/167" "6/167" ...</span></span>
-<span><span class="co">##   .. ..$ BgRatio    : chr [1:1004] "19/4458" "20/4458" "484/4458" "46/4458" ...</span></span>
-<span><span class="co">##   .. ..$ pvalue     : num [1:1004] 0.00474 0.00575 0.00647 0.00682 0.00682 ...</span></span>
-<span><span class="co">##   .. ..$ p.adjust   : num [1:1004] 0.744 0.744 0.744 0.744 0.744 ...</span></span>
-<span><span class="co">##   .. ..$ qvalue     : num [1:1004] 0.744 0.744 0.744 0.744 0.744 ...</span></span>
-<span><span class="co">##   .. ..$ geneID     : chr [1:1004] "101332097/101315793/101337749/101333718" "101326011/101320522/101337436/101338049" "101320545/101315588/101339773/101323188/101333312/101323047/101325153/101339561/101319663/101330468/101337145/1"| __truncated__ "101332097/101315793/101337749/101337436/101327555/101333718" ...</span></span>
-<span><span class="co">##   .. ..$ Count      : int [1:1004] 4 4 29 6 3 3 8 3 3 25 ...</span></span>
+<span><span class="co">##   ..@ result       :'data.frame':    1459 obs. of  12 variables:</span></span>
+<span><span class="co">##   .. ..$ ID            : chr [1:1459] "GO:0006188" "GO:0032543" "GO:0071900" "GO:0120036" ...</span></span>
+<span><span class="co">##   .. ..$ Description   : chr [1:1459] "IMP biosynthetic process" "mitochondrial translation" "regulation of protein serine/threonine kinase activity" "plasma membrane bounded cell projection organization" ...</span></span>
+<span><span class="co">##   .. ..$ GeneRatio     : chr [1:1459] "3/453" "5/453" "7/453" "26/453" ...</span></span>
+<span><span class="co">##   .. ..$ BgRatio       : chr [1:1459] "10/13726" "33/13726" "66/13726" "473/13726" ...</span></span>
+<span><span class="co">##   .. ..$ RichFactor    : num [1:1459] 0.3 0.152 0.106 0.055 0.231 ...</span></span>
+<span><span class="co">##   .. ..$ FoldEnrichment: num [1:1459] 9.09 4.59 3.21 1.67 6.99 ...</span></span>
+<span><span class="co">##   .. ..$ zScore        : num [1:1459] 4.73 3.82 3.33 2.72 3.99 ...</span></span>
+<span><span class="co">##   .. ..$ pvalue        : num [1:1459] 0.0036 0.00424 0.00592 0.00773 0.00798 ...</span></span>
+<span><span class="co">##   .. ..$ p.adjust      : num [1:1459] 0.943 0.943 0.943 0.943 0.943 ...</span></span>
+<span><span class="co">##   .. ..$ qvalue        : num [1:1459] 0.943 0.943 0.943 0.943 0.943 ...</span></span>
+<span><span class="co">##   .. ..$ geneID        : chr [1:1459] "101315901/101322662/101323582" "101325303/101324614/101327888/101317961/101328773" "101330246/101325657/117313024/117308306/101338481/101321085/101334943" "101315722/101332080/117310101/101337789/101335043/101327264/101333027/101335978/101331724/101329010/101322494/1"| __truncated__ ...</span></span>
+<span><span class="co">##   .. ..$ Count         : int [1:1459] 3 5 7 26 3 3 3 26 11 3 ...</span></span>
 <span><span class="co">##   ..@ pvalueCutoff : num 1</span></span>
 <span><span class="co">##   ..@ pAdjustMethod: chr "BH"</span></span>
 <span><span class="co">##   ..@ qvalueCutoff : num 1</span></span>
 <span><span class="co">##   ..@ organism     : chr "Tursiops truncatus"</span></span>
 <span><span class="co">##   ..@ ontology     : chr "BP"</span></span>
-<span><span class="co">##   ..@ gene         : chr [1:1000] "101318470" "109548850" "117311129" "117309957" ...</span></span>
+<span><span class="co">##   ..@ gene         : chr [1:1000] "101324925" "117312870" "117308376" "101333535" ...</span></span>
 <span><span class="co">##   ..@ keytype      : chr "ENTREZID"</span></span>
-<span><span class="co">##   ..@ universe     : chr [1:4458] "101319146" "101322275" "101323809" "101330306" ...</span></span>
+<span><span class="co">##   ..@ universe     : chr [1:13726] "101315666" "101325920" "101326047" "101328885" ...</span></span>
 <span><span class="co">##   ..@ gene2Symbol  : chr(0) </span></span>
-<span><span class="co">##   ..@ geneSets     :List of 1673</span></span>
-<span><span class="co">##   .. ..$ GO:0000003: chr [1:87] "101335701" "101315473" "101315779" "101315844" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000045: chr [1:9] "101316053" "101320545" "101322490" "101331278" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000070: chr [1:26] "101315815" "101316537" "101316695" "101318454" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000075: chr [1:23] "101316695" "101316733" "101318513" "101318624" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000077: chr [1:14] "101316733" "101318513" "101319146" "101320252" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000079: chr [1:11] "101324115" "101324169" "101326949" "101327555" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000082: chr [1:15] "101317019" "101319146" "101321188" "101322275" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000096: chr [1:7] "101318072" "101320414" "101320471" "101320949" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000097: chr [1:6] "101320414" "101320471" "101320949" "101331056" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000122: chr [1:35] "101316020" "101319446" "101320166" "101321309" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000165: chr [1:48] "101315703" "101315844" "101316074" "101316105" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000209: chr [1:33] "101315684" "101316554" "101319013" "101319502" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000226: chr [1:61] "101315537" "101316394" "101316518" "101317000" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000266: chr [1:9] "101319797" "101320522" "101322601" "101323172" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000271: chr [1:9] "101323622" "101324350" "101329904" "101331306" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000278: chr [1:95] "101315815" "101316323" "101316500" "101316537" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000280: chr [1:45] "101315815" "101316537" "101316695" "101316904" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000338: chr [1:3] "101320449" "101328620" "101337481"</span></span>
-<span><span class="co">##   .. ..$ GO:0000375: chr [1:74] "101315667" "101316328" "101316554" "101317380" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000377: chr [1:74] "101315667" "101316328" "101316554" "101317380" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000398: chr [1:74] "101315667" "101316328" "101316554" "101317380" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000463: chr [1:3] "101315781" "101320270" "101327032"</span></span>
-<span><span class="co">##   .. ..$ GO:0000470: chr [1:3] "101315781" "101320270" "101327032"</span></span>
-<span><span class="co">##   .. ..$ GO:0000819: chr [1:28] "101315815" "101316537" "101316695" "101318454" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000902: chr [1:41] "101316391" "101316954" "101317123" "101317226" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0000904: chr [1:17] "101317123" "101317632" "101318355" "101319110" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001525: chr [1:32] "101331207" "101317123" "101318052" "101319105" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001539: chr [1:7] "101319299" "101324449" "101325022" "101326231" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001568: chr [1:34] "101331207" "101315844" "101317123" "101318052" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001578: chr [1:11] "101315537" "101319299" "101324140" "101326231" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001666: chr [1:15] "101331207" "101317123" "101319146" "101319515" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001667: chr [1:30] "101337436" "101321208" "101321450" "101322398" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001701: chr [1:14] "101316053" "101319146" "101319991" "101322124" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001704: chr [1:3] "101321450" "101325153" "101329251"</span></span>
-<span><span class="co">##   .. ..$ GO:0001707: chr [1:3] "101321450" "101325153" "101329251"</span></span>
-<span><span class="co">##   .. ..$ GO:0001756: chr [1:6] "101316583" "101319146" "101323188" "101323484" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001774: chr [1:2] "101337436" "101329691"</span></span>
-<span><span class="co">##   .. ..$ GO:0001775: chr [1:63] "101325136" "101336443" "101337436" "101338293" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001816: chr [1:52] "101318178" "101325136" "101328418" "101331207" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001817: chr [1:51] "101325136" "101328418" "101331207" "101335103" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001818: chr [1:17] "101331207" "101335103" "101337436" "101318757" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001819: chr [1:36] "101325136" "101328418" "101331207" "101335103" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001838: chr [1:3] "101318072" "101335269" "101335912"</span></span>
-<span><span class="co">##   .. ..$ GO:0001841: chr [1:2] "101318072" "101335912"</span></span>
-<span><span class="co">##   .. ..$ GO:0001843: chr [1:2] "101318072" "101335912"</span></span>
-<span><span class="co">##   .. ..$ GO:0001881: chr [1:3] "101323360" "101325741" "101334078"</span></span>
-<span><span class="co">##   .. ..$ GO:0001889: chr [1:3] "101324101" "101325153" "101330304"</span></span>
-<span><span class="co">##   .. ..$ GO:0001890: chr [1:8] "101315779" "101317123" "101319991" "101322124" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001892: chr [1:4] "101319991" "101322124" "101325153" "101338909"</span></span>
-<span><span class="co">##   .. ..$ GO:0001906: chr [1:9] "101337436" "101319508" "101319739" "101320115" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001932: chr [1:81] "101315703" "101325136" "101337436" "101315844" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001933: chr [1:24] "101337436" "101315844" "101317619" "101317925" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001934: chr [1:51] "101315703" "101325136" "101337436" "101315844" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0001944: chr [1:36] "101331207" "101315844" "101317123" "101318052" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002009: chr [1:16] "101316583" "101318072" "101319991" "101321450" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002027: chr [1:7] "101335701" "101316752" "101319117" "101334074" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002040: chr [1:10] "101320969" "101324963" "101326054" "101327652" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002181: chr [1:23] "101317047" "101321536" "101323750" "101324454" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002218: chr [1:31] "101325271" "101328418" "101316515" "101316747" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002220: chr [1:5] "101328418" "101319301" "101333343" "101336375" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002221: chr [1:26] "101325271" "101328418" "101316515" "101316747" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002224: chr [1:13] "101325271" "101316747" "101318757" "101319483" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002230: chr "101333312"</span></span>
-<span><span class="co">##   .. ..$ GO:0002237: chr [1:13] "101335103" "101317804" "101318757" "101319301" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002250: chr [1:43] "101325136" "101316872" "101318184" "101318466" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002252: chr [1:31] "101325136" "101337436" "101315662" "101317324" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002253: chr [1:45] "101325271" "101328418" "101315844" "101316515" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002263: chr [1:17] "101325136" "101337436" "101315662" "101318088" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002269: chr [1:2] "101337436" "101329691"</span></span>
-<span><span class="co">##   .. ..$ GO:0002274: chr [1:16] "101337436" "101318080" "101318088" "101320899" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002275: chr [1:4] "101337436" "101318088" "101325904" "101335932"</span></span>
-<span><span class="co">##   .. ..$ GO:0002281: chr [1:2] "101337436" "101318088"</span></span>
-<span><span class="co">##   .. ..$ GO:0002285: chr [1:13] "101325136" "101337436" "101315662" "101319146" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002286: chr [1:7] "101337436" "101315662" "101319146" "101320053" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002287: chr [1:5] "101337436" "101320053" "101325676" "101327291" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002292: chr [1:5] "101337436" "101320053" "101325676" "101327291" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002293: chr [1:5] "101337436" "101320053" "101325676" "101327291" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002294: chr [1:5] "101337436" "101320053" "101325676" "101327291" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002298: chr "101337436"</span></span>
-<span><span class="co">##   .. ..$ GO:0002361: chr [1:2] "101337436" "101338957"</span></span>
-<span><span class="co">##   .. ..$ GO:0002366: chr [1:16] "101325136" "101337436" "101315662" "101318088" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002376: chr [1:262] "101317873" "101318178" "101325136" "101325271" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002429: chr [1:15] "101328418" "101315844" "101318384" "101319301" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002521: chr [1:25] "101325136" "101337436" "101316694" "101317123" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002573: chr [1:8] "101337436" "101317123" "101322601" "101322970" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002682: chr [1:116] "101325136" "101325271" "101328418" "101336443" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002684: chr [1:81] "101325136" "101325271" "101328418" "101336443" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002694: chr [1:37] "101325136" "101336443" "101337436" "101316111" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002696: chr [1:24] "101325136" "101336443" "101337436" "101316111" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002697: chr [1:16] "101325136" "101337436" "101319418" "101319446" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002699: chr [1:13] "101325136" "101337436" "101319418" "101319446" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002752: chr [1:5] "101328418" "101319301" "101333343" "101336375" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002757: chr [1:35] "101325271" "101328418" "101315844" "101316515" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002758: chr [1:26] "101325271" "101328418" "101316515" "101316747" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002761: chr [1:4] "101337436" "101322970" "101336309" "101339719"</span></span>
-<span><span class="co">##   .. ..$ GO:0002763: chr [1:4] "101337436" "101322970" "101336309" "101339719"</span></span>
-<span><span class="co">##   .. ..$ GO:0002764: chr [1:36] "101325271" "101328418" "101315844" "101316515" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002768: chr [1:16] "101328418" "101315844" "101318384" "101319301" ...</span></span>
-<span><span class="co">##   .. ..$ GO:0002790: chr [1:11] "101337436" "101323295" "101329251" "101329901" ...</span></span>
+<span><span class="co">##   ..@ geneSets     :List of 1980</span></span>
+<span><span class="co">##   .. ..$ GO:0000002: chr [1:10] "101315666" "101325920" "101326047" "101328885" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000027: chr [1:33] "101315465" "101316856" "101319900" "101320222" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000028: chr [1:34] "101317415" "101318043" "101318467" "101318567" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000041: chr [1:87] "101315672" "101316332" "101316680" "101316885" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000045: chr [1:44] "101316021" "101316129" "101317161" "101317562" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000070: chr [1:69] "101315654" "101315716" "101316211" "101316537" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000075: chr [1:63] "101316695" "101316733" "101318624" "101319304" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000076: chr [1:13] "101316733" "101320717" "101320935" "101323238" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000077: chr [1:31] "101316733" "101319304" "101320252" "101320465" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000079: chr [1:38] "101316500" "101317117" "101319016" "101319831" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000086: chr [1:34] "101316733" "101318219" "101318851" "101319304" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000096: chr [1:19] "101317866" "101318072" "101318630" "101320181" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000097: chr [1:14] "101318072" "101318630" "101320181" "101320414" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000122: chr [1:289] "101315507" "101315608" "101315627" "101315712" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000154: chr [1:30] "101315879" "101316217" "101318617" "101318650" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000165: chr [1:150] "101315540" "101315821" "101315844" "101315877" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000184: chr [1:17] "101317466" "101317816" "101318077" "101320986" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000209: chr [1:107] "101315684" "101315840" "101316076" "101316166" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000226: chr [1:319] "101315473" "101315515" "101315532" "101315537" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000245: chr [1:28] "101316036" "101316848" "101318225" "101318825" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000278: chr [1:306] "101315654" "101315716" "101315741" "101315815" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000280: chr [1:154] "101315650" "101315654" "101315716" "101316211" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000288: chr [1:24] "101315620" "101315678" "101317451" "101317568" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000289: chr [1:14] "101315678" "101317451" "101317568" "101318606" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000302: chr [1:16] "101319210" "101319583" "101322539" "101323139" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000375: chr [1:230] "101315583" "101315667" "101315762" "101315834" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000377: chr [1:230] "101315583" "101315667" "101315762" "101315834" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000380: chr [1:45] "101315762" "101316036" "101317431" "101317847" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000381: chr [1:34] "101315762" "101317847" "101319370" "101320027" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000398: chr [1:230] "101315583" "101315667" "101315762" "101315834" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000413: chr [1:29] "101316348" "101317534" "101318791" "101321235" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000422: chr [1:33] "101316021" "101317608" "101317975" "101318574" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000460: chr [1:32] "101318334" "101318462" "101318699" "101319173" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000462: chr [1:33] "101316911" "101317350" "101317639" "101318699" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000463: chr [1:17] "101315781" "101320270" "101320916" "101321745" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000466: chr [1:23] "101318334" "101318699" "101319173" "101320141" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000470: chr [1:24] "101315781" "101318617" "101320270" "101320916" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000731: chr [1:16] "101316946" "101319167" "101321519" "101323763" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000819: chr [1:73] "101315654" "101315716" "101316211" "101316537" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000902: chr [1:253] "101315541" "101315722" "101316024" "101316049" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000910: chr [1:64] "101315625" "101315654" "101315925" "101316479" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000956: chr [1:59] "101315620" "101315678" "101315917" "101316856" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000959: chr [1:16] "101315630" "101317316" "101317961" "101319361" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000963: chr [1:12] "101317863" "101317961" "101319361" "101319586" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0000964: chr [1:2] "101317961" "101319586"</span></span>
+<span><span class="co">##   .. ..$ GO:0000966: chr [1:23] "101317961" "101318647" "101318699" "101319586" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001101: chr [1:17] "101316372" "101316666" "101319583" "101320291" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001192: chr "101327079"</span></span>
+<span><span class="co">##   .. ..$ GO:0001193: chr "101327079"</span></span>
+<span><span class="co">##   .. ..$ GO:0001501: chr [1:33] "101315794" "101315815" "101316241" "101316870" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001503: chr [1:25] "101319191" "101319621" "101324677" "101326016" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001510: chr [1:56] "101315879" "101316484" "101316654" "101317321" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001525: chr [1:67] "101315516" "101316044" "101316437" "101317073" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001539: chr [1:51] "101316497" "101317011" "101318395" "101318705" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001558: chr [1:37] "101316049" "101316139" "101316372" "101316688" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001568: chr [1:74] "101315516" "101316044" "101316437" "101317073" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001578: chr [1:58] "101315537" "101315853" "101315972" "101316059" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001580: chr [1:11] "101317618" "101318194" "101318776" "101320041" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001654: chr [1:46] "101316343" "101316644" "101317476" "101318045" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001678: chr [1:11] "101322282" "101325456" "101326457" "101327365" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001708: chr [1:27] "101317812" "101318912" "101320335" "101320674" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001738: chr [1:4] "101326058" "101328570" "101330480" "101339398"</span></span>
+<span><span class="co">##   .. ..$ GO:0001754: chr [1:5] "101318370" "101326924" "101330324" "101330927" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001775: chr [1:185] "101315662" "101315938" "101316111" "101316120" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001776: chr [1:4] "101321590" "101323139" "101329800" "101337728"</span></span>
+<span><span class="co">##   .. ..$ GO:0001816: chr [1:107] "101315608" "101316515" "101316915" "101317221" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001817: chr [1:98] "101315608" "101316515" "101316915" "101317221" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001837: chr [1:3] "101323107" "101333363" "109547263"</span></span>
+<span><span class="co">##   .. ..$ GO:0001881: chr [1:10] "101322812" "101323360" "101323714" "101334010" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001919: chr [1:2] "101334010" "117313416"</span></span>
+<span><span class="co">##   .. ..$ GO:0001920: chr "101334010"</span></span>
+<span><span class="co">##   .. ..$ GO:0001932: chr [1:212] "101315937" "101316002" "101316372" "101316388" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001933: chr [1:45] "101316388" "101316596" "101317190" "101317572" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001934: chr [1:130] "101316002" "101316372" "101316545" "101317224" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001941: chr [1:12] "101323758" "101324658" "101326314" "101327064" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001944: chr [1:78] "101315516" "101316044" "101316437" "101317073" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0001993: chr [1:3] "101316390" "101326019" "101330079"</span></span>
+<span><span class="co">##   .. ..$ GO:0002009: chr [1:23] "101316112" "101317529" "101317812" "101319445" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002025: chr [1:3] "101316390" "101326019" "101330079"</span></span>
+<span><span class="co">##   .. ..$ GO:0002064: chr [1:12] "101317665" "101318352" "101318526" "101321794" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002065: chr [1:2] "101329679" "101339443"</span></span>
+<span><span class="co">##   .. ..$ GO:0002067: chr "101339443"</span></span>
+<span><span class="co">##   .. ..$ GO:0002088: chr [1:21] "101318045" "101318323" "101318352" "101319895" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002093: chr [1:3] "101315722" "101335735" "117308539"</span></span>
+<span><span class="co">##   .. ..$ GO:0002097: chr [1:18] "101316435" "101318322" "101319406" "101319432" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002098: chr [1:17] "101316435" "101318322" "101319406" "101321637" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002143: chr [1:6] "101319406" "101337228" "101339889" "109552667" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002154: chr [1:3] "101322230" "101338642" "101339628"</span></span>
+<span><span class="co">##   .. ..$ GO:0002181: chr [1:88] "101315671" "101315674" "101316145" "101316335" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002218: chr [1:37] "101316515" "101316747" "101318035" "101318757" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002221: chr [1:31] "101316515" "101316747" "101318035" "101318757" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002224: chr [1:23] "101316747" "101318757" "101319483" "101319774" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002250: chr [1:96] "101315614" "101316120" "101316872" "101317221" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002252: chr [1:129] "101315614" "101315656" "101315662" "101316337" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002253: chr [1:115] "101315656" "101315672" "101316146" "101316337" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002260: chr [1:3] "101321590" "101329800" "101337728"</span></span>
+<span><span class="co">##   .. ..$ GO:0002376: chr [1:633] "101315493" "101315608" "101315614" "101315656" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002429: chr [1:64] "101315672" "101316146" "101316872" "101317458" ...</span></span>
+<span><span class="co">##   .. ..$ GO:0002443: chr [1:70] "101315614" "101316374" "101318998" "101319565" ...</span></span>
 <span><span class="co">##   .. .. [list output truncated]</span></span>
 <span><span class="co">##   ..@ readable     : logi FALSE</span></span>
 <span><span class="co">##   ..@ termsim      : num[0 , 0 ] </span></span>
@@ -842,44 +918,44 @@ blockquote {
 <span><span class="co">##   ..@ dr           : list()</span></span></code></pre>
 <p>To convert it into a “real” table, DO NOT use <code><a href="https://rdrr.io/pkg/BiocGenerics/man/as.data.frame.html" class="external-link">as.data.frame()</a></code> which only returns the significant terms, use <code>tb@result</code>.</p>
 <p>Also some columns in <code>tb@result</code> are not in the proper format, e.g. <code>"GeneRatio"</code> and <code>"BgRatio"</code> where numbers should be in numeric mode while not characters. In <strong>GSEAtraining</strong>, there is a <code><a href="../reference/add_more_columns.html">add_more_columns()</a></code> which adds more columns to the <code>tb@result</code> table.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb2</span> <span class="op">=</span> <span class="fu"><a href="../reference/add_more_columns.html">add_more_columns</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb2</span><span class="op">@</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                    ID</span></span>
-<span><span class="co">## GO:0051346 GO:0051346</span></span>
-<span><span class="co">## GO:0050727 GO:0050727</span></span>
-<span><span class="co">## GO:0032501 GO:0032501</span></span>
-<span><span class="co">## GO:0043086 GO:0043086</span></span>
-<span><span class="co">## GO:2000142 GO:2000142</span></span>
-<span><span class="co">## GO:2000144 GO:2000144</span></span>
-<span><span class="co">##                                                              Description</span></span>
-<span><span class="co">## GO:0051346                     negative regulation of hydrolase activity</span></span>
-<span><span class="co">## GO:0050727                           regulation of inflammatory response</span></span>
-<span><span class="co">## GO:0032501                              multicellular organismal process</span></span>
-<span><span class="co">## GO:0043086                     negative regulation of catalytic activity</span></span>
-<span><span class="co">## GO:2000142          regulation of DNA-templated transcription initiation</span></span>
-<span><span class="co">## GO:2000144 positive regulation of DNA-templated transcription initiation</span></span>
-<span><span class="co">##            GeneRatio  BgRatio      pvalue  p.adjust    qvalue</span></span>
-<span><span class="co">## GO:0051346     4/167  19/4458 0.004737161 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0050727     4/167  20/4458 0.005751044 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0032501    29/167 484/4458 0.006467817 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:0043086     6/167  46/4458 0.006820774 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:2000142     3/167  11/4458 0.006823258 0.7436095 0.7436095</span></span>
-<span><span class="co">## GO:2000144     3/167  11/4458 0.006823258 0.7436095 0.7436095</span></span>
-<span><span class="co">##                                                                                                                                                                                                                                                                                                       geneID</span></span>
-<span><span class="co">## GO:0051346                                                                                                                                                                                                                                                           101332097/101315793/101337749/101333718</span></span>
-<span><span class="co">## GO:0050727                                                                                                                                                                                                                                                           101326011/101320522/101337436/101338049</span></span>
-<span><span class="co">## GO:0032501 101320545/101315588/101339773/101323188/101333312/101323047/101325153/101339561/101319663/101330468/101337145/101319299/101320522/101338710/101336375/101337436/101322448/101318072/101328812/101337563/101327555/101331351/101337921/101337923/101338049/101329403/101334628/101326070/101322077</span></span>
-<span><span class="co">## GO:0043086                                                                                                                                                                                                                                       101332097/101315793/101337749/101337436/101327555/101333718</span></span>
-<span><span class="co">## GO:2000142                                                                                                                                                                                                                                                                     101325153/101339522/101337671</span></span>
-<span><span class="co">## GO:2000144                                                                                                                                                                                                                                                                     101325153/101339522/101337671</span></span>
+<pre><code><span><span class="co">##                    ID                                            Description</span></span>
+<span><span class="co">## GO:0006188 GO:0006188                               IMP biosynthetic process</span></span>
+<span><span class="co">## GO:0032543 GO:0032543                              mitochondrial translation</span></span>
+<span><span class="co">## GO:0071900 GO:0071900 regulation of protein serine/threonine kinase activity</span></span>
+<span><span class="co">## GO:0120036 GO:0120036   plasma membrane bounded cell projection organization</span></span>
+<span><span class="co">## GO:0006473 GO:0006473                                    protein acetylation</span></span>
+<span><span class="co">## GO:0046040 GO:0046040                                  IMP metabolic process</span></span>
+<span><span class="co">##            GeneRatio   BgRatio RichFactor FoldEnrichment   zScore      pvalue</span></span>
+<span><span class="co">## GO:0006188     3/453  10/13726 0.30000000       9.090066 4.727800 0.003603571</span></span>
+<span><span class="co">## GO:0032543     5/453  33/13726 0.15151515       4.590943 3.815372 0.004236004</span></span>
+<span><span class="co">## GO:0071900     7/453  66/13726 0.10606061       3.213660 3.330261 0.005916926</span></span>
+<span><span class="co">## GO:0120036    26/453 473/13726 0.05496829       1.665551 2.721295 0.007733292</span></span>
+<span><span class="co">## GO:0006473     3/453  13/13726 0.23076923       6.992359 3.993227 0.007978294</span></span>
+<span><span class="co">## GO:0046040     3/453  13/13726 0.23076923       6.992359 3.993227 0.007978294</span></span>
+<span><span class="co">##            p.adjust   qvalue</span></span>
+<span><span class="co">## GO:0006188 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0032543 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0071900 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0120036 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0006473 0.943299 0.943299</span></span>
+<span><span class="co">## GO:0046040 0.943299 0.943299</span></span>
+<span><span class="co">##                                                                                                                                                                                                                                                                         geneID</span></span>
+<span><span class="co">## GO:0006188                                                                                                                                                                                                                                       101315901/101322662/101323582</span></span>
+<span><span class="co">## GO:0032543                                                                                                                                                                                                                   101325303/101324614/101327888/101317961/101328773</span></span>
+<span><span class="co">## GO:0071900                                                                                                                                                                                               101330246/101325657/117313024/117308306/101338481/101321085/101334943</span></span>
+<span><span class="co">## GO:0120036 101315722/101332080/117310101/101337789/101335043/101327264/101333027/101335978/101331724/101329010/101322494/101319665/101330777/101337069/101323465/101321040/101339730/101338906/101321994/101334024/101322276/101319062/101336302/109547263/101317632/117308159</span></span>
+<span><span class="co">## GO:0006473                                                                                                                                                                                                                                       101322089/101319574/117309525</span></span>
+<span><span class="co">## GO:0046040                                                                                                                                                                                                                                       101315901/101322662/101323582</span></span>
 <span><span class="co">##            Count n_hits n_genes gs_size n_totle log2_fold_enrichment  z_score</span></span>
-<span><span class="co">## GO:0051346     4      4     167      19    4458            2.4905491 3.980786</span></span>
-<span><span class="co">## GO:0050727     4      4     167      20    4458            2.4165485 3.836220</span></span>
-<span><span class="co">## GO:0032501    29     29     167     484    4458            0.6775944 2.755350</span></span>
-<span><span class="co">## GO:0043086     6      6     167      46    4458            1.7998772 3.337696</span></span>
-<span><span class="co">## GO:2000142     3      3     167      11    4458            2.8640075 4.113834</span></span>
-<span><span class="co">## GO:2000144     3      3     167      11    4458            2.8640075 4.113834</span></span></code></pre>
+<span><span class="co">## GO:0006188     3      3     453      10   13726            3.1842908 4.727800</span></span>
+<span><span class="co">## GO:0032543     5      5     453      33   13726            2.1987904 3.815372</span></span>
+<span><span class="co">## GO:0071900     7      7     453      66   13726            1.6842172 3.330261</span></span>
+<span><span class="co">## GO:0120036    26     26     453     473   13726            0.7359997 2.721295</span></span>
+<span><span class="co">## GO:0006473     3      3     453      13   13726            2.8057792 3.993227</span></span>
+<span><span class="co">## GO:0046040     3      3     453      13   13726            2.8057792 3.993227</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="practice">Practice<a class="anchor" aria-label="anchor" href="#practice"></a>
@@ -890,7 +966,7 @@ blockquote {
 <h4 id="practice-1">Practice 1<a class="anchor" aria-label="anchor" href="#practice-1"></a>
 </h4>
 <p>Use the DE gene list in <code>webgestalt_example_gene_list.rds</code> to perform ORA on GO/KEGG/MSigDB gene sets.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"webgestalt_example_gene_list.rds"</span>, </span>
 <span>    package <span class="op">=</span> <span class="st">"GSEAtraining"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -900,9 +976,7 @@ blockquote {
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -915,16 +989,16 @@ blockquote {
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

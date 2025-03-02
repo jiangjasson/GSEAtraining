@@ -1,40 +1,38 @@
 
 
-First make sure you have the following two packages installed:
 
-- **devtools**
-- **BiocManager**
+Install all suggested dependencies:
 
-If you don't have them yet, install them from CRAN.
+```r
+setRepositories(ind = 1:4) # to include both CRAN and bioc repos
 
-Then install the **GSEAtraining** package for this course:
+install.packages(c("knitr", "rmarkdown", "GO.db", "org.Hs.eg.db", "KEGGREST", 
+	"clusterProfiler", "msigdbr", "reactome.db", "BioCartaImage", "UniProtKeywords", 
+	"BioMartGOGeneSets", "AnnotationHub", "BiocHubsShiny", "microbenchmark", "ReactomePA", 
+	"DOSE", "org.Ss.eg.db", "CePa", "eulerr", "rGREAT", "goseq", "GSVA", "simplifyEnrichment", 
+	"simona", "enrichplot", "ggplot2", "ComplexHeatmap", "circlize", "genefilter", 
+	"cola", "proxyC", "ggupset", "ggridges"))
+```
+
+**Orthology.eg.db** in the current bioc version (3.20) seems to have a problem. We use a lower version:
+
+```r
+install.packages("https://www.bioconductor.org/packages/3.17/data/annotation/src/contrib/Orthology.eg.db_3.17.0.tar.gz", 
+	repo = NULL, type = "source")
+```
+
+Then
+
+```r
+install.packages("https://jokergoo.github.io/GSEAtraining/GSEAtraining_3.20.0.tar.gz", 
+	repo = NULL, type = "source")
+```
+
+You may need to update the **rGREAT** package because the API link from NCBI was changed:
 
 ```r
 library(devtools)
-# this may take ~30 min because it builds all practice materials
-install_github("jokergoo/GSEAtraining", dependencies = TRUE, 
-	build_vignettes = TRUE)
-```
-
-You should also update the following two packages from GitHub because
-the updates are only available on the bioc devel branch:
-
-```r
-install_github("jokergoo/simona")
-install_github("jokergoo/BioCartaImage")
 install_github("jokergoo/rGREAT")
-```
-
-If you have errors with installing dependency packages, try to install them manually:
-
-```r
-BiocManager::install(c("DBI", "DT", "RSQLite", "htmltools", "shiny", "AnnotationDbi", "matrixStats",
-    "GO.db", "org.Hs.eg.db", "KEGGREST", "clusterProfiler", "msigdbr",
-    "reactome.db", "AnnotationHub",
-    "Orthology.eg.db", "microbenchmark", "ReactomePA", "DOSE", "org.Ss.eg.db",
-    "CePa", "eulerr", "rGREAT", "goseq", "GSVA", "simplifyEnrichment", 
-    "enrichplot", "ggplot2", "ComplexHeatmap", "circlize", "genefilter"))
-install.packages("https://jokergoo.github.io/GSEAtraining_0.99.1.tar.gz", repo = NULL, type = "source")
 ```
 
 The practice materials are also available at https://jokergoo.github.io/GSEAtraining/.

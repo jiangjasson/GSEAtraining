@@ -134,7 +134,8 @@ also use the **BiocHubsShiny** package to interactively searching for datasets:
 Now we download the data.
 
 ```{r}
-org_db = ah[["AH111810"]]  # using `[[` downloads the dataset
+# It is annoying that ID changes between different package versions
+org_db = ah[["AH117537"]]  # using `[[` downloads the dataset
 ```
 
 
@@ -194,8 +195,8 @@ gs1 = getBioMartGOGeneSets("ttruncatus_gene_ensembl", "BP", gene_id_type = "entr
 Get GO gene sets from NCBI/AnnotationHub.
 
 ```{r}
-query(ah, c("Tursiops truncatus", "OrgDb"))
-orgdb = ah[["AH112418"]]
+qu = query(ah, c("Tursiops truncatus", "OrgDb"))
+orgdb = ah[[ qu$ah_id ]]
 gs2 = get_GO_gene_sets_from_orgdb(orgdb, "BP")
 ```
 

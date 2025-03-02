@@ -161,7 +161,7 @@ Taking dolphin as an example. Since `org_db` is an `OrgDb` object, we can direct
 ```{r}
 library(AnnotationHub)
 ah = AnnotationHub()
-org_db = ah[["AH112418"]]
+org_db = ah[["AH118180"]]
 
 all_genes = keys(org_db, keytype = "ENTREZID")
 scores = sort(rnorm(length(all_genes)), decreasing = TRUE)
