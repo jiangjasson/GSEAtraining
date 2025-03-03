@@ -6,7 +6,8 @@ Date: 2025-03-01
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
-Imports: stats, DBI, DT, RSQLite, htmltools, shiny, AnnotationDbi, matrixStats, Matrix, methods
+Imports: stats, DBI, DT, RSQLite, htmltools, shiny, AnnotationDbi, matrixStats, Matrix, methods,
+    BiocManager
 Suggests: knitr, rmarkdown, GO.db, org.Hs.eg.db, KEGGREST, clusterProfiler, msigdbr,
     reactome.db, BioCartaImage, UniProtKeywords, BioMartGOGeneSets, AnnotationHub,
     BiocHubsShiny, Orthology.eg.db, microbenchmark, ReactomePA, DOSE, org.Ss.eg.db,

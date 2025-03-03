@@ -177,6 +177,31 @@ tb = toTable(org.Hs.egSYMBOL2EG)
 
 As you can see, the drawback is you cannot use additional information to filter genes, such as gene types.
 
+## Entrez IDs as integers
+
+```{r}
+eg = c(1, 3, 6)
+symbol = c("gene1", "gene2", "gene3")
+```
+
+To convert from Entrez IDs to gene symbols, we normally generate a "map" variable where EntreZ IDs are names:
+
+```{r}
+map = symbol
+names(map) = eg
+map
+```
+
+However, if Entrez IDs are saved as integers, there will be a problem:
+
+```{r}
+unname(map[eg])
+```
+
+```{r}
+eg = as.character(eg)
+unname(map[eg])
+```
 
 ## Conclusion
 
