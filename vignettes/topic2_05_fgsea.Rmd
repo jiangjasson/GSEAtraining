@@ -1,0 +1,261 @@
+---
+title: "Topic 2-05: fgsea"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 2-05: fgsea}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+The permutation-based method is by nature very slow, especially if you want to get p-values
+in high precision. In this document, we demonstrate the use of a extremely efficient package **fgsea**,
+but only for the gene-permutation-based method.
+
+We still use the p53 dataset.
+
+```{r}
+lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtutorial"))
+expr = lt$expr
+condition = lt$condition
+
+ln = strsplit(readLines(system.file("extdata", "c2.symbols.gmt", package = "GSEAtutorial")), "\t")
+gs = lapply(ln, function(x) x[-(1:2)])
+names(gs) = sapply(ln, function(x) x[1])
+
+library(matrixStats)
+m1 = expr[, condition == "WT"]  # only samples in group 1
+m2 = expr[, condition == "MUT"]  # only samples in group 2
+s = (rowMeans(m1) - rowMeans(m2))/(rowSds(m1) + rowSds(m2)) # gene-level difference scores
+s = sort(s, decreasing = TRUE)
+```
+
+The use of **fgsea** is striaghtforward, with the `fgsea()` function:
+
+```{r}
+library(fgsea)
+df = fgsea(gs, s)
+head(df)
+```
+
+You only need to make gene IDs in `s` (as the name of the vector) are the same as in `gs`.
+
+
+## Implement helper functions
+
+The same as the `ora_*()` functions for different types of gene sets, we can also implement the `fgsea_*()` functions.
+
+We first define a wrapper function where we can rename the colnames of the data frame from `fgsea()`, just let it be
+consistent to the results from `ora_*()` functions. We also reorder the result data frame by p-values.
+
+```{r}
+fgsea_wrapper = function(s, gs, min_size = 5, max_size = 1000, ...) {
+    s = sort(s, decreasing = TRUE)
+    df = fgsea(gs, s, minSize = min_size, maxSize = max_size, ...)
+    df = as.data.frame(df)
+    colnames(df) = c("gene_set", "p_value", "p_adjust", "log2_p_err", "es", "nes", "n_gs", "leading_edge")
+    df = df[order(df$p_value), , drop = FALSE]
+    rownames(df) = NULL
+    df
+}
+```
+
+Now we can write these helper functions. The `load_*_genesets()` functions are already defined in the previous document.
+
+
+```{r}
+fgsea_go = function(s, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...) {
+    lt = load_go_genesets(org_db, ontology)
+   
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+# db: pathway, module, ko, network, disease, drug
+fgsea_kegg = function(s, organism = "hsa", db = "pathway", ...) {
+    lt = load_kegg_genesets(organism, db)
+
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+fgsea_msigdb = function(s, collection = "h.all", version = "2024.1.Hs", ...) {
+    lt = load_msigdb_genesets(collection, version)
+
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df
+}
+
+fgsea_reactome = function(s, organism = "HSA", ...) {
+    lt = load_reactome_genesets(organism)
+
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+fgsea_keywords = function(s, organism = "human", ...) {
+    gs = load_keyword_genesets(organism)
+    
+    df = fgsea_wrapper(s, gs, ...)
+    df
+}
+
+# the human phenotype ontology
+fgsea_phenotype = function(s, organism = "human", ...) {
+    lt = load_simona_genesets(ontology_hp, "hp", organism = organism)
+
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+# disease ontology
+fgsea_disease = function(s, organism = "human", ...) {
+    lt = load_simona_genesets(ontology_rdo, "rdo", organism = organism)
+
+    df = fgsea_wrapper(s, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+```
+
+Keep in mind, all these `fgsea_*()` functions use EntreZ IDs as the internal IDs. Then for the input
+gene score vector, genes should also have EntreZ IDs.
+
+
+Use the helper function first to generate a global mapping between symbols and EntreZ IDs:
+
+```{r}
+library(org.Hs.eg.db)
+map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+```
+
+`map_to_entrez_id()` only returns mapping for protein-coding genes. According to the pratice we have made, the human, the mapping
+between symbols and EntreZ IDs is one-to-one. But we need to be careful. 1. gene symbols change from time to time. You cannot ensure
+the symbol used in the dataset is the most recent version. 2. for other organisms, we don't know whether the mapping is also one-to-one.
+Let's do it in a conservative way.
+
+```{r}
+symbol = names(s)
+entrez = map[symbol]
+```
+
+in `entrez`, there are possible `NA` values or duplicated values. We first remove `NA`s:
+
+
+```{r}
+s2 = unname(s)
+s2 = s2[!is.na(entrez)]
+entrez = entrez[!is.na(entrez)]
+```
+
+Then remove duplicates, either only keep the first one, or take the mean.
+
+```r
+tapply(s2, entrez, function(x) x[1])
+tapply(s2, entrez, function(x) mean(x))
+```
+
+In this exmaple, I would only take the first one
+
+```{r}
+s2 = tapply(s2, entrez, function(x) x[1])
+```
+
+This is how it is implemented in `convert_to_entrez_id()`.
+
+```{r}
+s2 = convert_to_entrez_id(s)
+```
+
+And let's try these `fgsea_*()` helper functions:
+
+```{r}
+head(fgsea_go(s2))
+head(fgsea_kegg(s2))
+head(fgsea_msigdb(s2))
+head(fgsea_reactome(s2))
+head(fgsea_keywords(s2))
+head(fgsea_phenotype(s2))
+head(fgsea_disease(s2))
+```
+
+## Compare to the native implementations
+
+Let's have a quick comparison between the `fgsea()` function and gene-permutation-based function we have implemented in the previous document.
+Under the default setting, both functions perform two-sided test:
+
+
+```{r, fig.width = 10, fig.height = 5}
+df1 = fgsea_wrapper(s, gs)
+df2 = gsea_gene_perm(s, gs, verbose = FALSE)
+
+rownames(df1) = df1$gene_set
+rownames(df2) = df2$gene_set
+
+cn = intersect(rownames(df1), rownames(df2))
+par(mfrow = c(1, 2))
+plot(df1[cn, "p_value"], df2[cn, "p_value"], main = "p_value", xlab = "fgsea", ylab = "native")
+plot(df1[cn, "nes"], df2[cn, "nes"], main = "nes", xlab = "fgsea", ylab = "native")
+```
+
+And the one-sided test:
+
+```{r, fig.width = 10, fig.height = 5}
+df1 = fgsea_wrapper(s, gs, scoreType = "pos")
+df2 = gsea_gene_perm(s, gs, direction = "pos", verbose = FALSE)
+
+rownames(df1) = df1$gene_set
+rownames(df2) = df2$gene_set
+
+cn = intersect(rownames(df1), rownames(df2))
+par(mfrow = c(1, 2))
+plot(df1[cn, "p_value"], df2[cn, "p_value"], main = "p_value", xlab = "fgsea", ylab = "native")
+plot(df1[cn, "nes"], df2[cn, "nes"], main = "nes", xlab = "fgsea", ylab = "native")
+```
+
+## Other options to capture bi-directional changes
+
+The default behavior of two-sided `fgsea()` or the GSEA method is to capture the stronger one of the up- and down-regulation of genes in a gene set.
+There are 
+
+1. if you want to keep enrichment for both up-regulated and down-regulated genes. You can perform two GSEA analysis, a one-sided test only for up-regulated genes and a second one-sided test only for down-regulated genes.
+
+```r
+df1 = fgsea_*(s, gs, scoreType = "pos")
+df2 = fgsea_*(s, gs, scoreType = "neg")
+```
+
+2. if the gene score is log2fc-like, i.e. with both positive and negative values, if you do not care the direction of the differential expression,
+you can use `|s|` as the gene scores.
+
+```r
+fgsea_*(abs(s), gs, scoreType = "pos")
+```
+
+## Which type of gene scores to use
+
+```{r}
+
+```

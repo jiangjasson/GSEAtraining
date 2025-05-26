@@ -12,6 +12,20 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
 <style>
 blockquote {
     padding: 10px 20px;
@@ -33,7 +47,7 @@ Please note the restrictions of using KEGG data (https://www.kegg.jp/kegg/legal.
 > ### Non-academic use of KEGG
 > Non-academic users must understand that KEGG is not a public database and non-academic use of KEGG generally requires a commercial license. There are two types of commercial licenses available: end user and business. The end user license includes access rights to the FTP site and the website, while the business license includes access rights to the FTP site only. Please contact Pathway Solutions for more details.
 
-## Directly read from the KEGG API
+## Read from the KEGG API
 
 KEGG provides its data via a REST API (https://rest.kegg.jp/). There are
 several commands that can be used to retrieve specific types of data. The URL form of the request is 
@@ -68,8 +82,14 @@ df1 = read.table(temp, sep = "\t")
 file.remove(temp)
 ```
 
+Also you can omit `url()` to directly read from an URL:
 
-Also the URL `"https://rest.kegg.jp/link/hsa/pathway"` returns identical results which
+```{r, eval = FALSE}
+df1 = read.table("https://rest.kegg.jp/link/pathway/hsa", sep = "\t")
+```
+
+
+The URL `"https://rest.kegg.jp/link/hsa/pathway"` returns identical results which
 only switches the two columns in the table.
 
 In the output, the first column contains Entrez ID
@@ -92,64 +112,47 @@ head(df2)
 ```
 
 
-## KEGGREST
+## Highlight genes
 
-There is a **KEGGREST** package which implements a full interface to access KEGG
-data in R. All the APIs from KEGG REST service are suppoted in **KEGGREST**. The
-names of functions in **KEGGREST** are consistent to the operators in the KEGG
-API. For example, to get the mapping between genes and pathways, the function
-`keggLink()` can be used.
+All you need to do is to prepare a two-column table where the first column contains genes and the second column contains color-settings.
 
-```{r}
-library(KEGGREST)
-gene2pathway = keggLink("pathway", "hsa")
-head(gene2pathway)
-```
-
-This named vector is not commonly used for downstream gene set analysis. A more
-used format is a data frame. We can simply converted `gene2pathway` to a data
-frame.
-
-```{r}
-df3 = data.frame(
-    gene_id    = gsub("hsa:", "", names(gene2pathway)),
-    pathway_id = gsub("path:", "", gene2pathway)
-)
-head(df3)
-```
-
-Similar as the `list` operator in KEGG API, `keggList()` function can be used to
-retrieve pathway IDs and their names. The function returns a named vector.
-
-```{r}
-head(keggList("pathway", "hsa"))
-```
-
-### Highlight genes on the pathway image
-
-
-<style>
-.delete {
-    text-decoration: line-through;
-}
-</style>
-
-Users may want to highlight some genes on the pathway image, e.g. to
-highlight differentially expressed genes. <span class="delete">The function
-`color.pathway.by.objects()` in **KEGGREST** accepts a vector of genes and assigns
-them with a set of colors. In the following example, I randomly pick 10
-genes from the pathway "hsa04911".</span> **It does not work any more because KEGG has changed its API.**
-
-Let's manually color genes for a specific pathway on KEGG web site.
-
-Open https://www.genome.jp/pathway/hsa04911.
+Let's take the pathway "hsa04110" as an example. We color 10 random genes.
 
 ```{r, comment = ""}
-genes = names(gene2pathway[gene2pathway == "path:hsa04911"])
+library(circlize)
+df1 = read.table("https://rest.kegg.jp/link/pathway/hsa", sep = "\t")
+genes = df1[df1[, 2] == "path:hsa04110", 1]
+
 diff_genes = sample(genes, 10)
 settings = data.frame(
     genes = diff_genes, 
-    colors = paste0(rep("orange", 10),",",rep("blue", 10)) # background,labels
+    colors = rand_color(10)
+)
+write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
+```
+
+Then open https://www.kegg.jp/pathway/hsa04110.
+
+The value of colors can be a color name (e.g. red, white) or a hexadecimal code (e.g. `#0000FF`)
+
+Note the prefix "hsa:" of gene IDs has no effect. You can keep it or remove it. For the discrete color mapping,
+the second column can contain two colors in one row in the form of `color1,color2` which corresponds to the filled
+color and the border color. Note the border color also includes the color of the text.
+
+```{r}
+settings = data.frame(
+    genes = diff_genes, 
+    colors = paste0(rand_color(10), ",", sample(colors(), 10))
+)
+write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
+```
+
+To use continuous color mapping, the second column should contain numeric values.
+
+```{r}
+settings = data.frame(
+    genes = diff_genes, 
+    colors = runif(10)
 )
 write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
 ```
@@ -157,22 +160,6 @@ write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quo
 How to set gene colors: https://www.genome.jp/kegg/webapp/color_gui.html
 
 The package **ggkegg** also supports customizing KEGG graph.
-
-## clusterProfiler
-
-The second Bioconductor pacakge **clusterProfiler** has a simple function
-`download_KEGG()` which accepts the prefix of a organism and returns a list of
-two data frames, one for the mapping between genes and pathways and the other
-for the full name of pathways.
-
-```{r, warnings = FALSE, message = FALSE}
-lt = clusterProfiler::download_KEGG("hsa")
-head(lt$KEGGPATHID2EXTID)
-head(lt$KEGGPATHID2NAME)
-```
-
-> Note: all the methods we introduced can not be used to retrieve the network data from KEGG.
-
 
 ## Practice
 
@@ -189,13 +176,11 @@ Hint: use the `list` operator in KEGG API and search for dog.
 #### Solution
 
 You can get organism codes for all organisms by https://rest.kegg.jp/list/organism. Then you
-will find the code for dog is `"cfa"`. Use one of the following three ways to
-download the data.
+will find the code for dog is `"cfa"`. 
+
 
 ```{r, eval = FALSE}
 df = read.table(url("https://rest.kegg.jp/link/pathway/cfa"), sep = "\t")
-pathway2gene = KEGGREST::keggLink("pathway", "cfa")
-lt = clusterProfiler::download_KEGG("cfa")
 ```
 
 
@@ -235,14 +220,16 @@ df2 = read.table(url("https://rest.kegg.jp/list/pathway/hsa"), sep = "\t")
 df2[df2[, 1] == "hsa01100", ]
 ```
 
-And its url on KEGG: https://www.genome.jp/pathway/hsa01100.
+And its url on KEGG: https://www.kegg.jp/pathway/hsa04110.
 
 
 ### {.tabset}
 
 #### Practice 3
 
-Highlight the following genes "5527", "7534", "2033", "1111", "5885" on the pathway image of "Cell cycle". Choose colors you like.
+Highlight the following genes "TGFB1", "TP53", "CDC7" and "E2F1" on the pathway image of "Cell cycle" (organism: human). Choose colors that you like.
+
+Note: you need to first convert gene symbols to Entrez IDs.
 
 #### Solution
 
@@ -253,14 +240,23 @@ pathway_id = df2[df2[, 2] == "Cell cycle", 1]
 pathway_id
 ```
 
+Convert symbols to Entrez IDs:
+
+```{r}
+library(org.Hs.eg.db)
+genes = mapIds(org.Hs.eg.db, keys = c("TGFB1", "TP53", "CDC7", "E2F1"), 
+    keytype = "SYMBOL", column = "ENTREZID")
+genes
+```
+
+
 Prepare the color table:
 
 ```
-5527    red,blue
-7534    blue,red
-2033    yello,darkgreen
-1111    grey,red
-5885    purple,blue
+7040    red,blue
+7157    blue,red
+8317    yello,darkgreen
+1869    grey,red
 ```
 
 Then go to https://www.genome.jp/pathway/`r pathway_id` and paste the color table there.

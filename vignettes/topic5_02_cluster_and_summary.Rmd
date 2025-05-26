@@ -1,0 +1,404 @@
+---
+title: "Topic 5-02: Cluster and summarize"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 5-02: simplifyEnrichment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+There are two types of similarity methods, the count-based and semantic-based. We look at them separately.
+
+
+## Count-based similarities
+
+As an example, we use significant gene sets from ORA on the p53 dataset.
+
+```{r}
+lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtutorial"))
+expr = lt$expr
+condition = lt$condition
+
+ln = strsplit(readLines(system.file("extdata", "c2.symbols.gmt", package = "GSEAtutorial")), "\t")
+gs = lapply(ln, function(x) x[-(1:2)])
+names(gs) = sapply(ln, function(x) x[1])
+
+library(genefilter)
+tdf = rowttests(expr, factor(condition))
+tdf$fdr = p.adjust(tdf$p.value, "BH")
+
+diff = rownames(expr)[abs(tdf$statistic) > 2]
+tb_ora = ora(diff, universe = rownames(expr), gene_sets = gs)
+sig = tb_ora$gene_set[tb_ora$p_value < 0.05]
+```
+
+We suggest to only use the significant genes when calculating the similarities.
+
+```{r}
+gs2 = lapply(gs[sig], function(x) intersect(x, diff))
+```
+
+Additionally adding the gene weight can sometimes improve the similarity patterns.
+
+```{r}
+w = tdf$statistic
+names(w) = rownames(tdf)
+
+sm = jaccard(gs2, weight = abs(w))
+diag(sm) = NA
+library(ComplexHeatmap)
+Heatmap(sm)
+```
+
+
+The block-pattern is very obvious. You can split it by hierarchical clustering + cutree, kmeans or any clustering methods.
+We recommend to use the graph-based clustering methods.
+
+The similarity matrix can be thought of as an adjacency matrix. The **igraph** package provides many graph-based clustering methods.
+
+```{r}
+library(igraph)
+g = graph_from_adjacency_matrix(sm, weighted = TRUE, mode = "upper", diag = FALSE)
+cl = membership(cluster_louvain(g))
+Heatmap(sm, row_split = cl, column_split = cl)
+```
+
+Clustering the gene sets is fairly easy. However, this is not the end of the analysis. We need
+to summarize the commonness of genesets in a cluster. Note the similarity is count-based, then
+these genesets must share some common genes, i.e., the driving genes that cluster the genesets.
+
+Taking the geneset cluster 1 as an example, which is related to "P53"-related functions.
+
+```{r}
+gs2[cl == 1]
+```
+
+Let's calculate the recurrency of genes in these gene sets:
+
+```{r}
+tb = table(unlist(gs2[cl == 1]))
+sort(tb, decreasing = TRUE)
+```
+
+We can see "CDK1A" is in all 8 genesets, "MDM2" is in 7 out of 8 gene sets, and "BAX" is in 6 out of 8 gene sets. So
+these three genes are driving genes of the eight genesets in this cluster.
+
+
+For the visualization purpose, can we add such driving genes to the heatmap?
+
+Let's first adjust the heatmap:
+
+```{r}
+ht = Heatmap(sm, row_split = cl, column_split = cl, row_names_side = "left",
+    show_row_dend = FALSE, show_column_dend = FALSE, row_title = NULL, column_title = NULL)
+```
+
+Driving genes are added as a "link" annotation:
+
+```{r, fig.width = 10}
+ht + rowAnnotation(gene = anno_link(cl, panel_fun = function(index) {
+    tb = table(unlist(gs2[index]))
+    tb = sort(tb, decreasing = TRUE)
+    pushViewport(viewport())
+    grid.rect()
+    grid.text(paste(names(tb)[tb/length(index) > 0.5], collapse = "\n"))
+    popViewport()
+}))
+```
+
+In the **GSEAtutorial** package, there is a `genesets_similarity_heatmap()` function.
+
+```{r, fig.width = 10}
+genesets_similarity_heatmap(gs2, weight = w)
+```
+
+**Question**: in the previous example, the enrichment is done by ORA which is based on gene counts. The similarity is also based on gene counts.
+What if the enrichment is done by GSEA? How to adjust the calculation process?
+
+We first apply the GSEA analysis.
+
+```{r}
+library(matrixStats)
+m1 = expr[, condition == "WT"]  # only samples in group 1
+m2 = expr[, condition == "MUT"]  # only samples in group 2
+s = (rowMeans(m2) - rowMeans(m1))/(rowSds(m1) + rowSds(m2)) # gene-level difference scores
+s = sort(s, decreasing = TRUE)
+tb_gsea = fgsea_wrapper(s, gs)
+head(tb_gsea)
+```
+
+The similarity in this category is based on gene counts. Although the enrichment procedure is not gene count-based. In the results,
+GSEA reports "leading edge genes" which are the genes that contribute most to the enrichment of the gene set. These leading-edge genes
+can be used for calculating the similarities.
+
+```{r, fig.width = 10}
+l = tb_gsea$p_adjust < 0.1
+gs3 = tb_gsea[l, "leading_edge"]
+names(gs3) = tb_gsea$gene_set[l]
+genesets_similarity_heatmap(gs3, weight = s, resolution = 2)
+```
+
+**Thoughts**: GSVA or the single-sample GSEA converts the original gene-sample matrix to geneset-sample matrix. One the aim of such transformation
+is to find "co-expressed gene sets". As such "co-expression" is actually due to common genes in the gene sets, we can also do such driving-gene analysis
+and associated to a group of "co-expressed" genes.
+
+## Semantic similarity
+
+**simplifyEnrichment** is suggested to work on GO enrichment results.
+
+Let's generate 500 random GO IDs:
+
+```{r, echo = FALSE}
+library(simplifyEnrichment)
+se_opt$verbose = FALSE
+```
+
+```{r, fig.width = 8, fig.height = 4.5}
+library(simplifyEnrichment)
+set.seed(888)
+go_id = random_GO(500)
+sm = GO_similarity(go_id)
+```
+
+The default semantic similarity method is "Sim_XGraSM_2013", which is an adjusted Lin-1998 method, where
+$IC(MICA)$ replaced with $\mathrm{avg} IC(CA)$, i.e. average non-zero IC of all common ancestors.
+
+
+```{r}
+Heatmap(sm, col = c("white", "red"))
+```
+
+The heatmap shows very clear block patterns on the diagonal. We next try several clustering methods to
+see whether they can capture such patterns.
+
+We implement a helper function `test_clustering()` which accepts a cluster label vector and draws the heatmap.
+
+```{r}
+test_clustering = function(cl) {
+    col_fun = colorRamp2(c(0, quantile(sm, 0.99)), c("white", "red"))
+    Heatmap(sm, col = col_fun, border = "black", show_row_names = FALSE, show_column_names = FALSE,
+        show_row_dend = FALSE, show_column_dend = FALSE, row_title = NULL, column_title = NULL,
+        row_split = cl, column_split = cl)
+}
+```
+
+We try hierarchical cluster, k-means, graph-based method and binary cut.
+
+```{r}
+cl = cutree(hclust(dist(sm)), k = 4)
+test_clustering(cl)
+
+cl = kmeans(dist(sm), centers = 4)$cluster
+test_clustering(cl)
+
+g = graph_from_adjacency_matrix(sm, weighted = TRUE, mode = "upper", diag = FALSE)
+cl = membership(cluster_louvain(g))
+test_clustering(cl)
+
+cl = binary_cut(sm)
+test_clustering(cl)
+
+cl = as.character(cl)
+tb = table(cl)
+cl[cl %in% names(tb[tb < 5])] = "others"
+test_clustering(cl)
+```
+
+As GO terms in a cluster show high semantic similarities, where they should be concentrated in a certain GO branch. The general
+biological functions for a GO cluster is summarized by keywords and visualized by word cloud.
+
+```{r, fig.height = 5}
+simplifyGO(go_id)
+```
+
+## Multiple enrichment results
+
+We follow the standard workflow for unsupervised cluster analysis. We use the Golub ALL dataset and the **cola** package for analysis.
+
+```{r, message = FALSE, fig.width = 8, fig.height = 7}
+library(cola)
+
+library(golubEsets)
+data(Golub_Merge)
+m = exprs(Golub_Merge)
+
+anno = pData(Golub_Merge)
+
+m[m <= 1] = NA
+m = log10(m)
+
+m = adjust_matrix(m)
+
+library(preprocessCore)
+cn = colnames(m)
+rn = rownames(m)
+m = normalize.quantiles(m)
+colnames(m) = cn
+rownames(m) = rn
+
+res = consensus_partition(m, top_value_method = "ATC", partition_method = "skmeans", verbose = FALSE)
+```
+
+We know the best number of subgroups is three. We look for signatures in the three-subgroup classification.
+
+```{r}
+df = get_signatures(res, k = 3)
+```
+
+Now we have four groups of signatures genes. The next analysis is to compare enriched GO functions in the four
+lists of signature genes. The corresponding biological question is do these different signature genes have
+similar function or they exhibit specific functions?
+
+We first obtain the four list of signature genes.
+
+```{r}
+gl = split(df$which_row, df$km)
+gl = lapply(gl, function(ind) rownames(res)[ind])
+```
+
+The ALL data is almost 25 years ago. The gene ID is Affymetric microarray probe ID, Luckily, the corresponding
+annotation package is also available on Bioconductor which is built upon the standard **AnnotationDbi** package.
+
+```{r}
+library(hu6800.db)
+gl = lapply(gl, function(x) {
+    x2 = mapIds(hu6800.db, keys = x, keytype = "PROBEID", column = "ENTREZID")
+    unique(x2[!is.na(x2)])
+})
+```
+
+We aply ORA GO analysis.
+
+```{r}
+tbl = lapply(gl, ora_go)
+```
+
+`tbl` is a list of four enrichment result tables. 
+`simplifyGOFromMultipleLists()` can be used to visualize GO enrichment from multiple results.
+The columns for GO IDs and p-values are automatically detected.
+
+```{r, fig.width = 12, fig.height = 6}
+simplifyGOFromMultipleLists(tbl, padj_cutoff = 0.001)
+```
+
+## Word cloud
+
+In some cases, the similarity heatmap is not necessary to put into the final report.
+
+```{r, fig.width = 8, fig.height = 4.5}
+df = tbl[[1]]
+go_id = df$gene_set[df$p_adjust < 0.01]
+simplifyGO(go_id)
+```
+
+
+`summarizeGO()` makes an even simpler plot with word cloud and simple statistical graphics.
+
+When there is only one enrichment results, there are two inputs for `summarizeGO()`:
+
+- A vector of GO IDs
+- A numeric vector of corresponding statistics which are mapped to barplots.
+
+```{r, fig.width = 8, fig.height = 5}
+l = df$p_adjust < 0.01
+summarizeGO(df$gene_set[l], -log10(df$p_adjust)[l], axis_label = "average -log10(p.adjust)")
+```
+
+
+Or visualize average log2 fold enrichment:
+
+```{r, fig.width = 8, fig.height = 5}
+l = df$p_adjust < 0.01
+summarizeGO(df$gene_set[l], df$log2fe[l], axis_label = "average log2(fold enrichment)")
+```
+
+
+`summarizeGO()` also supports multiple enrichment results. In this case, `value` should be 
+ is a list of numeric named vectors which contains significant GO terms in each enrichment table.
+
+```{r, fig.width = 8, fig.height = 7}
+value = lapply(tbl, function(df) {
+    v = -log10(df$p_adjust)
+    names(v) = df$gene_set
+    v[df$p_adjust < 0.001]
+})
+value
+summarizeGO(value = value, axis_label = "average -log10(p_adjust)", 
+    legend_title = "-log10(p_adjust)")
+```
+
+
+Or use log2 fold enrichment:
+
+```{r, fig.width = 8, fig.height = 7}
+value = lapply(tbl, function(df) {
+    v = df$log2fe
+    names(v) = df$gene_set
+    v[df$p_adjust < 0.001]
+})
+summarizeGO(value = value, axis_label = "average log2_fold_enrichment", 
+    legend_title = "log2(fold_enrichment)")
+```
+
+
+
+## Practice 
+
+### {.tabset}
+
+#### Practice 1
+
+Recall in [Topic 2-02: Implement ORA from stratch](topic2_02_implement_ora.html), we compared
+the ORA results when setting DE cutoffs to 0.05, 0.01 and 0.001. Now perform a simplify enrichment
+analysis on the three ORA tables and compare them.
+
+```{r}
+de = readRDS(system.file("extdata", "de.rds", package = "GSEAtraining"))
+de = de[, c("symbol", "p_value")]
+de = de[!is.na(de$p_value), ]
+
+de_genes_1 = de$symbol[de$p_value < 0.05]
+de_genes_2 = de$symbol[de$p_value < 0.01]
+de_genes_3 = de$symbol[de$p_value < 0.001]
+
+library(GSEAtraining)
+library(org.Hs.eg.db)
+gs = get_GO_gene_sets_from_orgdb(org.Hs.eg.db, "BP", gene_id_type = "SYMBOL")
+
+tb1 = ora(de_genes_1, gs)
+tb2 = ora(de_genes_2, gs)
+tb3 = ora(de_genes_3, gs)
+```
+
+
+#### Solution
+
+```{r, fig.width = 12, fig.height = 7}
+lt = list(
+    "DE_0.05" = tb1,
+    "DE_0.01" = tb2,
+    "DE_0.001" = tb3
+)
+
+simplifyGOFromMultipleLists(lt, padj_cutoff = 0.05)
+```
+

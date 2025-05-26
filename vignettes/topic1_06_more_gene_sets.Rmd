@@ -1,0 +1,157 @@
+---
+title: "Topic 1-06: Get GO/KEGG gene sets for other organisms"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 1-07: Get GO/KEGG gene sets for other organisms}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+
+Besides those well-studied organisms, there are also resources for less well-studies organisms, mainly for KEGG and GO gene sets.
+
+
+## KEGG pathways
+
+KEGG pathway supports a huge number of organisms, just try different organism code:
+
+```{r, eval = FALSE}
+read.table(url("https://rest.kegg.jp/list/pathway/hsa"), sep = "\t")
+read.table(url("https://rest.kegg.jp/list/pathway/ptr"), sep = "\t")
+read.table(url("https://rest.kegg.jp/list/pathway/pps"), sep = "\t")
+read.table(url("https://rest.kegg.jp/list/pathway/ggo"), sep = "\t")
+read.table(url("https://rest.kegg.jp/list/pathway/pon"), sep = "\t")
+...
+```
+
+## OrgDb packages
+
+Biocondutor core team maintaines **org.\*.db** packages for 18 organisms
+
+```{r, echo = FALSE}
+tb = read.table(textConnection(
+"org.Hs.eg.db    Human   org.Ss.eg.db    Pig
+org.Mm.eg.db    Mouse   org.Gg.eg.db    Chicken
+org.Rn.eg.db    Rat org.Mmu.eg.db   Rhesus_monkey
+org.Dm.eg.db    Fruit_fly   org.Cf.eg.db    Canine
+org.At.tair.db  Arabidopsis org.EcK12.eg.db E_coli_strain_K12
+org.Sc.sgd.db   Yeast   org.Xl.eg.db    African_clawed_frog
+org.Dr.eg.db    Zebrafish   org.Ag.eg.db    Malaria_mosquito
+org.Ce.eg.db    Nematode    org.Pt.eg.db    Chimpanzee
+org.Bt.eg.db    Bovine  org.EcSakai.eg.db   E_coli_strain_Sakai
+"))
+```
+
+```{r, echo = FALSE}
+tb[, 1] = paste0("`", tb[, 1], "`")
+tb[, 3] = paste0("`", tb[, 3], "`")
+tb[, 2] = gsub("_", " ", tb[, 2])
+tb[, 4] = gsub("_", " ", tb[, 4])
+knitr::kable(tb, col.names = c("Package", "Organism", "Package", "Organism"))
+```
+
+These **org.\*.db** packages can be used in the same way as what we have seen with the **org.Hs.eg.db** package.
+
+## AnnotationHub
+
+On **AnnotationHub**, there are `OrgDb` objects for a huge number of other organisms (~2000) which can be used
+for getting GO genes and mappings between gene IDs.
+
+```{r}
+library(AnnotationHub)
+ah = AnnotationHub()
+```
+
+To search for an organism, using its latin name is more suggested. Also add the "OrgDb" (data class) keyword:
+
+```{r}
+query(ah, c("cat", "OrgDb"))
+```
+
+```{r}
+query(ah, c("Felis catus", "OrgDb"))
+```
+
+
+Besides using `query()` to search for the AnnotationHub dataset, you can
+also use the **BiocHubsShiny** package to interactively searching for datasets:
+
+Now we download the data.
+
+```{r}
+# It is annoying that ID changes between different package versions
+org_db = ah[["AH117537"]]  # using `[[` downloads the dataset
+```
+
+
+`org_db` is an `OrgDb` object but contains less information than the **org.\*.db** packages:
+
+```{r}
+org_db
+columns(org_db)
+```
+
+You can obtain the GO gene sets manually by `select()`, taking the `"ENTREZID"` and `"GOALL"` columns:
+
+```{r}
+all_genes = keys(org_db, keytype = "ENTREZID")
+tb = select(org_db, keys = all_genes, keytype = "ENTREZID", columns = c("GOALL", "ONTOLOGYALL"))
+head(tb)
+```
+
+You may need to clean the mapping table:
+
+```{r}
+tb = tb[!is.na(tb$GOALL), ]
+tb = unique(tb)
+```
+
+
+
+With an `OrgDb` object, you can also use the helper function `get_GO_gene_sets_from_orgdb()` in **GSEAtraining** package:
+
+```{r}
+library(GSEAtutorial)
+lt = get_GO_gene_sets_from_orgdb(org_db, "BP")
+lt[1]
+```
+
+
+
+## Practice 
+
+### {.tabset}
+
+#### Practice 1
+
+Try to obtain GO (BP) gene sets for dolphin (latin name: Tursiops truncatus) from  **AnnotationHub**.
+
+#### Solution
+
+
+Get GO gene sets from NCBI/AnnotationHub.
+
+```{r}
+qu = query(ah, c("Tursiops truncatus", "OrgDb"))
+orgdb = ah[[ qu$ah_id ]]
+gs = get_GO_gene_sets_from_orgdb(orgdb, "BP")
+```

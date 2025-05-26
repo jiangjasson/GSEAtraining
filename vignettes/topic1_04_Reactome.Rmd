@@ -13,10 +13,25 @@ vignette: >
 ---
 
 
-Reactome is another popular pathway database. It organises pathways in a
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+
+
+Reactome is another popular pathway database. It organizes pathways in a
 hierarchical manner, which contains pathways and sub pathways or pathway
 components. The up-to-date pathway data can be direclty found at
-https://reactome.org/download-data.
+https://reactome.org/download-data (Mapping Files -> Identifier mapping files -> NCBI to All pathways)
 
 
 ## reactome.db
@@ -53,7 +68,39 @@ sort(table( gsub("^R-(\\w+)-\\d+$", "\\1", p2n[, 1]) ))
 barplot(sort(table( gsub("^R-(\\w+)-\\d+$", "\\1", p2n[, 1]) )))
 ```
 
- 
+## Directly get data from the database
+
+If you are not sure whether **reactome.db** provides the most up-to-date data, we can directly process the original data fro reactome database.
+
+```{r}
+download.file("https://reactome.org/download/current/NCBI2Reactome_All_Levels.txt", destfile = "NCBI2Reactome_All_Levels.txt")
+tb = read.table("NCBI2Reactome_All_Levels.txt", sep = "\t", comment.char = "")
+head(tb)
+```
+
+Restrict to human
+
+```{r}
+tb = tb[tb[, 6] == "Homo sapiens", ]
+```
+
+The gene sets
+
+```{r}
+gs = split(tb[, 1], tb[, 2])
+```
+
+It is better to ensure Entrez IDs are stored as characters.
+
+```{r}
+gs = lapply(gs, as.character)
+```
+
+Pathway names:
+
+```{r}
+p2n = unique(tb[, c(2, 4)])
+```
 
 ## Practice 
 

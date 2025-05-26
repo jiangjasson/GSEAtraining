@@ -1,4 +1,4 @@
-Package: GSEAtraining
+Package: GSEAtutorial
 Type: Package
 Title: Training materials for the GSEA course
 Version: 3.20.0
@@ -6,18 +6,15 @@ Date: 2025-03-01
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
-Imports: stats, DBI, DT, RSQLite, htmltools, shiny, AnnotationDbi, matrixStats, Matrix, methods,
-    BiocManager
-Suggests: knitr, rmarkdown, GO.db, org.Hs.eg.db, KEGGREST, clusterProfiler, msigdbr,
-    reactome.db, BioCartaImage, UniProtKeywords, BioMartGOGeneSets, AnnotationHub,
-    BiocHubsShiny, Orthology.eg.db, microbenchmark, ReactomePA, DOSE, org.Ss.eg.db,
-    CePa, eulerr, rGREAT, goseq, GSVA, simplifyEnrichment, simona, enrichplot, ggplot2,
-    ComplexHeatmap, circlize, genefilter, cola, proxyC, ggupset, ggridges
+Imports: stats, DBI, RSQLite, htmltools, AnnotationDbi, 
+         matrixStats, methods, fastmatch, ComplexHeatmap, fgsea, 
+         igraph, org.Hs.eg.db, GO.db, S4Vectors
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 Description: The training materials in this package are only allowed for noncommercial use.
 URL: https://github.com/jokergoo/GSEAtraining
 BugReports: https://github.com/jokergoo/GSEAtraining/issues
-License: CC BY-NC-SA
+License: file LICENSE
 RoxygenNote: 7.3.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

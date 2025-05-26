@@ -13,48 +13,57 @@ vignette: >
 ---
 
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
 
-Implementing ORA is very simple. As long as genes and gene sets are already in the correct ID types and formats, the implementation of ORA only needs several lines.
+Implementing ORA is very simple. As long as genes and gene sets are already in
+the correct ID types, the implementation of ORA only needs
+a few lines of code.
 
+## Calculate the statistics
 
-Three inputs for ORA:
+There are three input parameters for ORA:
 
 - a vector of (DE) genes: `genes`
-- a list of vectors where each vector contains genes in a gene set: `gene_sets`
+- a gene set: `gene_set`
 - a vector of background genes: `universe`
 
-We calculate the following numbers:
+With these three objects, we calculate the following statistics:
 
-Number of total genes: 
+The number of total genes: 
 
 ```r
 n_universe = length(universe)
 ```
 
-Number of DE genes:
+The number of DE genes:
 
 ```r
-n_genes = length(genes)
+k = length(genes)
 ```
 
-Sizes of gene sets:
+The number of genes in each gene set, i.e., the size of each gene set:
 
 ```r
-m = sapply(gene_sets, length)
+m = length(gene_set)
 ```
 
-
-Number of DE genes in gene sets:
+And, the number of DE genes in gene sets:
 
 ```r
-x = sapply(gene_sets, function(x) length(intersect(x, genes)))
+x = length(intersect(gene_set, genes))
 ```
 
-We rename `n_genes` to `k`:
-
-```r
-k = n_genes
-```
 
 
 <style>
@@ -72,7 +81,7 @@ We put these variables into the 2x2 contigency table:
 |total |  `m`    |    -     |  `n_universe` |
 
 
-Then we can calculate p-values from the hypergeometric distribution as:
+Then we can calculate the p-value from the hypergeometric distribution as:
 
 ```r
 phyper(x - 1, m, n_universe - m, k, lower.tail = FALSE)
@@ -84,24 +93,51 @@ which is the same as:
 phyper(x - 1, k, n_universe - k, m, lower.tail = FALSE)
 ```
 
-Let's put all these code into a function:
+Note, `phyper()` calculates $P(X > x)$, thus we write `phyper(x - 1, ...)` which corresponds to $P(X > x - 1) = P(X \ge x)$.
 
+## Wrap into a function
 
-```r
+A quick and dirty way by first implementing a function working on single gene set, then applying it to a list of gene sets.
+
+```{r}
+ora_single = function(genes, gene_set, universe) {
+    n_universe = length(universe)
+    k = length(genes)
+    
+    x = length(intersect(gene_set, genes))
+    m = length(gene_set)
+    n = n_universe - m
+    
+    p = phyper(x - 1, m, n, k, lower.tail = FALSE)
+
+    p
+}
+ora =  function(genes, gene_sets, universe) {
+    ns = length(gene_sets)
+    p = numeric(ns)
+    for(i in seq_along(gene_sets)) {
+        p[i] = ora_single(genes, gene_sets[[i]], universe)
+    }
+    p
+}
+```
+
+Or we can do it in a vectorized way:
+
+```{r}
 ora = function(genes, gene_sets, universe) {
     n_universe = length(universe)
-    n_genes = length(genes)
+    k = length(genes)
     
     x = sapply(gene_sets, function(x) length(intersect(x, genes)))
     m = sapply(gene_sets, length)
     n = n_universe - m
-    k = n_genes
     
     p = phyper(x - 1, m, n, k, lower.tail = FALSE)
 
     data.frame(
         gene_set = names(gene_sets),
-        hits = x,
+        n_hits = x,
         n_genes = k,
         n_gs = m,
         n_total = n_universe,
@@ -110,12 +146,13 @@ ora = function(genes, gene_sets, universe) {
 }
 ```
 
+
 We can further improve the function by:
 
-1. set the default of `universe` to the total genes in `gene_sets`
-2. intersect `genes` and `gene_sets` to `universe`. Note this step also removes duplicated genes
-3. add adjusted log2 fold enrichment and p-values
-4. order the result table by the significance
+1. setting the default of `universe` to the total genes in `gene_sets`,
+2. intersecting `genes` and `gene_sets` to `universe`. Note this step also removes duplicated genes,
+3. adding log2 fold enrichment and adjusted p-values to the result data frame,
+4. ordering the result data frame by the significance.
 
 ```{r}
 ora = function(genes, gene_sets, universe = NULL) {
@@ -125,23 +162,159 @@ ora = function(genes, gene_sets, universe = NULL) {
     } else {
         universe = unique(universe)
     }
-    # restrict in universe
+
     genes = intersect(genes, universe)
     gene_sets = lapply(gene_sets, function(x) intersect(x, universe))
 
     n_universe = length(universe)
-    n_genes = length(genes)
+    k = length(genes)
     
     x = sapply(gene_sets, function(x) length(intersect(x, genes)))
     m = sapply(gene_sets, length)
     n = n_universe - m
-    k = n_genes
     
     p = phyper(x - 1, m, n, k, lower.tail = FALSE)
 
     df = data.frame(
         gene_set = names(gene_sets),
-        hits = x,
+        n_hits = x,
+        n_genes = k,
+        n_gs = m,
+        n_universe = n_universe,
+        log2fe = log2(x*n_universe/k/m),
+        p_value = p
+    )
+
+    df$p_adjust = p.adjust(df$p_value, "BH")
+    df[order(df$p_adjust, df$p_value), ,drop = FALSE]
+}
+```
+
+Let's try our `ora()` with 1000 random genes on the GO gene sets:
+
+```{r}
+library(org.Hs.eg.db)
+library(GSEAtutorial)
+gs = get_GO_gene_sets_from_orgdb(org.Hs.eg.db, gene_id_type = "ENTREZID")
+gs = lapply(gs, unique)  # important!, there are duplicated genes in some GO terms
+genes = random_genes(org.Hs.eg.db, 1000, "ENTREZID")
+
+df = ora(genes, gs)
+head(df)
+```
+
+
+## Further optimization
+
+We first rename `ora()` to `ora_old()` later for comparison.
+
+```{r}
+ora_old = ora
+```
+
+`ora()` is already very fast. However, in the previous implementation, there is still a part which is relatively slow in the function.
+Let't first do a profiling.
+
+```{r}
+Rprof()
+df = ora(genes, gs)
+Rprof(NULL)
+summaryRprof()
+```
+
+We can see the `intersect()` function consumes more than 90% of the total runtime. `intersect()` internally uses the `match()` function,
+and there is a faster implementation in the **fastmatch** package. We also optimize the use of the `unlist()` function by adding
+one additional argument `use.names = FALSE` since we do not care about the names of the unlisted vector.
+
+```{r}
+library(fastmatch)
+ora = function(genes, gene_sets, universe = NULL) {
+
+    if(is.null(universe)) {
+        universe = unique(unlist(gene_sets, use.names = FALSE))
+    } else {
+        universe = unique(universe)
+    }
+    
+    genes = intersect(genes, universe)
+    gene_sets = lapply(gene_sets, function(x) x[x %fin% universe])
+
+    n_universe = length(universe)
+    k = length(genes)
+    
+    x = sapply(gene_sets, function(x) sum(x %fin% genes))
+    m = sapply(gene_sets, length)
+    n = n_universe - m
+    
+    p = phyper(x - 1, m, n, k, lower.tail = FALSE)
+
+    df = data.frame(
+        gene_set = names(gene_sets),
+        n_hits = x,
+        n_genes = k,
+        n_gs = m,
+        n_total = n_universe,
+        log2fe = log2(x*n_universe/k/m),
+        p_value = p
+    )
+
+    df$p_adjust = p.adjust(df$p_value, "BH")
+    df[order(df$p_adjust, df$p_value), ,drop = FALSE]
+}
+```
+
+Now let's benchmark `ora_old()` and the new `ora()`:
+
+```{r}
+library(microbenchmark)
+microbenchmark(
+    ora_old = ora_old(genes, gs),
+    ora = ora(genes, gs),
+    times = 10
+)
+```
+
+`ora()` is more than 40x faster than `ora_old()`! We have a very fast implementation of ORA 
+than majority of others from R/Bioconductor.
+
+## More
+
+There is still 5% ~ 10% space for further optimization. Note in the previous `ora()`, 
+`x %fin% universe` actually matches between two character vectors (internally by hash tables).
+If we can change it to match between two integer vectors, it might further improve the code.
+
+In the next improved implementation, we still use `fmatch()` to perform fast matching. We change
+genes in objects `genes` and `gene_sets` all to the corresponding integer indicies in `universe`.
+This is done by `fmatch()`.
+
+```{r}
+ora2 = function(genes, gene_sets, universe = NULL) {
+
+    if(is.null(universe)) {
+        universe = unique(unlist(gene_sets, use.names = FALSE))
+    } else {
+        universe = unique(universe)
+    }
+
+    # convert genes to integer indicies
+    genes = fmatch(genes, universe); genes = genes[!is.na(genes)]
+    gene_sets = lapply(gene_sets, function(x) {
+        v = fmatch(x, universe)
+        v[!is.na(v)]
+    })
+
+    n_universe = length(universe)
+    k = length(genes)
+    
+    x = sapply(gene_sets, function(x) sum(x %fin% genes)) # now %fin% is applied on integer vectors
+    m = sapply(gene_sets, length)
+    n = n_universe - m
+    
+    p = phyper(x - 1, m, n, k, lower.tail = FALSE)
+
+    df = data.frame(
+        gene_set = names(gene_sets),
+        n_hits = x,
         n_genes = k,
         n_gs = m,
         n_total = n_universe,
@@ -155,22 +328,63 @@ ora = function(genes, gene_sets, universe = NULL) {
 }
 ```
 
-Let's try our `ora()` with 1000 random genes on the MSigDB hallmark gene sets.
-`get_msigdb()` is from the **GSEAtraining** package.
-
 ```{r}
-library(org.Hs.eg.db)
-library(GSEAtraining)
-gs = get_msigdb(version = "2023.2.Hs", collection = "h.all")
-genes = random_genes(org.Hs.eg.db, 1000, "ENTREZID")
-
-df = ora(genes, gs)
-head(df)
+microbenchmark(
+    ora  = ora(genes, gs),
+    ora2 = ora2(genes, gs),
+    times = 10
+)
 ```
 
-The only restriction of `ora()` is the ID type for `genes` should be
-the same as in `gene_sets`.
+Let's make a final version of `ora()`:
 
+
+```{r}
+ora = function(genes, gene_sets, universe = NULL, min_hits = 3, min_size = 5, max_size = 2500) {
+
+    if(is.null(universe)) {
+        universe = unique(unlist(gene_sets, use.names = FALSE))
+    } else {
+        universe = unique(universe)
+    }
+
+    # convert genes to integer indicies
+    genes = fmatch(genes, universe); genes = genes[!is.na(genes)]
+    gene_sets = lapply(gene_sets, function(x) {
+        v = fmatch(x, universe)
+        v[!is.na(v)]
+    })
+
+    nl = sapply(gene_sets, length)
+    gene_sets = gene_sets[nl >= min_size & nl <= max_size]
+
+    n_universe = length(universe)
+    k = length(genes)
+    
+    x = sapply(gene_sets, function(x) sum(x %fin% genes)) # now %fin% is applied on integer vectors
+    m = sapply(gene_sets, length)
+    n = n_universe - m
+    
+    p = phyper(x - 1, m, n, k, lower.tail = FALSE)
+
+    df = data.frame(
+        gene_set = names(gene_sets),
+        n_hits = x,
+        n_genes = k,
+        n_gs = m,
+        n_total = n_universe,
+        log2fe = log2(x*n_universe/k/m),
+        p_value = p
+    )
+
+    df = df[df$n_hits >= min_hits, , drop = FALSE]
+
+    df$p_adjust = p.adjust(df$p_value, "BH")
+    df = df[order(df$p_adjust, df$p_value), ,drop = FALSE]
+    rownames(df) = NULL
+    df
+}
+```
 
 ## Practice 
 
@@ -181,9 +395,9 @@ the same as in `gene_sets`.
 The file `de.rds` contains results from a differential expression (DE) analysis.
 
 ```{r}
-de = readRDS(system.file("extdata", "de.rds", package = "GSEAtraining"))
+de = readRDS(system.file("extdata", "de.rds", package = "GSEAtutorial"))
 de = de[, c("symbol", "p_value")]
-de = de[!is.na(de$p_value), ]
+de = de[!is.na(de$p_value) & de$symbol != "", ]
 head(de)
 ```
 
@@ -235,7 +449,7 @@ sum(tb2$p_adjust < 0.05)
 sum(tb3$p_adjust < 0.05)
 ```
 
-Actually we can see gene set enrichment analysis is a very robust method
+Actually we can see gene set enrichment analysis is a robust method
 which is not sensitive to DE cutoffs (at least for this dataset).
 
 Make a Venn (Euler) diagram:
@@ -249,29 +463,228 @@ plot(euler(list("DE_cutoff_0.05"  = tb1$gene_set[tb1$p_adjust < 0.05],
      quantities = TRUE)
 ```
 
-Compare log2 fold enrichment from the three ORA results. First take the common GO terms
-in the three ORA tables.
+And the Venn diagram for DE genes:
 
 ```{r}
-cn = intersect(intersect(rownames(tb1), rownames(tb2)), rownames(tb3))
+plot(euler(list("DE_cutoff_0.05"  = de_genes_1,
+                "DE_cutoff_0.01"  = de_genes_2,
+                "DE_cutoff_0.001" = de_genes_3)), 
+     quantities = TRUE)
 ```
 
-Then simply make pairwise scatter plots:
 
-```{r, fig.width = 12, fig.height = 4}
-par(mfrow = c(1, 3))
-plot(tb1[cn, "log2fe"], tb2[cn, "log2fe"], pch = 16, cex = 0.5, col = "#00000080",
-    xlim = c(-5, 5), ylim = c(-5, 5), main = "compare log2 fold enrichment from ORA",
-    xlab = "DE_cutoff_0.05", ylab = "DE_cutoff_0.01")
-abline(a = 0, b = 1, lty = 2, col = "red")
 
-plot(tb1[cn, "log2fe"], tb3[cn, "log2fe"], pch = 16, cex = 0.5, col = "#00000080",
-    xlim = c(-5, 5), ylim = c(-5, 5), main = "compare log2 fold enrichment from ORA",
-    xlab = "DE_cutoff_0.05", ylab = "DE_cutoff_0.001")
-abline(a = 0, b = 1, lty = 2, col = "red")
+### {.tabset}
 
-plot(tb2[cn, "log2fe"], tb3[cn, "log2fe"], pch = 16, cex = 0.5, col = "#00000080",
-    xlim = c(-5, 5), ylim = c(-5, 5), main = "compare log2 fold enrichment from ORA",
-    xlab = "DE_cutoff_0.01", ylab = "DE_cutoff_0.001")
-abline(a = 0, b = 1, lty = 2, col = "red")
+#### Practice 2
+
+The `ora()` function can be used as the core part of a full-functional function for ORA analysis.
+Please implement a `ora_go()` for GO analysis
+
+
+#### Solution
+
+
+```{r}
+CACHE = new.env(parent = emptyenv())
+
+load_go_genesets = function(org_db, ontology) {
+    db_info = dbInfo(dbconn(org_db))
+    organism = db_info$value[db_info$name == "ORGANISM"]
+    if(is.null(CACHE$go_genesets[[organism]][[ontology]])) {
+        suppressMessages(tb <- AnnotationDbi::select(org_db, keys = ontology, keytype = "ONTOLOGYALL", columns = c("ENTREZID", "GOALL")))
+        gs = split(tb$ENTREZID, tb$GOALL)
+        go_gs = lapply(gs, function(x) {
+            as.character(unique(x))
+        })
+
+        go_names = Term(GOTERM)[names(go_gs)]
+
+        CACHE$go_genesets[[organism]][[ontology]]$go_names = go_names
+        CACHE$go_genesets[[organism]][[ontology]]$go_gs = go_gs
+    } else {
+        go_names = CACHE$go_genesets[[organism]][[ontology]]$go_names
+        go_gs = CACHE$go_genesets[[organism]][[ontology]]$go_gs
+    }
+
+    list(names = go_names, gs = go_gs)
+}
+
+ora_go = function(genes, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...) {
+    lt = load_go_genesets(org_db, ontology)
+   
+    df = ora(genes, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+load_kegg_genesets = function(organism, db) {
+    if(is.null(CACHE$kegg_pathways[[db]][[organism]])) {
+        if(db == "pathway") {
+            gs_names = read.table(url(paste0("https://rest.kegg.jp/list/", db, "/", organism)), sep = "\t", quote = "")
+        } else {
+            gs_names = read.table(url(paste0("https://rest.kegg.jp/list/", db)), sep = "\t", quote = "")
+        }
+        gs_names = structure(gs_names[, 2], names = gs_names[, 1])
+
+        gs_genes = read.table(url(paste0("https://rest.kegg.jp/link/", db, "/", organism)), sep = "\t", quote = "")
+        gs_genes[, 1] = gsub("^\\w+:", "", gs_genes[, 1])
+        gs_genes[, 2] = gsub("^\\w+:", "", gs_genes[, 2])
+        if(db == "module") {
+            gs_genes[, 2] = gsub("^[a-zA-Z]+_", "", gs_genes[, 2])
+        }
+
+        gs = split(gs_genes[, 1], gs_genes[, 2])
+        gs = lapply(gs, function(x) {
+            as.character(unique(x))
+        })
+
+        CACHE$kegg_pathways[[db]][[organism]]$gs_names = gs_names
+        CACHE$kegg_pathways[[db]][[organism]]$gs = gs
+    } else {
+        gs_names = CACHE$kegg_pathways[[db]][[organism]]$gs_names
+        gs = CACHE$kegg_pathways[[db]][[organism]]$gs
+    }
+
+    list(names = gs_names, gs = gs)
+}
+
+# db: pathway, module, ko, network, disease, drug
+ora_kegg = function(genes, organism = "hsa", db = "pathway", ...) {
+    lt = load_kegg_genesets(organism, db)
+
+    df = ora(genes, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+
+load_msigdb_genesets = function(collection, version) {
+    dataset = paste0(version, "/", collection)
+    if(is.null(CACHE$msigdb_genesets[[dataset]])) {
+        gs = get_msigdb(version = version, collection = collection)
+        CACHE$msigdb_genesets[[dataset]] = gs
+    } else {
+        gs = CACHE$msigdb_genesets[[dataset]]
+    }
+
+    list(gs = gs)
+}
+
+ora_msigdb = function(genes, collection = "h.all", version = "2024.1.Hs", ...) {
+    lt = load_msigdb_genesets(collection, version)
+
+    df = ora(genes, lt$gs, ...)
+    df
+}
+
+library(reactome.db)
+load_reactome_genesets = function(organism) {
+    if(is.null(CACHE$reactome_pathways)) {
+        pathway_names = unlist(as.list(reactomePATHID2NAME))
+        pathway_gs = as.list(reactomePATHID2EXTID)
+
+        cn = intersect(names(pathway_names), names(pathway_gs))
+        pathway_names = pathway_names[cn]
+        pathway_gs = pathway_gs[cn]
+
+        CACHE$reactome_pathways$pathway_gs = pathway_gs
+        CACHE$reactome_pathways$pathway_names = pathway_names
+    } else {
+        pathway_gs = CACHE$reactome_pathways$pathway_gs
+        pathway_names = CACHE$reactome_pathways$pathway_names
+    }
+
+    l = grepl(paste0("^R-", organism, "-"), names(pathway_names))
+    list(names = pathway_names[l], gs = pathway_gs[l])
+}
+
+ora_reactome = function(genes, organism = "HSA", ...) {
+    lt = load_reactome_genesets(organism)
+
+    df = ora(genes, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+library(UniProtKeywords)
+ora_keywords = function(genes, organism = "human", ...) {
+    gs = load_keyword_genesets(organism)
+    df = ora(genes, gs, ...)
+    df
+}
+
+library(simona)
+load_simona_genesets = function(fun, ontology, organism = "human", ...) {
+    if(is.null(CACHE$simona_genesets[[ontology]][[organism]])) {
+        dag = fun(organism)
+        mc = mcols(dag)
+        gs_names = structure(mc$name, names = rownames(mc))
+        all_terms = dag_all_terms(dag)
+        gs = term_annotations(dag, all_terms)
+        gs_names = gs_names[all_terms]
+
+        org_db = switch(organism,
+            human = org.Hs.eg.db::org.Hs.eg.db,
+            mouse = org.Ms.eg.db::org.Ms.eg.db,
+            rat   = org.Rn.eg.db::org.Rn.eg.db,
+            stop("not supported")
+        )
+
+        x = keys(org_db, keytype = "SYMBOL")
+        suppressMessages(map_tb <- AnnotationDbi::select(org_db, keys = x, keytype = "SYMBOL", columns = c("ENTREZID", "GENETYPE")))
+        map_tb = map_tb[map_tb$GENETYPE == "protein-coding", , drop = FALSE]
+        map_tb = map_tb[!duplicated(map_tb[, 1]), , drop = FALSE]
+        map = structure(map_tb[, 2], names = map_tb[, 1])
+
+        gs = lapply(gs, function(x) {
+            x2 = map[x]
+            unique(x2[!is.na(x2)])
+        })
+
+        n = sapply(gs, length)
+        gs = gs[n > 0]
+        gs_names = gs_names[n > 0]
+
+        CACHE$simona_genesets[[ontology]][[organism]]$gs = gs
+        CACHE$simona_genesets[[ontology]][[organism]]$gs_names = gs_names
+    } else {
+        gs = CACHE$simona_genesets[[ontology]][[organism]]$gs
+        gs_names = CACHE$simona_genesets[[ontology]][[organism]]$gs_names
+    }
+
+    list(gs = gs, names = gs_names)
+}
+
+# the human phenotype ontology
+ora_phenotype = function(genes, organism = "human", ...) {
+    lt = load_simona_genesets(ontology_hp, "hp", organism = organism)
+
+    df = ora(genes, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
+
+# disease ontology
+ora_disease = function(genes, organism = "human", ...) {
+    lt = load_simona_genesets(ontology_rdo, "rdo", organism = organism)
+
+    df = ora(genes, lt$gs, ...)
+    df$description = lt$names[df$gene_set]
+    df
+}
 ```
+
+Let's test these `ora_*()` functions.
+
+```{r}
+genes = random_genes(org.Hs.eg.db, 1000)
+head(ora_go(genes))
+head(ora_kegg(genes))
+head(ora_msigdb(genes))
+head(ora_reactome(genes))
+head(ora_keywords(genes))
+head(ora_phenotype(genes))
+head(ora_disease(genes))
+```
+

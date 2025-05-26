@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 1-00: Representation of gene sets in R}
+  %\VignetteIndexEntry{Topic 1-00: Data representation of gene sets in R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

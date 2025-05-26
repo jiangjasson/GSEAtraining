@@ -18,39 +18,33 @@ vignette: >
 ### Single ORA result
 
 ```{r}
-library(GSEAtraining)
+library(GSEAtutorial)
 
-lt = readRDS(system.file("extdata", "ora.rds", package = "GSEAtraining"))
+lt = readRDS(system.file("extdata", "ora.rds", package = "GSEAtutorial"))
 diff_gene = lt$diff_gene
 diff_gene = convert_to_entrez_id(diff_gene)
 ```
 
 ```{r}
-library(clusterProfiler)
 library(org.Hs.eg.db)
-res = enrichGO(gene = diff_gene, ont = "BP", OrgDb = org.Hs.eg.db, pvalueCutoff = 1)
-res = add_more_columns(res)
+tb = ora_go(diff_gene, org.Hs.eg.db, "BP")
 ```
 
 Let's start with the enrichment table from the ORA analysis. 
 
-```{r}
-tb = res@result
-head(tb)
-```
 
 The mostly-used type of plot is to use simple statistical graphics for a small set of pre-selected gene sets.
 
 ```{r}
 par(mar = c(4.1, 20, 4, 1))
-barplot(tb$n_hits[1:10], horiz = TRUE, names.arg = tb$Description[1:10], las = 1)
+barplot(tb$n_hits[1:10], horiz = TRUE, names.arg = tb$description[1:10], las = 1)
 ```
 
 Using **ggplot2** is a better idea for visualizing data.
 
 ```{r}
 library(ggplot2)
-ggplot(tb[1:10, ], aes(x = n_hits, y = Description)) + 
+ggplot(tb[1:10, ], aes(x = n_hits, y = description)) + 
     geom_col()
 ```
 
@@ -59,46 +53,46 @@ are log2 fold enrichment or -log10 p.adjust.
 
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description)) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
     geom_col()
 ```
 
 It is also common to add the p-values/adjusted p-values to the bars.
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description)) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
     geom_col() +
-    geom_text(aes(x = log2_fold_enrichment, label = sprintf('%1.e', p.adjust)))
+    geom_text(aes(x = log2fe, label = sprintf('%1.e', p_adjust)))
 ```
 
 By default, **ggplot2** reorders labels alphabetically. You can set the name
 as a factor and specify the order there. 
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = factor(Description, levels = Description))) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = factor(description, levels = description))) + 
     geom_col()
 ```
 
 Points are also very frequently used.
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description)) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
     geom_point() +
-    xlim(0, max(tb$log2_fold_enrichment[1:10]))
+    xlim(0, max(tb$log2fe[1:10]))
 ```
 
 Using dot plot, we can map a second statistic to the size of dots.
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description, size = n_hits)) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = description, size = n_hits)) + 
     geom_point() +
-    xlim(0, max(tb$log2_fold_enrichment[1:10]))
+    xlim(0, max(tb$log2fe[1:10]))
 ```
 
 Even more, we can map a third statistic to the dot colors.
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description, size = n_hits, col = n_hits/gs_size)) + 
+ggplot(tb[1:10, ], aes(x = log2fe, y = description, size = n_hits, col = n_hits/n_gs)) + 
     geom_point()
 
 ```
@@ -107,45 +101,19 @@ ggplot(tb[1:10, ], aes(x = log2_fold_enrichment, y = Description, size = n_hits,
 A volcano plot which is -log10(p.adjust) vs log2 fold enrichment:
 
 ```{r}
-ggplot(tb, aes(x = log2_fold_enrichment, y = -log10(p.adjust))) +
-    geom_point(col = ifelse(tb$log2_fold_enrichment > 1 & tb$p.adjust < 0.001, "black", "grey")) +
+ggplot(tb, aes(x = log2fe, y = -log10(p_adjust))) +
+    geom_point(col = ifelse(tb$log2fe > 1 & tb$p_adjust < 0.001, "black", "grey")) +
     geom_hline(yintercept = 3, lty = 2) + geom_vline(xintercept = 1, lty = 2)
 ```
 
 With the volcano plot, we can easily see the preference of enrichment to the sizes of gene sets.
 
 ```{r}
-ggplot(tb, aes(x = log2_fold_enrichment, y = -log10(p.adjust), color = gs_size, size = n_hits)) +
+ggplot(tb, aes(x = log2fe, y = -log10(p_adjust), color = n_gs, size = n_hits)) +
     geom_point() + scale_colour_distiller(palette = "Spectral")
 
 ```
 
-### Visualizations from clusterProfiler
-
-**clusterProfiler** provides many visualization functions (now these functions are all moved
-into a new **enrichplot** package).
-
-```{r, fig.height = 10}
-library(enrichplot)
-cnetplot(res)
-```
-
-```{r}
-heatplot(res, showCategory = 10)
-```
-
-```{r, fig.height = 9}
-res = pairwise_termsim(res)
-treeplot(res)
-```
-
-```{r, fig.width = 10, fig.height = 10}
-emapplot(res)
-```
-
-```{r, fig.height = 6, fig.width = 10}
-upsetplot(res)
-```
 
 ### Multiple ORA results
 
@@ -153,28 +121,28 @@ To visualize multiple ORA enrichment tables in one plot, we need to first prepar
 which combines results for a pre-selected gene sets.
 
 ```{r}
-lt = readRDS(system.file("extdata", "lt_enrichment_tables.rds", package = "GSEAtraining"))
+tbl = readRDS(system.file("extdata", "lt_enrichment_tables.rds", package = "GSEAtutorial"))
 
 set.seed(666)
-terms = sample(lt[[1]]$ID, 10)
+terms = sample(tbl[[1]]$gene_set, 10)
 
 tb = NULL
-for(nm in names(lt)) {
-    x = lt[[nm]]
-    x = x[x$ID %in% terms, colnames(x) != "geneID"]
+for(nm in names(tbl)) {
+    x = tbl[[nm]]
+    x = x[x$gene_set %in% terms, colnames(x) != "geneID"]
     x$sample = nm
     tb = rbind(tb, x)
 }
 ```
 
 ```{r}
-ggplot(tb, aes(x = sample, y = Description, size = -log10(p.adjust))) +
-    geom_point(color = ifelse(tb$p.adjust < 0.05, "black", "grey"))
+ggplot(tb, aes(x = sample, y = description, size = -log10(p_adjust))) +
+    geom_point(color = ifelse(tb$p_adjust < 0.05, "black", "grey"))
 ```
 
 ```{r}
-ggplot(tb, aes(x = sample, y = wrap_text(Description), size = -log10(p.adjust))) +
-    geom_point(color = ifelse(tb$p.adjust < 0.05, "black", "grey"))
+ggplot(tb, aes(x = sample, y = wrap_text(description), size = -log10(p_adjust))) +
+    geom_point(color = ifelse(tb$p_adjust < 0.05, "black", "grey"))
 ```
 
 ## GSEA result
@@ -182,28 +150,26 @@ ggplot(tb, aes(x = sample, y = wrap_text(Description), size = -log10(p.adjust)))
 ### Single GSEA result
 
 ```{r}
-gene_diff_score = readRDS(system.file("extdata", "gene_diff_score.rds", package = "GSEAtraining"))
+gene_diff_score = readRDS(system.file("extdata", "gene_diff_score.rds", package = "GSEAtutorial"))
 gene_diff_score = convert_to_entrez_id(gene_diff_score)
 gene_diff_score = sort(gene_diff_score, decreasing = TRUE)
-res_gsea = gseGO(geneList = gene_diff_score, ont = "BP", OrgDb = org.Hs.eg.db, pvalueCutoff = 1)
-tb = res_gsea@result
-head(tb)
+tb_gsea = fgsea_go(gene_diff_score, org.Hs.eg.db, "BP")
 ```
 
 Similarly, we can visualize NES scores of gene sets.
 
 ```{r}
-ggplot(tb[1:10, ], aes(x = NES, y = Description)) + 
+ggplot(tb_gsea[1:10, ], aes(x = nes, y = description)) + 
     geom_col()
-ggplot(tb[1:10, ], aes(x = NES, y = Description)) + 
-    geom_col(fill = ifelse(tb$NES[1:10] > 0, "red", "darkgreen"))
+ggplot(tb_gsea[1:10, ], aes(x = nes, y = description)) + 
+    geom_col(fill = ifelse(tb_gsea$nes[1:10] > 0, "red", "darkgreen"))
 ```
 
 The volcano plot:
 
 ```{r}
-ggplot(tb, aes(x = NES, y = -log10(p.adjust))) +
-    geom_point(col = ifelse(abs(tb$NES) > 1 & tb$p.adjust < 0.05, "black", "grey")) +
+ggplot(tb_gsea, aes(x = nes, y = -log10(p_adjust))) +
+    geom_point(col = ifelse(abs(tb_gsea$nes) > 1 & tb_gsea$p_adjust < 0.05, "black", "grey")) +
     geom_hline(yintercept = -log10(0.05), lty = 2) + geom_vline(xintercept = c(1, -1), lty = 2)
 ```
 
@@ -211,24 +177,17 @@ ggplot(tb, aes(x = NES, y = -log10(p.adjust))) +
 The degree of enrichment is also dependent to the gene set sizes.
 
 ```{r}
-ggplot(tb, aes(x = NES, y = -log10(p.adjust), color = setSize)) +
+ggplot(tb_gsea, aes(x = nes, y = -log10(p_adjust), color = n_gs)) +
     geom_point() + scale_colour_distiller(palette = "Spectral")
 ```
 
-The ridge plot (joy plot/mountain plot) visualizes the distribution of gene-level scores in each gene set.
-
-```{r, fig.height = 10}
-ridgeplot(res_gsea)
-```
 
 And the classic GSEA plot:
 
 ```{r}
-gseaplot(res_gsea, geneSetID = 4)
-gseaplot2(res_gsea, geneSetID = 4)
+gs = load_go_genesets(org.Hs.eg.db, "BP")$gs
+gsea_plot(gene_diff_score, c("GO:0007186", "GO:0022402", "GO:0050877"), gs)
 ```
 
-```{r}
-ind = c(which.max(res_gsea@result$NES), which.min(res_gsea@result$NES))
-gseaplot2(res_gsea, geneSetID = ind)
-```
+
+

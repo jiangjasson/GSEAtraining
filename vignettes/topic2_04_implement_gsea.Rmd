@@ -13,15 +13,28 @@ vignette: >
 ---
 
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
 In this document, we will implement the two versions of GSEA in R, using the p53 dataset
 also from the GSEA paper.
 
 ```{r}
-lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtraining"))
+lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtutorial"))
 expr = lt$expr
 condition = lt$condition
 
-ln = strsplit(readLines(system.file("extdata", "c2.symbols.gmt", package = "GSEAtraining")), "\t")
+ln = strsplit(readLines(system.file("extdata", "c2.symbols.gmt", package = "GSEAtutorial")), "\t")
 gs = lapply(ln, function(x) x[-(1:2)])
 names(gs) = sapply(ln, function(x) x[1])
 
@@ -34,11 +47,16 @@ This gene set is very small:
 length(geneset)
 ```
 
+The heatmap of genes in this gene set:
 
+```{r}
+library(ComplexHeatmap)
+Heatmap(t(scale(t(expr[geneset, ]))), column_split = condition,
+	top_annotation = HeatmapAnnotation(condition = condition))
+```
 
 Note here gene IDs in the expression matrix and in the gene set are all gene
 symbols, thus no more adjustment needs to be done here.
-
 
 The gene-level difference score is set as signal-to-noise ratios, which is:
 
@@ -406,6 +424,57 @@ NES does not take into account of the dispersion of `es_rand`, sometimes z-score
 ```{r}
 (es - mean(es_rand))/sd(es_rand)
 ```
+
+## Two-sided
+
+The ES score we have introduced in actually one-sided, i.e. we only look at the enrichment for up-regulated genes.
+Basically, if there exist negative values in `f2 - f1`, it represents there is an enrichment for down-regulated genes.
+The the enrichment score is the maximal between the positive ES and the negative ES (in their absolute values). The sign
+of the maximal one is kept to represent the direction of the differential expression in the gene set.
+
+```{r}
+calculate_es_v2_gene_perm_two_sided = function(s, geneset, perm = FALSE, plot = FALSE, power = 1) {
+	
+	if(perm) {
+	    # s is still sorted, but the gene labels are randomly shuffled
+	    # to break the associations between gene scores and gene labels.
+		names(s) = sample(names(s))  ## <<- here
+	}
+
+	l_set = names(s) %in% geneset
+	s_set = abs(s)^power
+	s_set[!l_set] = 0
+	f1 = cumsum(s_set)/sum(s_set)
+
+	l_other = !l_set
+	f2 = cumsum(l_other)/sum(l_other)
+
+	m1 = max(f1 - f2)
+	m2 = min(f1 - f2)
+
+	max(m1, -m2)*ifelse(m1 > -m2, sign(m1), sign(m2))
+}
+```
+
+```{r}
+es = calculate_es_v2_gene_perm_two_sided(s, geneset)
+es_rand = numeric(1000)
+for(i in 1:1000) {
+	es_rand[i] = calculate_es_v2_gene_perm_two_sided(s, geneset, perm = TRUE)
+}
+```
+
+The calculation of the p-value is a little bit different. As ES is actually from two different ES scores, the 1000 random ES
+should be split into two distributions. If ES is positive, then we should only look at the null ES where they are positive.
+And so is for the negative ES.
+
+```{r}
+hist(es_rand)
+sum(es_rand > es)/sum(es_rand > 0)
+es/mean(es_rand[es_rand > es])
+```
+
+In this case, z-score might be confusing as it measures how far it is from the positive null ES (to the right) or the negatice null ES (to the left).
 
 
 ## Practice 

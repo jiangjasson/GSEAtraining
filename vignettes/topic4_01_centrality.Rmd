@@ -1,0 +1,188 @@
+---
+title: "Topic 4-01: Centrality-based pathway enrichment analysis"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 4-01: Centrality-based pathway enrichment analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+## ORA extension
+
+We start with a differential gene list and an universe gene list. Let's first convert them to EntreZ IDs:
+
+```{r}
+library(CePa)
+data(gene.list)
+genes = gene.list$dif
+universe = gene.list$bk
+```
+
+```{r}
+library(org.Hs.eg.db)
+map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+genes = map[genes]; genes = unname(genes[!is.na(genes)])
+universe = map[universe]; universe = unname(universe[!is.na(universe)])
+```
+
+The most important part in topology-based pathway enrichment analysis is that we need pathways in the network representations.
+The **KEGGgraph** can read network data of KEGG pathways and convert it to proper format.
+
+```{r}
+library(KEGGgraph)
+df = parseKGML2DataFrame(system.file("extdata/hsa04010.xml", package = "KEGGgraph"))
+head(df)
+df[, 1] = gsub("^hsa:", "", df[, 1])
+df[, 2] = gsub("^hsa:", "", df[, 2])
+```
+
+We only need the first two columns (from and to) to construct the network.
+
+```{r}
+library(igraph)
+g = graph_from_data_frame(df[, 1:2])
+g
+```
+
+The **igraph** package provides many different centrality methods. Here we take `degree()` as an example:
+
+```{r}
+d = degree(g)
+```
+
+Make sure all genes in `d` are within `universe`.
+
+```{r}
+d = d[intersect(names(d), universe)]
+```
+
+The statistic for the gene set is $\sum_i^n I(G_i) \cdot d_i$
+
+```{r}
+cn = intersect(genes, names(d))
+s = sum(d[cn])
+```
+
+or
+
+```r
+s = sum( (names(d) %in% genes)*d )
+```
+
+In the random permutation, we randomly pick `length(genes)` as differential genes.
+
+
+```{r}
+s_random = numeric(1000)
+for(i in 1:1000) {
+    genes_random = sample(universe, length(genes))
+    cn = intersect(genes_random, names(d))
+    s_random[i] = sum(d[cn])
+}
+```
+
+P-value is calculated in the normal way.
+
+```{r}
+hist(s_random)
+abline(v = s, col = 2)
+sum(s_random > s)/length(s_random)
+```
+
+## GSEA-extension
+
+We only consider the gene permutation process. We generate a vector of gene scores.
+
+```{r}
+score = structure(rnorm(length(universe)), names = universe)
+```
+
+As `d` has already been restricted within `universe`, the set-level statistic is calculated as $\frac{1}{n}\sum_i^n |s_i|\cdot d_i$
+
+```{r}
+s = mean(abs(score[names(d)])*d)
+```
+
+In the gene permutation, the differential scores are randomly assigned to genes.
+
+```{r}
+s_random = numeric(1000)
+for(i in 1:1000) {
+    score_random = sample(score, length(d))
+    s_random[i] = mean(abs(score_random)*d)
+}
+hist(s_random)
+abline(v = s, col = 2)
+sum(s_random > s)/length(s_random)
+```
+
+
+Question: can you also integrate the centralities into the standard GSEA method?
+
+## Helper functions
+
+Two helper funtions are provided:
+
+```{r}
+ora_kegg_topology(genes, universe, centrality = igraph::degree, verbose = FALSE) |> head()
+gsea_kegg_topology(score, centrality = igraph::degree, verbose = FALSE) |> head()
+```
+
+## CePa
+
+The **CePa** package has not been updated for ~10 years. 
+
+
+It will try six different centralities:
+
+- equal.weight
+- in.degree
+- out.degree
+- node betweenness
+- in.reach
+- out.reach
+
+
+`dif` and `bk` are two gene vectors, `pc` is in a special format.
+
+```{r, eval = FALSE}
+# around 5min
+res = cepa.ora.all(dif = gene.list$dif, bk = gene.list$bk, pc = PID.db$NCI)
+```
+
+```{r, echo = FALSE}
+res = readRDS(system.file("extdata", "cepa_res.rds", package = "GSEAtraining"))
+```
+
+Heatmap of adjusted p-values:
+
+```{r}
+plot(res, adj.method = "BH", only.sig = TRUE)
+```
+
+
+Advantages:
+
+1. use multiple centrality metrics,
+2. node-level instead of gene-level
+3. also include non-gene nodes.
+

@@ -16,7 +16,7 @@ vignette: >
 # Examples of ORA analysis
 
 ```{r}
-lt = readRDS(system.file("extdata", "ora.rds", package = "GSEAtraining"))
+lt = readRDS(system.file("extdata", "ora.rds", package = "GSEAtutorial"))
 bg_gene = lt$bg_gene
 diff_gene = lt$diff_gene
 gene_set = lt$gene_set

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Topic 1-01: Get GO gene sets • GSEAtraining</title>
+<title>Topic 1-01: Get GO gene sets • GSEAtutorial</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -31,7 +31,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GSEAtraining</a>
+        <a class="navbar-link" href="../index.html">GSEAtutorial</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.20.0</span>
       </span>
     </div>
@@ -147,7 +147,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-03-02</h4>
+            <h4 data-toc-skip class="date">2025-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtraining/blob/HEAD/vignettes/topic1_01_GO.Rmd" class="external-link"><code>vignettes/topic1_01_GO.Rmd</code></a></small>
       <div class="hidden name"><code>topic1_01_GO.Rmd</code></div>
@@ -156,7 +156,8 @@
 
     
     
-<p>To obtain GO gene sets, we need to use two packages: <strong>GO.db</strong> and <strong>org.*.db</strong> packages.</p>
+<p>To obtain GO gene sets, we need to use two packages:
+<strong>GO.db</strong> and <strong>org.*.db</strong> packages.</p>
 <div class="section level2">
 <h2 id="the-go-db-package">The GO.db package<a class="anchor" aria-label="anchor" href="#the-go-db-package"></a>
 </h2>
@@ -166,12 +167,18 @@
 <div class="section level3">
 <h3 id="use-go-db-as-a-database-object">use GO.db as a database object<a class="anchor" aria-label="anchor" href="#use-go-db-as-a-database-object"></a>
 </h3>
-<p>Before we introduce the <strong>GO.db</strong> package, we need to know that the <strong>GO.db</strong> package is built on top of the low-level infrastructure package <strong>AnnotationDbi</strong>. Thus, almost all Bioconductor “official data packages” inhert the same interface for querying data. Two important points:</p>
+<p>Before we introduce the <strong>GO.db</strong> package, we need to
+know that the <strong>GO.db</strong> package is built on top of the
+low-level infrastructure package <strong>AnnotationDbi</strong>. Thus,
+almost all Bioconductor “official data packages” inhert the same
+interface for querying data. Two important points:</p>
 <ol style="list-style-type: decimal">
-<li>There is a database object which has the same name as the package name.</li>
+<li>There is a database object which has the same name as the package
+name.</li>
 <li>They all implement the <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> interface.</li>
 </ol>
-<p>E.g. for <strong>GO.db</strong>, the object <code>GO.db</code> contains a connection to the internal SQLite database object.</p>
+<p>E.g. for <strong>GO.db</strong>, the object <code>GO.db</code>
+contains a connection to the internal SQLite database object.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GO.db</span></span></code></pre></div>
 <pre><code><span><span class="co">## GODb object:</span></span>
@@ -187,39 +194,61 @@
 <span><span class="co">## | DBSCHEMAVERSION: 2.1</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Please see: help('select') for usage information</span></span></code></pre>
-<p><code>GO.db</code> can be thought as a huge table, where <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> can be used to extract records from certain columns under certain constraits.</p>
+<p><code>GO.db</code> can be thought as a huge table, where
+<code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> can be used to extract records from certain
+columns under certain constraits.</p>
 <p><img src="go_select.png"></p>
-<p><code>GO.db</code> is a relatively simple database. The typical use is as:</p>
+<p><code>GO.db</code> is a relatively simple database. The typical use
+is as:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">GO.db</span>, keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:0000001"</span>, <span class="st">"GO:0000002"</span><span class="op">)</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ONTOLOGY"</span>, <span class="st">"TERM"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## 'select()' returned 1:1 mapping between keys and columns</span></span></code></pre>
 <pre><code><span><span class="co">##         GOID ONTOLOGY                             TERM</span></span>
 <span><span class="co">## 1 GO:0000001       BP        mitochondrion inheritance</span></span>
 <span><span class="co">## 2 GO:0000002       BP mitochondrial genome maintenance</span></span></code></pre>
-<p>It can be read as “select records in the ONTOLOGY and TERM columns of the GO.db table where GOID is <a href="GO:0000001" class="uri">GO:0000001</a> or <a href="GO:0000002" class="uri">GO:0000002</a>”.</p>
-<p>The valid columns names can be obtained by <code>columns(GO.db)</code>.</p>
+<p>It can be read as “select records in the ONTOLOGY and TERM columns of
+the GO.db table where GOID is <a href="GO:0000001" class="uri">GO:0000001</a> or <a href="GO:0000002" class="uri">GO:0000002</a>”.</p>
+<p>The valid columns names can be obtained by
+<code>columns(GO.db)</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">columns</a></span><span class="op">(</span><span class="va">GO.db</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "DEFINITION" "GOID"       "ONTOLOGY"   "TERM"</span></span></code></pre>
-<p>But note for <strong>GO.db</strong>, there are already objects generated for retrieving GO data more easily. It is unlikely in practice to directly use <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code>.</p>
+<p>But note for <strong>GO.db</strong>, there are already objects
+generated for retrieving GO data more easily. It is unlikely in practice
+to directly use <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code>.</p>
 </div>
 <div class="section level3">
 <h3 id="the-hierarchical-relations-of-go-terms">The hierarchical relations of GO terms<a class="anchor" aria-label="anchor" href="#the-hierarchical-relations-of-go-terms"></a>
 </h3>
-<p><strong>GO.db</strong> provides variables that contain relations between GO terms. Taking biological process (BP) namespace as an example, there are the following four variables (similar for other two namespaces, but with <code>GOCC</code> and <code>GOMF</code> prefix).</p>
+<p><strong>GO.db</strong> provides variables that contain relations
+between GO terms. Taking biological process (BP) namespace as an
+example, there are the following four variables (similar for other two
+namespaces, but with <code>GOCC</code> and <code>GOMF</code>
+prefix).</p>
 <ul>
 <li><code>GOBPCHILDREN</code></li>
 <li><code>GOBPPARENTS</code></li>
 <li><code>GOBPOFFSPRING</code></li>
 <li><code>GOBPANCESTOR</code></li>
 </ul>
-<p><code>GOBPCHILDREN</code> and <code>GOBPPARENTS</code> contain parent-child relations. <code>GOBPOFFSPRING</code> contains all offspring terms of GO terms (i.e., all downstream terms of a term in the GO tree) and <code>GOBPANCESTOR</code> contains all ancestor terms of a GO term (i.e., all upstream terms of a term). The information in the four variables are actually redudant, e.g., all the other three objects can be constructed from <code>GOBPCHILDREN</code>. However, these pre-computated objects will save time in downstream analysis because traversing the GO tree is time-consuming.</p>
-<p>The four variables are in the same format (objects of the <code>AnnDbBimap</code> class). Taking <code>GOBPCHILDREN</code> as an example, we can convert it to a simpler format by:</p>
+<p><code>GOBPCHILDREN</code> and <code>GOBPPARENTS</code> contain
+parent-child relations. <code>GOBPOFFSPRING</code> contains all
+offspring terms of GO terms (i.e., all downstream terms of a term in the
+GO tree) and <code>GOBPANCESTOR</code> contains all ancestor terms of a
+GO term (i.e., all upstream terms of a term). The information in the
+four variables are actually redudant, e.g., all the other three objects
+can be constructed from <code>GOBPCHILDREN</code>. However, these
+pre-computated objects will save time in downstream analysis because
+traversing the GO tree is time-consuming.</p>
+<p>The four variables are in the same format (objects of the
+<code>AnnDbBimap</code> class). Taking <code>GOBPCHILDREN</code> as an
+example, we can convert it to a simpler format by:</p>
 <ul>
 <li><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code></li>
 <li><code>asTable()</code></li>
 </ul>
-<p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> is also suggested by <strong>GO.db</strong> in its documentations.</p>
+<p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> is also suggested by <strong>GO.db</strong> in
+its documentations.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span></span></code></pre></div>
@@ -247,7 +276,13 @@
 <span><span class="co">## "GO:0000019" "GO:0010520" "GO:0010569" "GO:0045191" "GO:0045910" "GO:0045911" </span></span>
 <span><span class="co">##          isa          isa          isa </span></span>
 <span><span class="co">## "GO:0061806" "GO:0072695" "GO:1903110"</span></span></code></pre>
-<p><code>lt</code> is a simple list of vectors where each vector are child terms of a specific GO term, e.g., <code>GO:0000002</code> has a child term <code>GO:0032042</code>. The element vectors in <code>lt</code> are also named and the names represent the relation of the child term to the parent term. When the element vector has a value <code>NA</code>, e.g. <code>GO::0000001</code>, this means the GO term is a leaf in the GO tree, and it has no child term.</p>
+<p><code>lt</code> is a simple list of vectors where each vector are
+child terms of a specific GO term, e.g., <code>GO:0000002</code> has a
+child term <code>GO:0032042</code>. The element vectors in
+<code>lt</code> are also named and the names represent the relation of
+the child term to the parent term. When the element vector has a value
+<code>NA</code>, e.g. <code>GO::0000001</code>, this means the GO term
+is a leaf in the GO tree, and it has no child term.</p>
 <p><code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code> converts to a data frame:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
@@ -259,11 +294,18 @@
 <span><span class="co">## 4 GO:1903518 GO:0000012 positively regulates</span></span>
 <span><span class="co">## 5 GO:1903823 GO:0000012                  isa</span></span>
 <span><span class="co">## 6 GO:1990396 GO:0000012                  isa</span></span></code></pre>
-<p>Unfortunately, the first two columns in <code>tb</code> have the same name. A good idea is to add meaningful column names to it.</p>
+<p>Unfortunately, the first two columns in <code>tb</code> have the same
+name. A good idea is to add meaningful column names to it.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"child"</span>, <span class="st">"parent"</span><span class="op">)</span></span></code></pre></div>
-<p>Please note, the previous column names <code>c("child", "parent")</code> are only valid for <code>GOBPCHILDREN</code>. If it is from one of the three <code>GOBP*</code> objects, readers please inspect the output to determine proper column names for it. E.g. you should assign <code>c("parent", "child")</code> to <code>GOBPPARENTS</code>.</p>
-<p>With <code>tb</code>, we can calculate the fraction of different relations of GO terms.</p>
+<p>Please note, the previous column names
+<code>c("child", "parent")</code> are only valid for
+<code>GOBPCHILDREN</code>. If it is from one of the three
+<code>GOBP*</code> objects, readers please inspect the output to
+determine proper column names for it. E.g. you should assign
+<code>c("parent", "child")</code> to <code>GOBPPARENTS</code>.</p>
+<p>With <code>tb</code>, we can calculate the fraction of different
+relations of GO terms.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -293,9 +335,12 @@
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-8-3.png" width="700"></p>
-<p>We can look at the distribution of the numbers of GO terms in each object.</p>
+<p>We can look at the distribution of the numbers of GO terms in each
+object.</p>
 <ol style="list-style-type: decimal">
-<li>Number of child terms. The following plot shows it follows a power-law distribution (majority of GO terms have very few child terms).</li>
+<li>Number of child terms. The following plot shows it follows a
+power-law distribution (majority of GO terms have very few child
+terms).</li>
 </ol>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
@@ -311,7 +356,9 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of child terms"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBPCHILDREN"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Number of parent terms. The term “<a href="GO:0008150" class="uri">GO:0008150</a>” (biological process) is removed from the analysis because it is the top node in BP namespace and it has no parent term.</li>
+<li>Number of parent terms. The term “<a href="GO:0008150" class="uri">GO:0008150</a>” (biological process) is removed from the
+analysis because it is the top node in BP namespace and it has no parent
+term.</li>
 </ol>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPPARENTS</span><span class="op">)</span></span>
@@ -325,7 +372,10 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of parent terms"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBOPARENTS"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<p><code>GOBPCHILDREN</code> and <code>GOBPPARENTS</code> contain “local/direct” relations between GO terms, <code>GOBPOFFSPRING</code> and <code>GOBPANCESTOR</code> contain “local + distal” relations between GO terms.</p>
+<p><code>GOBPCHILDREN</code> and <code>GOBPPARENTS</code> contain
+“local/direct” relations between GO terms, <code>GOBPOFFSPRING</code>
+and <code>GOBPANCESTOR</code> contain “local + distal” relations between
+GO terms.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPOFFSPRING</span><span class="op">)</span></span>
 <span><span class="va">lt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
@@ -356,7 +406,9 @@
 <pre><code><span><span class="co">##  [1] "GO:0006264" "GO:0032042" "GO:0032043" "GO:0043504" "GO:0090296"</span></span>
 <span><span class="co">##  [6] "GO:0090297" "GO:0090298" "GO:0110166" "GO:0140909" "GO:1901858"</span></span>
 <span><span class="co">## [11] "GO:1901859" "GO:1901860" "GO:1905951"</span></span></code></pre>
-<p>Constructing <code>GOBPOFFSPRING</code> from <code>GOBPCHILDREN</code> needs a recursive processing and it takes time:</p>
+<p>Constructing <code>GOBPOFFSPRING</code> from
+<code>GOBPCHILDREN</code> needs a recursive processing and it takes
+time:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_children</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span></span>
@@ -388,21 +440,26 @@
 <div class="section level3">
 <h3 id="information-of-go-terms">Information of GO terms<a class="anchor" aria-label="anchor" href="#information-of-go-terms"></a>
 </h3>
-<p>Only we only see the GO IDs, the object <code>GOTERM</code> can be used to get the names and long descriptions of GO terms.</p>
+<p>Only we only see the GO IDs, the object <code>GOTERM</code> can be
+used to get the names and long descriptions of GO terms.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GOTERM</span></span></code></pre></div>
 <pre><code><span><span class="co">## TERM map for GO (object of class "GOTermsAnnDbBimap")</span></span></code></pre>
-<p>Similarly, you can use <code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> or <code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code> to format this object:</p>
+<p>Similarly, you can use <code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> or
+<code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code> to format this object:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">)</span></span></code></pre></div>
-<p>There are the following three types of useful information for each GO Term:</p>
+<p>There are the following three types of useful information for each GO
+Term:</p>
 <ul>
 <li>GO name</li>
 <li>GO description/definition</li>
 <li>GO ontology/namespace</li>
 </ul>
-<p><code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term()</a></code>, <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Definition()</a></code> and <code><a href="https://rdrr.io/pkg/BiocGenerics/man/Ontology.html" class="external-link">Ontology()</a></code> can be directly applied to <code>GOTERM</code>:</p>
+<p><code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term()</a></code>, <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Definition()</a></code> and
+<code><a href="https://rdrr.io/pkg/BiocGenerics/man/Ontology.html" class="external-link">Ontology()</a></code> can be directly applied to
+<code>GOTERM</code>:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                                 GO:0000001 </span></span>
@@ -439,7 +496,9 @@
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GOTERM</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:0000001"</span>, <span class="st">"GO:0000002"</span>, <span class="st">"GO:0000006"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## TERM submap for GO (object of class "GOTermsAnnDbBimap")</span></span></code></pre>
-<p>With <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term()</a></code>, <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Definition()</a></code> and <code><a href="https://rdrr.io/pkg/BiocGenerics/man/Ontology.html" class="external-link">Ontology()</a></code>, it is convinient to add additional information of GO terms:</p>
+<p>With <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term()</a></code>, <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Definition()</a></code> and
+<code><a href="https://rdrr.io/pkg/BiocGenerics/man/Ontology.html" class="external-link">Ontology()</a></code>, it is convinient to add additional information
+of GO terms:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/GOTerms-class.html" class="external-link">Term</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GO:0000001"</span>, <span class="st">"GO:0000002"</span>, <span class="st">"GO:0000006"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                                              GO:0000001 </span></span>
@@ -465,11 +524,19 @@
 <div class="section level2">
 <h2 id="link-go-terms-to-genes">Link GO terms to genes<a class="anchor" aria-label="anchor" href="#link-go-terms-to-genes"></a>
 </h2>
-<p><strong>GO.db</strong> only contains information for GO terms. GO also provides gene annotated to GO terms, by manual curation or computational prediction. Such annotations are represented as mappings between GO IDs and gene IDs from external databases, which are usually synchronized between major public databases such NCBI.</p>
+<p><strong>GO.db</strong> only contains information for GO terms. GO
+also provides gene annotated to GO terms, by manual curation or
+computational prediction. Such annotations are represented as mappings
+between GO IDs and gene IDs from external databases, which are usually
+synchronized between major public databases such NCBI.</p>
 <div class="section level3">
 <h3 id="org-hs-eg-db">org.Hs.eg.db<a class="anchor" aria-label="anchor" href="#org-hs-eg-db"></a>
 </h3>
-<p>To obtains genes in each GO term in R, Bioconductor provides a family of packages with name of <strong>org.*.db</strong>. Let’s take human for example, the corresponding package is <strong>org.Hs.eg.db</strong>. <strong>org.Hs.eg.db</strong> provides a standard way to provide mappings from Entrez gene IDs to a variaty of other databases.</p>
+<p>To obtains genes in each GO term in R, Bioconductor provides a family
+of packages with name of <strong>org.*.db</strong>. Let’s take human for
+example, the corresponding package is <strong>org.Hs.eg.db</strong>.
+<strong>org.Hs.eg.db</strong> provides a standard way to provide
+mappings from Entrez gene IDs to a variaty of other databases.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span></code></pre>
@@ -508,14 +575,24 @@
 <span><span class="co">## | UPSOURCEDATE: Mon Sep 23 15:46:45 2024</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Please see: help('select') for usage information</span></span></code></pre>
-<p>You can use <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> to obtain gene-GO term relations, but there are already objects calculated and easier to use. In this package, there are two objects for mapping between GO IDs and genes:</p>
+<p>You can use <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> to obtain gene-GO term relations,
+but there are already objects calculated and easier to use. In this
+package, there are two objects for mapping between GO IDs and genes:</p>
 <ul>
 <li><code>org.Hs.egGO2EG</code></li>
 <li><code>org.Hs.egGO2ALLEGS</code></li>
 </ul>
-<p>The difference between the two objects is <code>org.Hs.egGO2EG</code> contains genes that are <em>directly annotated</em> to every GO term, while <code>org.Hs.egGO2ALLEGS</code> contains genes that directly assigned to the GO term, <em>as well as</em> genes assigned to all its ancestor terms. For example if term A is a parent of term B where A is more general, genes with function B should also have function A. Thus <code>org.Hs.egGO2ALLEGS</code> is the proper object for GO gene sets.</p>
+<p>The difference between the two objects is <code>org.Hs.egGO2EG</code>
+contains genes that are <em>directly annotated</em> to every GO term,
+while <code>org.Hs.egGO2ALLEGS</code> contains genes that directly
+assigned to the GO term, <em>as well as</em> genes assigned to all its
+ancestor terms. For example if term A is a parent of term B where A is
+more general, genes with function B should also have function A. Thus
+<code>org.Hs.egGO2ALLEGS</code> is the proper object for GO gene
+sets.</p>
 <p><img src="go_anno_true_path.png"></p>
-<p>Again, <code>org.Hs.egGO2ALLEGS</code> is a database object. There are two ways to obtain gene annotations to GO terms.</p>
+<p>Again, <code>org.Hs.egGO2ALLEGS</code> is a database object. There
+are two ways to obtain gene annotations to GO terms.</p>
 <ul>
 <li><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code></li>
 <li><code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code></li>
@@ -584,7 +661,8 @@
 <span><span class="co">##    "200558"    "201516"    "341567"    "373861"    "387893"    "441161" </span></span>
 <span><span class="co">##         IBA         IDA </span></span>
 <span><span class="co">## "112441434" "112441434"</span></span></code></pre>
-<p>If we compare to <code>org.Hs.egGO2EG</code> which contains incomplete genes:</p>
+<p>If we compare to <code>org.Hs.egGO2EG</code> which contains
+incomplete genes:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2EG</span><span class="op">)</span></span>
 <span><span class="va">lt2</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
@@ -595,7 +673,8 @@
 <span><span class="co">## $`GO:0000018`</span></span>
 <span><span class="co">##     TAS     TAS     TAS     IEP </span></span>
 <span><span class="co">##  "3575"  "3836"  "3838" "56916"</span></span></code></pre>
-<p>The gene IDs have names. They are evidence of how genes are annotated to GO terms.</p>
+<p>The gene IDs have names. They are evidence of how genes are annotated
+to GO terms.</p>
 <p>Let’s try <code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code>:</p>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
@@ -607,7 +686,10 @@
 <span><span class="co">## 4       1 GO:0006955      IBA       BP</span></span>
 <span><span class="co">## 5       1 GO:0007154      IBA       BP</span></span>
 <span><span class="co">## 6       1 GO:0007165      IBA       BP</span></span></code></pre>
-<p>Now there is an additional column <code>"Ontology"</code>. This is convinient because <code>org.Hs.egGO2ALLEGS</code> contains GO terms from the three namespaces and the <code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> cannot distinguish the different namespaces.</p>
+<p>Now there is an additional column <code>"Ontology"</code>. This is
+convinient because <code>org.Hs.egGO2ALLEGS</code> contains GO terms
+from the three namespaces and the <code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> cannot
+distinguish the different namespaces.</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span><span class="op">[</span><span class="va">tb</span><span class="op">$</span><span class="va">Ontology</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="op">]</span></span>
 <span></span>
@@ -617,7 +699,9 @@
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">$</span><span class="va">Evidence</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<p>Now it seems we have obtained the complete gene-GO relations. Can we directly use <code>org.Hs.egGO2ALLEGS</code> as the GO gene sets? The answer is no, check the gene annotation for “<a href="GO:0000002" class="uri">GO:0000002</a>”:</p>
+<p>Now it seems we have obtained the complete gene-GO relations. Can we
+directly use <code>org.Hs.egGO2ALLEGS</code> as the GO gene sets? The
+answer is no, check the gene annotation for “<a href="GO:0000002" class="uri">GO:0000002</a>”:</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">[[</span><span class="st">"GO:0000002"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##      IMP      TAS      IDA      IMP      IMP      IMP      ISS      IBA </span></span>
@@ -632,7 +716,9 @@
 <span><span class="co">##  "83667"  "84275"  "84275"  "84461"  "92667"  "92667"  "92667" "131474" </span></span>
 <span><span class="co">##      IBA      IMP      ISS      IMP </span></span>
 <span><span class="co">## "201973" "201973" "201973" "219736"</span></span></code></pre>
-<p>A gene can be duplicatedly annotated to a GO term with differnet evidence code. Thus, to obtain the GO gene sets, we need to take the unique genes.</p>
+<p>A gene can be duplicatedly annotated to a GO term with differnet
+evidence code. Thus, to obtain the GO gene sets, we need to take the
+unique genes.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">length</span><span class="op">)</span></span>
 <span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">unique</span><span class="op">)</span></span>
@@ -645,7 +731,10 @@
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="va">tb</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
-<p>With <code>tb</code>, we can look at the distribution of numbers of genes in GO gene sets. It approximately follows a power-law distribution. This means majority of GO gene sets only contain intermediate numbers of genes.</p>
+<p>With <code>tb</code>, we can look at the distribution of numbers of
+genes in GO gene sets. It approximately follows a power-law
+distribution. This means majority of GO gene sets only contain
+intermediate numbers of genes.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span><span class="va">tb</span><span class="op">$</span><span class="va">Ontology</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
@@ -658,7 +747,8 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of annotated genes"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBP"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<p>And the distribution of numbers of GO gene sets that a gene is annotated.</p>
+<p>And the distribution of numbers of GO gene sets that a gene is
+annotated.</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">x2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
@@ -669,8 +759,15 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of gene sets"</span>, y <span class="op">=</span> <span class="st">"Number of genes"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBP"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
-<p>Biocondutor core team maintaines <strong>org.*.db</strong> for 18 organisms</p>
+<p>Biocondutor core team maintaines <strong>org.*.db</strong> for 18
+organisms</p>
 <table class="table">
+<colgroup>
+<col width="24%">
+<col width="17%">
+<col width="28%">
+<col width="28%">
+</colgroup>
 <thead><tr class="header">
 <th align="left">Package</th>
 <th align="left">Organism</th>
@@ -779,7 +876,9 @@
 <div class="section level4">
 <h4 id="practice-1">Practice 1<a class="anchor" aria-label="anchor" href="#practice-1"></a>
 </h4>
-<p>We have demonstrated a gene can be duplicatedly annotated to a same GO term. Taking <code>org.Hs.egGO2ALLEGS</code>, can you calculate the percent of GO terms that have duplicated genes?</p>
+<p>We have demonstrated a gene can be duplicatedly annotated to a same
+GO term. Taking <code>org.Hs.egGO2ALLEGS</code>, can you calculate the
+percent of GO terms that have duplicated genes?</p>
 </div>
 <div class="section level4">
 <h4 id="solution">Solution<a class="anchor" aria-label="anchor" href="#solution"></a>
@@ -797,7 +896,10 @@
 <div class="section level4">
 <h4 id="practice-2">Practice 2<a class="anchor" aria-label="anchor" href="#practice-2"></a>
 </h4>
-<p><code>org.Hs.egGO2ALLEGS</code> has already merged genes annotated to all offspring terms. Try to manually construct GO gene sets with <code>GOBPOFFSPRING</code> and <code>org.Hs.egGO2EGS</code>, then compare to gene sets in <code>org.Hs.egGO2ALLEGS</code>.</p>
+<p><code>org.Hs.egGO2ALLEGS</code> has already merged genes annotated to
+all offspring terms. Try to manually construct GO gene sets with
+<code>GOBPOFFSPRING</code> and <code>org.Hs.egGO2EGS</code>, then
+compare to gene sets in <code>org.Hs.egGO2ALLEGS</code>.</p>
 </div>
 <div class="section level4">
 <h4 id="solution-1">Solution<a class="anchor" aria-label="anchor" href="#solution-1"></a>
@@ -805,7 +907,8 @@
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2EG</span><span class="op">)</span></span>
 <span><span class="va">lt_terms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPOFFSPRING</span><span class="op">)</span></span></code></pre></div>
-<p>For a GO term, we need to consider its offspring terms + the term itself:</p>
+<p>For a GO term, we need to consider its offspring terms + the term
+itself:</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">nm</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_terms</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">lt_terms</span><span class="op">[[</span><span class="va">nm</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lt_terms</span><span class="op">[[</span><span class="va">nm</span><span class="op">]</span><span class="op">]</span>, <span class="va">nm</span><span class="op">)</span></span>

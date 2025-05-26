@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Topic 1-00: Representation of gene sets in R • GSEAtraining</title>
+<title>Topic 1-00: Representation of gene sets in R • GSEAtutorial</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -31,7 +31,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">GSEAtraining</a>
+        <a class="navbar-link" href="../index.html">GSEAtutorial</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.20.0</span>
       </span>
     </div>
@@ -143,11 +143,12 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Topic 1-00: Representation of gene sets in R</h1>
+      <h1 data-toc-skip>Topic 1-00: Representation of gene sets in
+R</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-03-02</h4>
+            <h4 data-toc-skip class="date">2025-05-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtraining/blob/HEAD/vignettes/topic1_00_format.Rmd" class="external-link"><code>vignettes/topic1_00_format.Rmd</code></a></small>
       <div class="hidden name"><code>topic1_00_format.Rmd</code></div>
@@ -156,7 +157,8 @@
 
     
     
-<p>Gene sets are represented as a list of genes. There are three types of representations in R.</p>
+<p>Gene sets are represented as a list of genes. There are three types
+of representations in R.</p>
 <ol style="list-style-type: decimal">
 <li>A list of gene vectors</li>
 </ol>
@@ -239,7 +241,9 @@
 <span><span class="co">## </span></span>
 <span><span class="co">## $geneset3</span></span>
 <span><span class="co">## [1] "gene1" "gene3" "gene5" "gene6"</span></span></code></pre>
-<p>In the <strong>GSEAtraining</strong> package, there are two helper functions <code><a href="../reference/list_to_dataframe.html">list_to_dataframe()</a></code> and <code><a href="../reference/list_to_dataframe.html">dataframe_to_list()</a></code> that do the conversions:</p>
+<p>In the <strong>GSEAtraining</strong> package, there are two helper
+functions <code><a href="../reference/list_to_dataframe.html">list_to_dataframe()</a></code> and
+<code><a href="../reference/list_to_dataframe.html">dataframe_to_list()</a></code> that do the conversions:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtraining" class="external-link">GSEAtraining</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/list_to_dataframe.html">list_to_dataframe</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span></span></code></pre></div>
@@ -266,7 +270,8 @@
 <ol start="3" style="list-style-type: decimal">
 <li>a binary matrix</li>
 </ol>
-<p>Not very often, the relation between genes and gene sets can be represented as a binary matrix:</p>
+<p>Not very often, the relation between genes and gene sets can be
+represented as a binary matrix:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">geneset</span><span class="op">)</span></span>
@@ -280,7 +285,9 @@
 <span><span class="co">## geneset1     1     1     1     0     0     0</span></span>
 <span><span class="co">## geneset2     0     1     0     1     0     0</span></span>
 <span><span class="co">## geneset3     1     0     1     0     1     1</span></span></code></pre>
-<p>Note when there are more gene sets, there will be a lot of more zeros in <code>m</code>. In this case, we can use “sparse matrix format” to store the data.</p>
+<p>Note when there are more gene sets, there will be a lot of more zeros
+in <code>m</code>. In this case, we can use “sparse matrix format” to
+store the data.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

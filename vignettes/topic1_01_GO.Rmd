@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-01: Get GO gene sets"
+title: "Topic 1-01: GO gene sets"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -12,6 +12,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
 To obtain GO gene sets, we need to use two packages: **GO.db** and **org.\*.db** packages.
 
 
@@ -23,24 +36,58 @@ We first load the package.
 library(GO.db)
 ```
 
-### use GO.db as a database object
+GO data is represented in two formats:
 
-Before we introduce the **GO.db** package, we need to know that the **GO.db** package
-is built on top of the low-level infrastructure package **AnnotationDbi**. Thus, almost all
+1. vector-like format,
+2. table-like format.
+
+
+### As a vector-object
+
+The object `GOTERM` can be thought of as a list of single GO terms. 
+
+```{r}
+GOTERM
+```
+
+There are two interfaces to convert it to common formats:
+
+```{r}
+lt = as.list(GOTERM)
+tb = toTable(GOTERM)
+```
+
+There are the following three types of useful information for each GO Term:
+
+- GO name
+- GO description/definition
+- GO ontology/namespace
+
+Three helper getter functions `Term()`, `Definition()` and `Ontology()` can be directly applied to `GOTERM`:
+
+```{r}
+head(Term(GOTERM))
+head(Definition(GOTERM))
+head(Ontology(GOTERM))
+```
+
+
+
+### As a table-object
+
+The **GO.db** package is built on top of a low-level infrastructure package **AnnotationDbi**. Thus, almost all
 Bioconductor "official data packages" inhert the same interface for querying data. Two important points:
 
 1. There is a database object which has the same name as the package name.
-2. They all implement the `select()` interface.
+2. They all implement the `select()` interface where the "database" can be thought of as a single virtual table.
 
-E.g. for **GO.db**, the object `GO.db` contains a connection to the internal SQLite database object.
+
+<img src="go_select.png" />
 
 ```{r}
 GO.db
 ```
 
-`GO.db` can be thought as a huge table, where `select()` can be used to extract records from certain columns under certain constraits.
-
-<img src="go_select.png" />
 
 
 `GO.db` is a relatively simple database. The typical use is as:
@@ -57,8 +104,6 @@ The valid columns names can be obtained by `columns(GO.db)`.
 columns(GO.db)
 ```
 
-But note for **GO.db**, there are already objects generated for retrieving GO data more easily.
-It is unlikely in practice to directly use `select()`.
 
 ### The hierarchical relations of GO terms
 
@@ -220,51 +265,6 @@ lt_offspring = lapply(lt_children, function(x) {
         unique(env$offspring)
     }
 })
-```
-
-### Information of GO terms
-
-Only we only see the GO IDs, the object `GOTERM` can be used to get the names and long descriptions
-of GO terms.
-
-```{r}
-GOTERM
-```
-
-Similarly, you can use `as.list()` or `toTable()` to format this object:
-
-```{r}
-lt = as.list(GOTERM)
-tb = toTable(GOTERM)
-```
-
-There are the following three types of useful information for each GO Term:
-
-- GO name
-- GO description/definition
-- GO ontology/namespace
-
-`Term()`, `Definition()` and `Ontology()` can be directly applied to `GOTERM`:
-
-```{r}
-head(Term(GOTERM))
-head(Definition(GOTERM))
-head(Ontology(GOTERM))
-```
-
-Moreover, you can get subset the `GOTERM` object:
-
-```{r}
-GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")]
-```
-
-With `Term()`, `Definition()` and `Ontology()`, it is convinient to add additional 
-information of GO terms:
-
-```{r}
-Term(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
-Definition(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
-Ontology(GOTERM[c("GO:0000001", "GO:0000002", "GO:0000006")])
 ```
 
 

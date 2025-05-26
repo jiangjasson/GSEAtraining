@@ -13,19 +13,30 @@ vignette: >
 ---
 
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
+
+
 We apply ORA and GSEA on the same p53 datasets and compare the results.
 
 ```{r}
-lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtraining"))
+lt = readRDS(system.file("extdata", "p53_expr.rds", package = "GSEAtutorial"))
 expr = lt$expr
 condition = lt$condition
-```
 
-We convert gene IDs to Entrez IDs in `expr`:
-
-```{r}
-library(GSEAtraining)
-expr = convert_to_entrez_id(expr)
+ln = strsplit(readLines(system.file("extdata", "c2.symbols.gmt", package = "GSEAtutorial")), "\t")
+gs = lapply(ln, function(x) x[-(1:2)])
+names(gs) = sapply(ln, function(x) x[1])
 ```
 
 **ORA**
@@ -66,36 +77,63 @@ enough number of diff genes.
 sum(abs(tdf$statistic) > 2)
 ```
 
+```{r}
+diff = rownames(expr)[abs(tdf$statistic) > 2]
+```
+
 First we perform ORA, using GO BP gene sets:
 
 ```{r, message = FALSE}
-library(clusterProfiler)
-library(org.Hs.eg.db)
-l_sig = abs(tdf$statistic) > 2
-tb_ora = enrichGO(gene  = rownames(expr)[l_sig],
-                  OrgDb = org.Hs.eg.db,
-                  ont   = "BP",
-                  pAdjustMethod = "BH")
-tb_ora = as.data.frame(tb_ora)  # only significant ones
+tb_ora = ora(diff, universe = rownames(expr), gene_sets = gs)
 ```
 
 
-Then we perform GSEA, using t-statistics as gene scores. 
+Then we perform GSEA, using signal-to-noise ratios as gene scores. 
 
 ```{r}
-s = tdf$statistic
-names(s) = rownames(tdf)   # s must have names (gene IDs)
-s = sort(s, decreasing = TRUE)  # s must be pre-sorted
-tb_gsea = gseGO(geneList = s, 
-                OrgDb = org.Hs.eg.db,
-                ont   = "BP",
-                pAdjustMethod = "BH")
-tb_gsea = as.data.frame(tb_gsea)  # only significant ones
+library(matrixStats)
+m1 = expr[, condition == "WT"]  # only samples in group 1
+m2 = expr[, condition == "MUT"]  # only samples in group 2
+s = (rowMeans(m1) - rowMeans(m2))/(rowSds(m1) + rowSds(m2))
+s = sort(s, decreasing = TRUE)
+
+tb_gsea = fgsea_wrapper(s, gs)
 ```
 
 We compare the two significant GO lists:
 
 ```{r}
 library(eulerr)
-plot(euler(list(ORA = tb_ora$ID, GSEA = tb_gsea$ID)), quantities = TRUE)
+plot(euler(list(ORA = tb_ora$gene_set[tb_ora$p_value < 0.05], 
+                GSEA = tb_gsea$gene_set[tb_gsea$p_value < 0.05])
+          ), quantities = TRUE)
+```
+
+```{r, fig.width = 10, fig.height = 5}
+rownames(tb_ora) = tb_ora$gene_set
+rownames(tb_gsea) = tb_gsea$gene_set
+cn = intersect(rownames(tb_ora), rownames(tb_gsea))
+
+par(mfrow = c(1, 2))
+plot(tb_ora[cn, "p_value"], tb_gsea[cn, "p_value"])
+plot(tb_ora[cn, "log2fe"], log2(abs(tb_gsea[cn, "nes"])))
+```
+
+
+
+```{r}
+tb_ora1 = ora_go(convert_to_entrez_id(diff))
+tb_ora2 = ora_go(convert_to_entrez_id(diff), universe = convert_to_entrez_id(rownames(expr)))
+tb_gsea = fgsea_go(convert_to_entrez_id(s))
+
+lt_GO = list(ORA1 = tb_ora1$gene_set[order(tb_ora1$p_value)[1:100]], 
+              ORA2 = tb_ora2$gene_set[order(tb_ora2$p_value)[1:100]], 
+              GSEA = tb_gsea$gene_set[order(tb_gsea$p_value)[1:100]])
+plot(euler(lt_GO), quantities = TRUE)
+```
+
+
+```{r, fig.width = 10, fig.height = 5}
+library(simplifyEnrichment)
+simplifyGOFromMultipleLists(lt_GO)
 ```

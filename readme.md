@@ -1,6 +1,32 @@
 
 
 
+## Topics
+
+
+**Topic 1**: gene set resources
+
+**Topic 2**: ORA and GSEA
+
+**Topic 3**: Genomics
+
+**Topic 4**: Topology
+
+**Topic 5**: Single-sample
+
+**Topic 6**: similarity, clustering and summarization
+
+**Topic 7**: visualization
+
+**Topic 8**: GSEA framrwork
+
+
+
+
+
+## Install
+
+
 Install all suggested dependencies:
 
 ```r
@@ -26,13 +52,6 @@ Then
 ```r
 install.packages("https://jokergoo.github.io/GSEAtraining/GSEAtraining_3.20.0.tar.gz", 
 	repo = NULL, type = "source")
-```
-
-You may need to update the **rGREAT** package because the API link from NCBI was changed:
-
-```r
-library(devtools)
-install_github("jokergoo/rGREAT")
 ```
 
 The practice materials are also available at https://jokergoo.github.io/GSEAtraining/.
