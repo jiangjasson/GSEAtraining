@@ -1,6 +1,6 @@
 Package: GSEAtutorial
 Type: Package
-Title: Training materials for the GSEA course
+Title: Various topics in gene set enrichment analysis
 Version: 3.20.0
 Date: 2025-03-01
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
@@ -11,9 +11,10 @@ Imports: stats, DBI, RSQLite, htmltools, AnnotationDbi,
          igraph, org.Hs.eg.db, GO.db, S4Vectors
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
-Description: The training materials in this package are only allowed for noncommercial use.
-URL: https://github.com/jokergoo/GSEAtraining
-BugReports: https://github.com/jokergoo/GSEAtraining/issues
+Description: The package provides a comprehensive introduction of various topics
+    of gene set enrichment analysis. It also includes helper functions that provides
+    efficient way to the analysis.
+URL: https://github.com/jokergoo/GSEAtutorial
 License: file LICENSE
 RoxygenNote: 7.3.2
 Encoding: UTF-8
