@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-04: Get pathways from Reactome"
+title: "Topic 1-04: Reactome gene sets"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 1-04: Get pathways from Reactome}
+  %\VignetteIndexEntry{Topic 1-04: Reactome gene sets}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -36,19 +36,20 @@ https://reactome.org/download-data (Mapping Files -> Identifier mapping files ->
 
 ## reactome.db
 
-There is a **reactome.db** on Bioconductor. 
+There is a **reactome.db** package on Bioconductor. But note it is not an official Bioconductor data package.
 
-The version of the data:
+The basic information of the data:
 
 ```{r}
 library(reactome.db)
 reactome.db
 ```
 
+The "SOURCEDATE" might be the version of the data.
 
-In it, the important objects are 
+In **reactome.db**, the important objects are 
 
-- `reactomePATHID2EXTID` contains mappings between reacotme pathway IDs and gene entrez IDs
+- `reactomePATHID2EXTID` contains mappings between reactome pathway IDs and gene EntreZ IDs
 - `reactomePATHID2NAME` contains pathway names
 
 ```{r}
@@ -61,9 +62,9 @@ head(p2n)
 
 In the previous code, we use the function `toTable()` to retrieve the data as a data frame. You can also try `as.list()` on the two objects and compare the output.
 
-Reactome contains pathway for multiple organisms. In the reactome ID, teh second section contains the organism, e.g. in previous output `HSA`. 
+Reactome contains pathway for multiple organisms. In the reactome ID, the second section contains the organism, e.g. in previous output `HSA`. 
 
-```{r}
+```{r, fig.width = 10.5}
 sort(table( gsub("^R-(\\w+)-\\d+$", "\\1", p2n[, 1]) ))
 barplot(sort(table( gsub("^R-(\\w+)-\\d+$", "\\1", p2n[, 1]) )))
 ```
@@ -78,22 +79,26 @@ tb = read.table("NCBI2Reactome_All_Levels.txt", sep = "\t", comment.char = "")
 head(tb)
 ```
 
-Restrict to human
+```{r, echo = FALSE}
+invisible(file.remove("NCBI2Reactome_All_Levels.txt"))
+```
+
+Restrict to human pathways. **Note do not use column 6 for filtering. **
 
 ```{r}
-tb = tb[tb[, 6] == "Homo sapiens", ]
+tb2 = tb[grepl("HSA", tb[, 2]), ]
 ```
 
 The gene sets
 
 ```{r}
-gs = split(tb[, 1], tb[, 2])
+gs = split(tb2[, 1], tb2[, 2])
 ```
 
-It is better to ensure Entrez IDs are stored as characters.
+It is better to ensure Entrez IDs are stored as characters and genes are unique
 
 ```{r}
-gs = lapply(gs, as.character)
+gs = lapply(gs, function(x) unique(as.character(x)))
 ```
 
 Pathway names:
@@ -102,11 +107,96 @@ Pathway names:
 p2n = unique(tb[, c(2, 4)])
 ```
 
+## Use simona to manually construct gene sets
+
+The file we used "NCBI2Reactome_All_Levels.txt" has the description  
+"All levels of the pathway hierarchy" from the reactome website. Note pathways are organized in a hierarchical way (an ontology) where 
+if a gene is annotated to a pathway, it should be annotated to all its ancestor pathways. For most gene annotations on ontologies (such as GO),
+genes are only annotated to the lowest terms in the ontology. We ask, in "NCBI2Reactome_All_Levels.txt", are all genes correctly assigned
+to all ancestor pathways?
+
+Let's manually create an ontology object and merge gene annotations.
+
+Read the hierarchical relations of pathways. Note the first column contains parent pathways and the second column contains child pathways:
+
+
+```{r}
+library(simona)
+df = read.table("https://reactome.org/download/current/ReactomePathwaysRelation.txt", sep = "\t")
+df = df[grepl("HSA", df[, 1]) & grepl("HSA", df[, 2]), ]
+head(df)
+```
+
+Create an ontology object with **simona** and also add gene annotations.
+
+```{r}
+dag = create_ontology_DAG(df[, 1], df[, 2], annotation = gs)
+dag
+```
+
+`term_annotations()` automatically merges genes for ancestor pathways:
+
+```{r}
+gs3 = term_annotations(dag, setdiff(dag_all_terms(dag), "~~all~~"))
+gs3 = gs3[sapply(gs3, length) > 0]
+```
+
+For this method, **GSEAtopics** has a helper function `load_reactome_genesets()` that wraps the code above:
+
+```r
+lt = load_reactome_genesets("HSA")
+lt$name  # pathway names
+lt$gs    # pathway gene sets
+```
+
+## Compare the three methods
+
+Now we have three different ways to get Reactome pathway gene sets, let's compare their consistency.
+
+Let's first rename the three types of gene sets objects.
+
+```{r}
+gs_web = gs
+gs1 = as.list(reactomePATHID2EXTID)
+gs_pkg = gs1[grepl("HSA", names(gs1))]
+gs_ontology = gs3
+```
+
+The overlap:
+
+```{r}
+library(eulerr)
+plot(euler(list(gs_pkg = names(gs_pkg), 
+                gs_web = names(gs_web),
+                gs_ontology = names(gs_ontology))), quantities = TRUE)
+```
+
+`gs_web` and `gs_ontology` have the same set of pathways.
+
+```{r}
+setequal(names(gs_web), names(gs_ontology))
+```
+
+And we compare the numbers of genes in pathways:
+
+```{r, fig.height = 4, fig.width = 8}
+cn = intersect(intersect(names(gs_pkg), names(gs_web)), names(gs_ontology))
+n1 = sapply(gs_pkg[cn], length)
+n2 = sapply(gs_web[cn], length)
+n3 = sapply(gs_ontology[cn], length)
+
+par(mfrow = c(1, 2))
+plot(n1, n2, log = "xy", xlab = "reactome.db", ylab = "website")
+plot(n2, n3, log = "xy", xlab = "website", ylab = "ontology")
+```
+
+Conclusion: if you use reactome pathways, use method 2 or 3.
+
 ## Practice 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 Make the distribution of the numbers of genes in Reactome pathways (use human). 
 
@@ -115,13 +205,13 @@ Print the names of pathways with numbers of genes > 2000.
 #### Solution
 
 ```{r}
-tb = toTable(reactomePATHID2EXTID)
-tb = tb[grep("-HSA-", tb[, 1]), ]
-n_gene = table(tb[, 1])
+library(GSEAtopics)
+lt = load_reactome_genesets("HSA")
+n_gene = sapply(lt$gs, length)
 hist(n_gene)
 ```
 
-Making the intervals smaller is better:
+Make the intervals smaller:
 
 ```{r}
 hist(n_gene, nc = 100)
@@ -136,8 +226,7 @@ n_gene[n_gene > 2000]
 Their names:
 
 ```{r}
-p2n = toTable(reactomePATHID2NAME)
-p2n[p2n[, 1] %in% names(n_gene[n_gene > 2000]), ]
+lt$name[ names(n_gene[n_gene > 2000]) ]
 ```
 
 

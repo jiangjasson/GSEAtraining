@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 1-01: Get GO gene sets}
+  %\VignetteIndexEntry{Topic 1-01: GO gene sets}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,8 +19,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -82,7 +82,7 @@ Bioconductor "official data packages" inhert the same interface for querying dat
 2. They all implement the `select()` interface where the "database" can be thought of as a single virtual table.
 
 
-<img src="go_select.png" />
+<img src="select_interface.png" width="600px" />
 
 ```{r}
 GO.db
@@ -104,6 +104,11 @@ The valid columns names can be obtained by `columns(GO.db)`.
 columns(GO.db)
 ```
 
+**Question:** How to get all BP terms with `select()`?
+
+```r
+select(GO.db, keys = "BP", keytype = "ONTOLOGY", columns = c("GOID", "TERM"))
+```
 
 ### The hierarchical relations of GO terms
 
@@ -145,7 +150,7 @@ specific GO term, e.g., `GO:0000002` has a child term `GO:0032042`. The
 element vectors in `lt` are also named and the names represent the relation of
 the child term to the parent term. When the element vector has a value `NA`,
 e.g. `GO::0000001`, this means the GO term is a leaf in the GO tree, and it
-has no child term.
+has no child term (in this scenario, using `character(0)` instead of `NA` might be more proper).
 
 `toTable()` converts to a data frame:
 
@@ -364,15 +369,17 @@ A gene can be duplicatedly annotated to a GO term with differnet evidence code. 
 to obtain the GO gene sets, we need to take the unique genes.
 
 
-```{r}
+```{r, fig.width = 10, fig.height = 5}
 n1 = sapply(lt, length)
 lt = lapply(lt, unique)
 n2 = sapply(lt, length)
 
+par(mfrow = c(1, 2))
 plot(n1, n2, xlim = c(0, max(n1)), ylim = c(0, max(n1)),
     xlab = "with duplicated", ylab = "without duplicated",
     main = "number of genes in GO BP gene sets")
 
+plot(n1, n2/n1, ylab = "n2/n1")
 tb = tb[, 1:2]
 tb = unique(tb)
 ```
@@ -454,9 +461,9 @@ head(tb)
 
 ## Practice
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 We have demonstrated a gene can be duplicatedly annotated to a same GO term. Taking 
 `org.Hs.egGO2ALLEGS`, can you calculate the percent of GO terms that have duplicated genes?
@@ -472,9 +479,9 @@ nd/n
 ```
 
 
-### {.tabset}
+### Practice 2 {.tabset}
 
-#### Practice 2
+#### Practice
 
 `org.Hs.egGO2ALLEGS` has already merged genes annotated to all offspring terms. 
 Try to manually construct GO gene sets with `GOBPOFFSPRING` and `org.Hs.egGO2EGS`, then compare to gene sets

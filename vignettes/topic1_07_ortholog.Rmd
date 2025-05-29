@@ -27,11 +27,11 @@ knitr::opts_chunk$set(
 
 In the Bioconductor ecosystem, there are already a huge number of gene set resources for a large number of organisms. However, there can still be cases where a poor-studied organism does not have a well-annotated gene set resource. Human, of course, is the most studied organism and it has the richest annotation resources. For other organisms, we can built similar gene sets by mapping to orthologues to human genes.
 
-The hallmark gene sets is a useful resource for exploring the biological functions. But natively, MSigDB only provides data for human and mouse, but still a large number of other organisms are missing. In the following part of this section, I will demonstrate how to construct hallmark gene sets for the great panda.
+The hallmark gene sets is a useful resource for exploring the biological functions. But natively, MSigDB only provides data for human and mouse, but still a large number of other organisms are missing. In the following part of this section, I will demonstrate how to construct hallmark gene sets for the giant panda.
 
 ## The Orthology.eg.db package
 
-Let me first demonstrate how to obtain the mapping from human genes to panda genes. In Biocoductor, there is a standard package **Orthology.eg.db** which provides orthologue mappings for hundreds of organisms. Let’s first load the package.
+Let me first demonstrate how to obtain the mappings from human genes to panda genes. On Biocoductor, there is a standard package **Orthology.eg.db** which provides orthologue mappings for hundreds of organisms. Let’s first load the package.
 
 ```{r}
 library(Orthology.eg.db)
@@ -127,10 +127,10 @@ names(map_vec) = map_df[, 1]
 head(map_vec)
 ```
 
-We have the mappings from human to panda, now we can construct the hallmark gene sets for panda. First let’s obtain the hallmark gene sets for human. The `get_msigdb()` function is from the **GSEAtutorial** package.
+We have the mappings from human to panda, now we can construct the hallmark gene sets for panda. First let’s obtain the hallmark gene sets for human. The `get_msigdb()` function is from the **GSEAtopics** package.
 
 ```{r}
-library(GSEAtutorial)
+library(GSEAtopics)
 gs_human = get_msigdb(version = "2024.1.Hs", collection = "h.all")
 ```
 
@@ -139,7 +139,7 @@ Next we perform the conversion by providing the human genes are character indici
 ```{r}
 gs_panda = lapply(gs_human, function(x) {
     x2 = map_vec[x]
-    unname(x2[!is.na(x2)])
+    unname(unique(x2[!is.na(x2)])) # perhaps also apply unique()
 })
 ```
 
@@ -152,19 +152,20 @@ gs_panda[1:2]
 ```
 
 
-In **GSEAtutorial**, there is already a helper function `gs_map_to_orthologues()`. The gene IDs in the source gene sets must be Entrez IDs.
+In **GSEAtopics**, there is already a helper function `gs_map_to_orthologues()`. The gene IDs in the source gene sets must be Entrez IDs.
 
 ```{r}
-gs_rat = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", to = "Rattus.norvegicus")
+gs_rat = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", 
+    to = "Rattus.norvegicus")
 gs_rat[1:2]
 ```
 
 
 ## Practice 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 Construct hallmark gene sets for dolphin (latin name: Tursiops truncatus)
 
@@ -196,5 +197,6 @@ gs_dolphin[1:2]
 Or 
 
 ```{r}
-gs_dolphin = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", to = "Tursiops.truncatus")
+gs_dolphin = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", 
+    to = "Tursiops.truncatus")
 ```

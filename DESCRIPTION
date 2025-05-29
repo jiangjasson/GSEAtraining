@@ -1,4 +1,4 @@
-Package: GSEAtutorial
+Package: GSEAtopics
 Type: Package
 Title: Various topics in gene set enrichment analysis
 Version: 3.20.0
@@ -6,15 +6,20 @@ Date: 2025-03-01
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
-Imports: stats, DBI, RSQLite, htmltools, AnnotationDbi, 
-         matrixStats, methods, fastmatch, ComplexHeatmap, fgsea, 
-         igraph, org.Hs.eg.db, GO.db, S4Vectors
-Suggests: knitr, rmarkdown
+Imports: stats, DBI, RSQLite, AnnotationDbi, matrixStats, methods, 
+         fastmatch, ComplexHeatmap, fgsea, igraph, org.Hs.eg.db, GO.db, S4Vectors, 
+         genefilter
+Suggests: knitr, rmarkdown, circlize, reactome.db, UniProtKeywords,
+          AnnotationHub, Orthology.eg.db, GSVA, simona, BiocManager, CePa,
+          ggplot2, rGREAT, KEGGgraph, proxyC, sparseMatrixStats, HilbertCurve, 
+          TxDb.Hsapiens.UCSC.hg19.knownGene, cola, cowplot, eulerr, golubEsets, 
+          hu6800.db, microbenchmark, preprocessCore, simplifyEnrichment
+Enhances: org.Ms.eg.db, org.Rn.eg.db, shiny, DT, htmltools
 VignetteBuilder: knitr
 Description: The package provides a comprehensive introduction of various topics
     of gene set enrichment analysis. It also includes helper functions that provides
-    efficient way to the analysis.
-URL: https://github.com/jokergoo/GSEAtutorial
+    efficient ways for the analysis.
+URL: https://github.com/jokergoo/GSEAtopics
 License: file LICENSE
 RoxygenNote: 7.3.2
 Encoding: UTF-8

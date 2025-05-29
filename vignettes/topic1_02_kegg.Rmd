@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-02: Get pathways from KEGG"
+title: "Topic 1-02: KEGG gene sets"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 1-02: Get pathways from KEGG}
+  %\VignetteIndexEntry{Topic 1-02: KEGG gene sets}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -41,10 +41,10 @@ of other information. The entrence of getting KEGG data programmatically is via 
 
 Please note the restrictions of using KEGG data (https://www.kegg.jp/kegg/legal.html):
 
-> ### Academic use of KEGG
+> <b>Academic use of KEGG</b><br>
 > Academic users may freely use the KEGG website at https://www.kegg.jp/ or its mirror site at GenomeNet https://www.genome.jp/kegg/. Academic users who utilize KEGG for providing academic services are requested to obtain an academic service provider license, which is included in the KEGG FTP academic subscription. The KEGG FTP academic subscription, which is a paid service (see background information), may also be obtained to conveniently download the entire KEGG database.
 >
-> ### Non-academic use of KEGG
+> <b>Non-academic use of KEGG</b><br>
 > Non-academic users must understand that KEGG is not a public database and non-academic use of KEGG generally requires a commercial license. There are two types of commercial licenses available: end user and business. The end user license includes access rights to the FTP site and the website, while the business license includes access rights to the FTP site only. Please contact Pathway Solutions for more details.
 
 ## Read from the KEGG API
@@ -94,7 +94,7 @@ only switches the two columns in the table.
 
 In the output, the first column contains Entrez ID
 (users may remove the `"hsa:"` prefix for downstream analysis) and the second
-columncontains KEGG pathways IDs (users may remove the `"path:"` previx).
+columncontains KEGG pathways IDs (users may remove the `"path:"` prefix).
 
 ```{r}
 df1[, 1] = gsub("hsa:", "", df1[, 1])
@@ -114,6 +114,7 @@ head(df2)
 
 ## Highlight genes
 
+KEGG also provides pathways as graphs (figures). You may want to highlight differential genes on the graph to see how they specifically affect the pathway.
 All you need to do is to prepare a two-column table where the first column contains genes and the second column contains color-settings.
 
 Let's take the pathway "hsa04110" as an example. We color 10 random genes.
@@ -128,7 +129,8 @@ settings = data.frame(
     genes = diff_genes, 
     colors = rand_color(10)
 )
-write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
+write.table(settings, file = stdout(), row.names = FALSE, 
+    col.names = FALSE, quote = FALSE, sep = "\t")
 ```
 
 Then open https://www.kegg.jp/pathway/hsa04110.
@@ -139,22 +141,24 @@ Note the prefix "hsa:" of gene IDs has no effect. You can keep it or remove it. 
 the second column can contain two colors in one row in the form of `color1,color2` which corresponds to the filled
 color and the border color. Note the border color also includes the color of the text.
 
-```{r}
+```{r, comment = ""}
 settings = data.frame(
     genes = diff_genes, 
     colors = paste0(rand_color(10), ",", sample(colors(), 10))
 )
-write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
+write.table(settings, file = stdout(), row.names = FALSE, 
+    col.names = FALSE, quote = FALSE, sep = "\t")
 ```
 
 To use continuous color mapping, the second column should contain numeric values.
 
-```{r}
+```{r, comment = ""}
 settings = data.frame(
     genes = diff_genes, 
     colors = runif(10)
 )
-write.table(settings, file = stdout(), row.names = FALSE, col.names = FALSE, quote = FALSE, sep = "\t")
+write.table(settings, file = stdout(), row.names = FALSE, 
+    col.names = FALSE, quote = FALSE, sep = "\t")
 ```
 
 How to set gene colors: https://www.genome.jp/kegg/webapp/color_gui.html
@@ -163,9 +167,9 @@ The package **ggkegg** also supports customizing KEGG graph.
 
 ## Practice
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 In the previous example, we obtained the mapping between genes and KEGG pathways for human, using the
 organism code of `"hsa"`. Since human is very well-studied and everyone knows `"hsa"` is for human, what if
@@ -184,9 +188,9 @@ df = read.table(url("https://rest.kegg.jp/link/pathway/cfa"), sep = "\t")
 ```
 
 
-### {.tabset}
+### Practice 2 {.tabset}
 
-#### Practice 2
+#### Practice
 
 Make the distribution of the numbers of genes in KEGG pathways (for human). 
 
@@ -223,9 +227,9 @@ df2[df2[, 1] == "hsa01100", ]
 And its url on KEGG: https://www.kegg.jp/pathway/hsa04110.
 
 
-### {.tabset}
+### Practice 3 {.tabset}
 
-#### Practice 3
+#### Practice
 
 Highlight the following genes "TGFB1", "TP53", "CDC7" and "E2F1" on the pathway image of "Cell cycle" (organism: human). Choose colors that you like.
 

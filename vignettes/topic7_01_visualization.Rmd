@@ -1,0 +1,242 @@
+---
+title: "Topic 7-01: Visualization"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 7-01: Visualization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 6,
+    fig.height = 6,
+    fig.align = "center"
+)
+```
+
+## ORA result
+
+### Single ORA result
+
+```{r}
+library(GSEAtopics)
+data(p53_dataset)
+expr = p53_dataset$expr
+condition = p53_dataset$condition
+
+library(genefilter)
+tdf = rowttests(expr, condition)
+diff = rownames(expr)[abs(tdf$statistic) > 2]
+diff = convert_to_entrez_id(diff)
+```
+
+We use the GO BP gene sets.
+
+```{r}
+library(org.Hs.eg.db)
+tb = ora_go(diff, org.Hs.eg.db, "BP")
+head(tb)
+```
+
+Let's start with the enrichment table from the ORA analysis. 
+
+
+The mostly-used type of plot is to use simple statistical graphics for a small set of pre-selected gene sets.
+
+```{r, fig.height = 5, fig.width = 8}
+par(mar = c(4.1, 20, 4, 1))
+barplot(tb$n_hits[1:10], horiz = TRUE, names.arg = tb$description[1:10], las = 1)
+```
+
+Using **ggplot2** is a better idea for visualizing data.
+
+```{r, fig.height = 5, fig.width = 8}
+library(ggplot2)
+ggplot(tb[1:10, ], aes(x = n_hits, y = description)) + 
+    geom_col()
+```
+
+Number of DE genes in gene set may not be a good statistic, more commonly used statistics
+are log2 fold enrichment or -log10 p.adjust.
+
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
+    geom_col()
+```
+
+It is also common to add the p-values/adjusted p-values to the bars.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
+    geom_col() +
+    geom_text(aes(x = log2fe, label = sprintf('%1.e', p_adjust)))
+```
+
+By default, **ggplot2** reorders labels alphabetically. You can set the name
+as a factor and specify the order there. 
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = factor(description, levels = description))) + 
+    geom_col()
+```
+
+Points are also very frequently used.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description)) + 
+    geom_point() +
+    xlim(0, max(tb$log2fe[1:10]))
+```
+
+Using dot plot, we can map a second statistic to the size of dots.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description, size = n_hits)) + 
+    geom_point() +
+    xlim(0, max(tb$log2fe[1:10]))
+```
+
+Maybe Connecting to the baseline can enhance the visual effect of the magnitude of the enrichment.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description, size = n_hits)) + 
+    geom_point() +
+    geom_segment(aes(x = 0, xend = log2fe, y = description, yend = description), lwd = 1) +
+    xlim(0, max(tb$log2fe[1:10]))
+```
+
+Even more, we can map a third statistic to the dot colors.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb[1:10, ], aes(x = log2fe, y = description, size = n_hits, col = n_hits/n_gs)) + 
+    geom_point() +
+    xlim(0, max(tb$log2fe[1:10]))
+```
+
+
+A volcano plot which is -log10(p.adjust) vs log2 fold enrichment:
+
+```{r}
+ggplot(tb, aes(x = log2fe, y = -log10(p_adjust))) +
+    geom_point(col = ifelse(tb$log2fe > 1 & tb$p_adjust < 0.001, "black", "grey")) +
+    geom_hline(yintercept = 3, lty = 2) + 
+    geom_vline(xintercept = 1, lty = 2)
+```
+
+With the volcano plot, we can easily see the preference of enrichment to the sizes of gene sets.
+
+```{r}
+ggplot(tb, aes(x = log2fe, y = -log10(p_adjust), color = n_gs, size = n_hits)) +
+    geom_point() + 
+    scale_colour_distiller(palette = "Spectral")
+```
+
+
+### Multiple ORA results
+
+To visualize multiple ORA enrichment tables in one plot, we need to first prepare a data frame
+which combines results for a pre-selected gene sets.
+
+```{r}
+tbl = readRDS(system.file("extdata", "lt_enrichment_tables.rds", package = "GSEAtopics"))
+
+set.seed(666)
+terms = sample(tbl[[1]]$gene_set, 10)
+
+tb = NULL
+for(nm in names(tbl)) {
+    x = tbl[[nm]]
+    x = x[x$gene_set %in% terms, colnames(x) != "geneID"]
+    x$sample = nm
+    tb = rbind(tb, x)
+}
+```
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb, aes(x = sample, y = description, size = -log10(p_adjust))) +
+    geom_point(color = ifelse(tb$p_adjust < 0.05, "black", "grey"))
+```
+
+Some labels are too long. We use the helper function `wrap_text()` to wrap them into multiple lines.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb, aes(x = sample, y = wrap_text(description, width = 50), size = -log10(p_adjust))) +
+    geom_point(color = ifelse(tb$p_adjust < 0.05, "black", "grey"))
+```
+
+## GSEA result
+
+### Single GSEA result
+
+```{r}
+s = p53_dataset$s2n
+s = convert_to_entrez_id(s)
+tb_gsea = fgsea_go(s, org.Hs.eg.db, "BP")
+```
+
+Similarly, we can visualize NES scores of gene sets.
+
+```{r, fig.height = 5, fig.width = 8}
+ggplot(tb_gsea[1:10, ], aes(x = nes, y = description)) + 
+    geom_col()
+ggplot(tb_gsea[1:10, ], aes(x = nes, y = description)) + 
+    geom_col(fill = ifelse(tb_gsea$nes[1:10] > 0, "red", "darkgreen"))
+```
+
+You might have seen this type of adaptation.
+
+```{r}
+ggplot(tb_gsea[1:10, ], aes(x = nes, y = description)) + 
+    geom_col(fill = ifelse(tb_gsea$nes[1:10] > 0, "red", "darkgreen")) +
+    geom_text(aes(x = 0 + ifelse(nes > 0, -0.05, 0.05), 
+                  y = description, 
+                  label = wrap_text(description, width = 40)), 
+        hjust = ifelse(tb_gsea$nes[1:10] > 0, 1, 0)) +
+    geom_text(aes(x = nes + ifelse(nes > 0, -0.05, 0.05), 
+                  y = description, 
+                  label = sprintf("%.2e", p_adjust)),
+        col = "white", 
+        hjust = ifelse(tb_gsea$nes[1:10] > 0, 1, 0)) +
+    theme(axis.title.y = element_blank(), 
+          axis.text.y = element_blank(), 
+          axis.ticks.y = element_blank())
+```
+
+The volcano plot which is two-sided.
+
+```{r}
+ggplot(tb_gsea, aes(x = nes, y = -log10(p_adjust))) +
+    geom_point(col = ifelse(abs(tb_gsea$nes) > 1 & tb_gsea$p_adjust < 0.05, "black", "grey")) +
+    geom_hline(yintercept = -log10(0.05), lty = 2) + 
+    geom_vline(xintercept = c(1, -1), lty = 2)
+```
+
+
+The degree of enrichment is also dependent to the gene set sizes.
+
+```{r}
+ggplot(tb_gsea, aes(x = nes, y = -log10(p_adjust), color = n_gs)) +
+    geom_point() + 
+    scale_colour_distiller(palette = "Spectral")
+```
+
+
+And the classic GSEA plot with the helper function `gsea_plot()`:
+
+```{r}
+gs = load_go_genesets(org.Hs.eg.db, "BP")$gs
+gsea_plot(s, c("GO:0007186", "GO:0022402", "GO:0050877"), gs)
+```

@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-00: Representation of gene sets in R"
+title: "Topic 1-00: Data representation of gene sets in R"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -11,6 +11,20 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+```
 
 
 Gene sets are represented as a list of genes. There are three types of representations in R.
@@ -61,11 +75,11 @@ data.frame(
 split(df$gene, df$geneset)
 ```
 
-In the **GSEAtraining** package, there are two helper functions `list_to_dataframe()` and
+In the **GSAEtopics** package, there are two helper functions `list_to_dataframe()` and
 `dataframe_to_list()` that do the conversions:
 
 ```{r}
-library(GSEAtraining)
+library(GSEAtopics)
 list_to_dataframe(lt)
 dataframe_to_list(df)
 ```
@@ -81,6 +95,15 @@ colnames(m) = unique(df$gene)
 
 for(i in seq_len(nrow(df))) {
     m[df[i, 1], df[i, 2]] = 1
+}
+m
+```
+
+It might be more useful when genes have weights:
+
+```{r}
+for(i in seq_len(nrow(df))) {
+    m[df[i, 1], df[i, 2]] = runif(1)
 }
 m
 ```

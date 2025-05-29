@@ -17,3 +17,7 @@ man/temp__*
 ^Meta$
 
 bk/
+
+vignettes/*.html
+vignettes/*.R
+vignettes/*files/

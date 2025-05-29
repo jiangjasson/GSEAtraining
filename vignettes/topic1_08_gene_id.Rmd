@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Gene ID type conversion is a very common task in gene set enrichment analysis.
+Gene ID conversion is a very common task in gene set enrichment analysis.
 We take **org.Hs.eg.db** (for human) as an example.
 
 ```{r}
@@ -211,14 +211,14 @@ because they are more like a "name representation" of genes.
 
 ## Conclusion
 
-If the mappig is 1:1, all the methods metioned is OK. When the mapping is 1:many, use `select()` + filtering by the "GENETYPE" column is safer.
+If the mappig is 1:1, all the methods mentioned are OK. When the mapping is 1:many, use `select()` + filtering by the "GENETYPE" column is safer.
 
 
-In the **GSEAtutorial** package, there is a `map_to_entrez_id()` which generates a global mapping
+In the **GSEAtopics** package, there is a `map_to_entrez_id()` which generates a global mapping
 variable to EntreZ IDs for protein-coding genes.
 
 ```{r}
-library(GSEAtutorial)
+library(GSEAtopics)
 # symbol to EntreZ ID
 map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
 head(map)
@@ -227,9 +227,9 @@ head(map)
 ## Practice
 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 Using `org.Hs.eg.db`, compare the following three types of gene IDs: `SYMBOL`, `ENTREZID` and `ENSEMBL`.
 For two types denoted as $T_1$ and $T_2$, i.e. for the conversion $T_1 \rightarrow T_2$, calculated the 

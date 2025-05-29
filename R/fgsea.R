@@ -10,7 +10,7 @@
 #' @rdname fgsea
 #' @export
 #' @importFrom fgsea fgsea
-fgsea_wrapper = function(s, gs, min_size = 5, max_size = 1000, ...) {
+fgsea_wrapper = function(s, gs, min_size = 5, max_size = 2000, ...) {
     s = sort(s, decreasing = TRUE)
     df = fgsea(gs, s, minSize = min_size, maxSize = max_size, ...)
     df = as.data.frame(df)

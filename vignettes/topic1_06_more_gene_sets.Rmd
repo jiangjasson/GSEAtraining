@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-06: Get GO/KEGG gene sets for other organisms"
+title: "Topic 1-06: GO/KEGG gene sets for other organisms"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -32,7 +32,7 @@ Besides those well-studied organisms, there are also resources for less well-stu
 
 ## KEGG pathways
 
-KEGG pathway supports a huge number of organisms, just try different organism code:
+KEGG pathway supports a huge number of organisms. You just need to find the corresponding organism code:
 
 ```{r, eval = FALSE}
 read.table(url("https://rest.kegg.jp/list/pathway/hsa"), sep = "\t")
@@ -43,9 +43,15 @@ read.table(url("https://rest.kegg.jp/list/pathway/pon"), sep = "\t")
 ...
 ```
 
+Or use the helper function from **GSEAtopics**:
+
+```r
+load_kegg_genesets(organism)
+```
+
 ## OrgDb packages
 
-Biocondutor core team maintaines **org.\*.db** packages for 18 organisms
+Biocondutor core team maintaines **org.\*.db** packages for 18 organisms.
 
 ```{r, echo = FALSE}
 tb = read.table(textConnection(
@@ -71,6 +77,13 @@ knitr::kable(tb, col.names = c("Package", "Organism", "Package", "Organism"))
 
 These **org.\*.db** packages can be used in the same way as what we have seen with the **org.Hs.eg.db** package.
 
+```r
+select(org.*.db, keys = keys(org.*.db), columns = c("GOALL", "ONTOLOGYALL"))
+as.list(org.*.egGO2ALLEGS)
+```
+
+Note if the primary ID type is not EntreZ ID, the name of the object might be different.
+
 ## AnnotationHub
 
 On **AnnotationHub**, there are `OrgDb` objects for a huge number of other organisms (~2000) which can be used
@@ -93,7 +106,7 @@ query(ah, c("Felis catus", "OrgDb"))
 
 
 Besides using `query()` to search for the AnnotationHub dataset, you can
-also use the **BiocHubsShiny** package to interactively searching for datasets:
+also use the **BiocHubsShiny** package to interactively searching for datasets, or the `ah_shiny()` function from **GSEAtopics**.
 
 Now we download the data.
 
@@ -114,7 +127,8 @@ You can obtain the GO gene sets manually by `select()`, taking the `"ENTREZID"` 
 
 ```{r}
 all_genes = keys(org_db, keytype = "ENTREZID")
-tb = select(org_db, keys = all_genes, keytype = "ENTREZID", columns = c("GOALL", "ONTOLOGYALL"))
+tb = select(org_db, keys = all_genes, keytype = "ENTREZID", 
+    columns = c("GOALL", "ONTOLOGYALL"))
 head(tb)
 ```
 
@@ -127,31 +141,33 @@ tb = unique(tb)
 
 
 
-With an `OrgDb` object, you can also use the helper function `get_GO_gene_sets_from_orgdb()` in **GSEAtraining** package:
+With an `OrgDb` object, you can also use the helper function `load_go_genesets()` in **GSEAtopics** package:
 
 ```{r}
-library(GSEAtutorial)
-lt = get_GO_gene_sets_from_orgdb(org_db, "BP")
-lt[1]
+library(GSEAtopics)
+lt = load_go_genesets(org_db, "BP")
 ```
 
 
 
 ## Practice 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
-Try to obtain GO (BP) gene sets for dolphin (latin name: Tursiops truncatus) from  **AnnotationHub**.
+Try to obtain GO (BP) gene sets for dolphin (latin name: Tursiops truncatus) from  **AnnotationHub**,
+and KEGG pathways for giant panda (latin name: Ailuropoda melanoleuca)
 
 #### Solution
-
-
-Get GO gene sets from NCBI/AnnotationHub.
 
 ```{r}
 qu = query(ah, c("Tursiops truncatus", "OrgDb"))
 orgdb = ah[[ qu$ah_id ]]
-gs = get_GO_gene_sets_from_orgdb(orgdb, "BP")
+gs = load_go_genesets(orgdb, "BP")
+```
+
+
+```{r}
+lt = load_kegg_genesets("aml", "pathway")
 ```

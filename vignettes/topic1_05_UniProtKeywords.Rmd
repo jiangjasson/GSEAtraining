@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-05: Get gene sets from UniProt Keywords"
+title: "Topic 1-05: UniProt keywords gene sets"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -51,9 +51,13 @@ organism, which can get by the function `load_keyword_genesets()`. The argument
 is the taxon ID of a organism. The full set of supported organisms can be found
 in the document of `load_keyword_genesets()` (or in the object `UniProtKeywords:::ORGANISM`).
 
+```{r, echo = FALSE}
+set.seed(354)
+```
+
 ```{r}
 gl = load_keyword_genesets(9606)
-gl[3:4]  # because gl[1:2] has a very long output, here we print gl[3:4]
+gl[sample(length(gl), 2)]
 ```
 
 You can also use the name of the organism:
@@ -87,7 +91,7 @@ plot(table(sapply(gl, length)), log = "x",
 2. Numbers of words in keywords:
 
 ```{r, fig.width = 7, fig.height = 5}
-plot(table(sapply(gregexpr(" |-|/", names(gl)), length)), 
+plot(table(sapply(strsplit(names(gl), " |-|/"), length)), 
     xlab = "Number of words in keywords",
     ylab = "Number of keywords"
 )
@@ -101,3 +105,26 @@ plot(table(nchar(names(gl))),
     ylab = "Number of keywords"
 )
 ```
+
+
+
+## Practice 
+
+### Practice 1 {.tabset}
+
+#### Practice
+
+What are the keywords with more than 2000 genes or 35 characters?
+
+#### Solution
+
+```{r}
+len = sapply(gl, length)
+len[len > 2000]
+```
+
+```{r}
+nc = nchar(names(gl))
+names(gl)[nc > 35]
+```
+

@@ -11,6 +11,11 @@
 #' @details
 #' `map_to_entrez_id()` returns a gene ID mapping from the "from" type to EntreZ IDs, only for protein-coding genes.
 map_to_entrez_id = function (from, org_db = org.Hs.eg.db::org.Hs.eg.db) {
+
+    if(is.character(org_db)) {
+        org_db = getFromNamespace(org_db, ns = org_db)
+   
+    }
     
     x = keys(org_db, keytype = from)
     if("GENETYPE" %in% columns(org_db)) {

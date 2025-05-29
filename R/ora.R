@@ -14,21 +14,21 @@
 #' @export
 #' @import fastmatch
 #' @rdname ora
-ora = function(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size = 2500) {
+ora = function(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size = 2000) {
 
     if(is.null(universe)) {
-        universe = unique(unlist(gene_sets, use.names = FALSE))
+        universe = unique(unlist(gs, use.names = FALSE))
     } else {
         universe = unique(universe)
     }
 
-    nl = sapply(gene_sets, length)
-    gene_sets = gene_sets[nl >= min_size & nl <= max_size]
+    nl = sapply(gs, length)
+    gs = gs[nl >= min_size & nl <= max_size]
     
-    gs_name = names(gene_sets)
+    gs_name = names(gs)
     
     genes = fmatch(genes, universe); genes = unique(genes[!is.na(genes)])
-    gene_sets = lapply(gene_sets, function(x) {
+    gs = lapply(gs, function(x) {
         v = fmatch(x, universe)
         unique(v[!is.na(v)])
     })
@@ -36,10 +36,10 @@ ora = function(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size 
     n_universe = length(universe)
     k = length(genes)
     
-    x = sapply(gene_sets, function(x) sum(x %fin% genes))
-    m = sapply(gene_sets, length)
+    x = sapply(gs, function(x) sum(x %fin% genes))
+    m = sapply(gs, length)
     if(all(m == 0)) {
-        stop("Gene IDs in `genes` and `gene_sets` do not match.")
+        stop("Gene IDs in `genes` and `gs` do not match.")
     }
     n = n_universe - m
     

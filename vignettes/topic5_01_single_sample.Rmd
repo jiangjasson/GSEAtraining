@@ -1,0 +1,335 @@
+---
+title: "Topic 5-01: Single-sample GSEA"
+author: "Zuguang Gu <z.gu@dkfz.de>"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    toc: true
+    toc_float: true
+vignette: >
+  %\VignetteIndexEntry{Topic 5-01: Single-sample GSEA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 6,
+    fig.height = 6,
+    fig.align = "center"
+)
+```
+
+We need an expression matrix as well as experimental collections.
+
+```{r}
+library(GSEAtopics)
+data(p53_dataset)
+expr = p53_dataset$expr
+condition = p53_dataset$condition
+gs = p53_dataset$gs
+```
+
+
+## Single-sample GSEA
+
+The implementation is quite straightforward. As GSEA expects a vector of gene scores, expression of all genes in a single sample
+can also be thought of as a type of gene scores. What we do is only to make sure such expression is relative and corresponds to "differential expression"
+of genes in that single sample (high/low in the cohort). This means we need to do a proper normalization or scaling across samples.
+
+We use the simplest normalization method: z-score normalization:
+
+```{r}
+expr_scaled = t(scale(t(expr)))
+```
+
+The gene set level score in a sample should capture both up- and down-regulation. The default method in GSEA already can capture it
+by taking the maximal deviation of two CDFs for genes in and not in the gene set, and keeping the sign. GSVA also uses another metric,
+which is the difference between the maximal positive deviation and the maximal negative deviation. We implement both:
+
+
+```{r}
+es_score = function(s, gene_sets, power = 1, method = c("std", "diff")) {
+    n = length(s)
+    ngs = length(gene_sets)
+    es = numeric(ngs)
+
+    method = match.arg(method)[1]
+
+    for(i in seq_len(ngs)) {
+        l_set = names(s) %in% gene_sets[[i]]
+
+        s_set = numeric(n)
+        s_set[l_set] = abs(s[l_set])^power
+    
+        l_other = !l_set
+
+        f1 = cumsum(s_set)/sum(s_set)
+        f2 = cumsum(l_other)/sum(l_other)
+        m1 = max(f1 - f2)
+        m2 = min(f1 - f2)
+
+        if(method == "std") {
+            es[i] = max(abs(m1), abs(m2)) * ifelse(abs(m1) > abs(m2), sign(m1), sign(m2))
+        } else {
+            if(m1 >= 0 && m2 >= 0) {
+                es[i] = max(m1, m2)
+            } else if(m1 <= 0 && m2 <= 0) {
+                es[i] = min(m1, m2)
+            } else {
+                es[i] = m1 + m2
+            }
+        }
+    }
+
+    es
+}
+```
+
+Now we can go over each sample and calculate a geneset-sample matrix. Let's do it for both "std" and "diff" methods
+
+```{r}
+mat_gs_zvalue_std = matrix(nrow = length(gs), ncol = ncol(expr))
+rownames(mat_gs_zvalue_std) = names(gs)
+for(i in 1:ncol(expr)) {
+    mat_gs_zvalue_std[, i] = es_score(sort(expr_scaled[, i], decreasing = TRUE), 
+                                      gs, method = "std")
+}
+
+mat_gs_zvalue_diff = matrix(nrow = length(gs), ncol = ncol(expr))
+rownames(mat_gs_zvalue_diff) = names(gs)
+for(i in 1:ncol(expr)) {
+    mat_gs_zvalue_diff[, i] = es_score(sort(expr_scaled[, i], decreasing = TRUE), 
+                                       gs, method = "diff")
+}
+```
+
+In GSVA, instead of using the scaled expression values, it uses the ranks as weights. We also calculate it by two ES methods:
+
+```{r}
+mat_gs_rank_std = matrix(nrow = length(gs), ncol = ncol(expr))
+rownames(mat_gs_rank_std) = names(gs)
+for(i in 1:ncol(expr)) {
+    v = rank(expr_scaled[, i]) - nrow(expr_scaled)/2
+    mat_gs_rank_std[, i] = es_score(sort(v, decreasing = TRUE), 
+                                    gs, method = "std")
+}
+
+mat_gs_rank_diff = matrix(nrow = length(gs), ncol = ncol(expr))
+rownames(mat_gs_rank_diff) = names(gs)
+for(i in 1:ncol(expr)) {
+    v = rank(expr_scaled[, i]) - nrow(expr_scaled)/2
+    mat_gs_rank_diff[, i] = es_score(sort(v, decreasing = TRUE), 
+                                     gs, method = "diff")
+}
+```
+
+Let's compare the four matrices:
+
+```{r, fig.width = 12, fig.height = 8}
+par(mfrow = c(2, 2))
+hist(mat_gs_zvalue_std)
+hist(mat_gs_zvalue_diff)
+hist(mat_gs_rank_std)
+hist(mat_gs_rank_diff)
+```
+
+```{r, fig.width = 12, fig.height = 8}
+library(ComplexHeatmap)
+rod = hclust(dist(mat_gs_zvalue_diff))$order
+cod = hclust(dist(t(mat_gs_zvalue_diff)))$order
+
+p1 = grid.grabExpr(draw(Heatmap(mat_gs_zvalue_std, row_order = rod, column_order = cod, show_row_names = FALSE, column_title = "mat_gs_zvalue_std")))
+p2 = grid.grabExpr(draw(Heatmap(mat_gs_zvalue_diff, row_order = rod, column_order = cod, show_row_names = FALSE, column_title = "mat_gs_zvalue_diff")))
+p3 = grid.grabExpr(draw(Heatmap(mat_gs_rank_std, row_order = rod, column_order = cod, show_row_names = FALSE, column_title = "mat_gs_rank_std")))
+p4 = grid.grabExpr(draw(Heatmap(mat_gs_rank_diff, row_order = rod, column_order = cod, show_row_names = FALSE, column_title = "mat_gs_rank_diff")))
+
+library(cowplot)
+plot_grid(p1, p2, p3, p4, nrow = 2)
+```
+
+In general, they give very similar patterns.
+
+
+## GSVA
+
+Next we run the **GSVA** package. 
+
+```{r}
+library(GSVA)
+mat_gs_gsva = gsva(gsvaParam(log(expr), gs), verbose = FALSE)
+```
+
+**GSVA** uses CDF to normalize expression values.
+
+
+```{r, fig.height = 4, fig.width = 8}
+p5 = grid.grabExpr(draw(Heatmap(mat_gs_gsva, row_order = rod, column_order = cod, show_row_names = FALSE, show_column_names = FALSE, column_title = "GSVA")))
+plot_grid(p2, p5, nrow = 1)
+```
+
+We directly compare geneset-sample values between the two different methods:
+
+
+```{r, fig.width = 10, fig.height = 5}
+par(mfrow = c(1, 2))
+plot(mat_gs_zvalue_diff, mat_gs_gsva, pch = ".", xlab = "zvalue", ylab = "rank(CDF)")
+plot(mat_gs_rank_diff, mat_gs_gsva, pch = ".", xlab = "rank(value)", ylab = "rank(CDF)")
+```
+
+In general, the transformed values in the geneset-sample matrices are very linearly similar between the two normalization methods
+and weighting methods.
+
+
+## What to do with the geneset-sample matrix
+
+The geneset-sample matrix is the end of the analysis. It only serves as an intermediate step. 
+You can apply, e.g.
+
+1. t-test or similar test to get differentially expressed gene sets (or gene sets having differential activities),
+2. survival analysis on geneset-levels,
+3. subgroup classification.
+
+
+## Compare to normal GSEA
+
+The next natural question is, compared to normal GSEA analysis, does GSVA improve the analysis? or how consistent is
+between the two types of analysis?
+
+As we know the dataset is about p53 mutant, and the normal GSEA analysis has already confirmed p53-related gene sets are enriched.
+We validate whether single-sample based GSEA can also reveal p53 gene sets.
+
+
+We use `df_gs_zvalue_diff` and `df_gs_gsva` which are based on z-values and ranks. The significant gene sets are analyzed
+by t-tests on the geneset-sample matrix.
+
+
+```{r, message=FALSE}
+library(genefilter)
+
+df_gs_zvalue_diff = rowttests(mat_gs_zvalue_diff, condition,)
+df_gs_zvalue_diff$fdr = p.adjust(df_gs_zvalue_diff$p.value, "BH")
+df_gs_zvalue_diff = df_gs_zvalue_diff[order(df_gs_zvalue_diff$p.value), ]
+
+df_gs_gsva = rowttests(mat_gs_gsva, condition)
+df_gs_gsva$fdr = p.adjust(df_gs_gsva$p.value, "BH")
+df_gs_gsva = df_gs_gsva[order(df_gs_gsva$p.value), ]
+```
+
+The number of significant gene sets:
+
+```{r}
+df_gs_zvalue_diff[df_gs_zvalue_diff$fdr < 0.05, ]
+df_gs_gsva[df_gs_gsva$fdr < 0.05, ]
+```
+
+The normal GSEA analysis:
+
+```{r}
+s = p53_dataset$s2n
+tb_gsea = fgsea_wrapper(s, gs)
+```
+
+
+Top 50 gene sets from the three methods:
+
+```{r}
+library(eulerr)
+plot(euler(list(df_gs_zvalue_diff = rownames(df_gs_zvalue_diff)[1:50], 
+                df_gs_gsva = rownames(df_gs_gsva)[1:50],
+                GSEA = tb_gsea$gene_set[1:50])
+          ), quantities = TRUE)
+```
+
+The p53-related genesets:
+
+```{r}
+pathways = c("P53_UP", "p53Pathway", "p53hypoxiaPathway")
+df_gs_zvalue_diff[pathways, ]
+df_gs_gsva[pathways, ]
+tb_gsea[tb_gsea$gene_set %in% pathways, ]
+```
+
+```{r, fig.width = 8, fig.height = 4}
+rownames(tb_gsea) = tb_gsea$gene_set
+cn = intersect(rownames(df_gs_zvalue_diff), rownames(df_gs_zvalue_diff))
+par(mfrow = c(1, 2))
+plot(df_gs_zvalue_diff[cn, "p.value"], tb_gsea[cn, "p_value"])
+plot(df_gs_zvalue_diff[cn, "statistic"], tb_gsea[cn, "nes"])
+abline(h = 0, lty = 2, col = "grey")
+abline(v = 0, lty = 2, col = "grey")
+```
+
+```{r, fig.width = 8, fig.height = 4}
+rownames(tb_gsea) = tb_gsea$gene_set
+cn = intersect(rownames(df_gs_gsva), rownames(df_gs_gsva))
+par(mfrow = c(1, 2))
+plot(df_gs_gsva[cn, "p.value"], tb_gsea[cn, "p_value"])
+plot(df_gs_gsva[cn, "statistic"], tb_gsea[cn, "nes"])
+abline(h = 0, lty = 2, col = "grey")
+abline(v = 0, lty = 2, col = "grey")
+```
+
+There are still consistency regarding the fold enrichment, but the p-values are very disperse.
+
+## Compare to gene-based analysis
+
+Next we ask, does the geneset-sample matrix reduce the noise from the original data and help
+subgroup classification compared to the original gene-sample matrix?
+
+We apply consensus clustering on the geneset-sample matrix and gene-sample matrix separately.
+
+```{r, fig.height = 6}
+library(cola)
+res1 = consensus_partition(mat_gs_gsva, top_value_method = "ATC", partition_method = "skmeans", verbose = FALSE)
+get_signatures(res1, k = suggest_best_k(res1))
+
+res2 = consensus_partition(expr, top_value_method = "ATC", partition_method = "skmeans", verbose = FALSE)
+get_signatures(res2, k = suggest_best_k(res2))
+```
+
+We compare the two classifications.
+
+```{r, fig.height = 2, fig.width = 8}
+cl1 = get_classes(res1, k = suggest_best_k(res1))$class
+cl2 = get_classes(res2, k = suggest_best_k(res2))$class
+
+Heatmap(rbind(gsva = cl1, gene_mat = cl2), col = cola:::brewer_pal_set2_col[1:3])
+```
+
+Note, one major reason why genesets have similar profiles is they share common genes. So the subgroups
+determined by a group of pathways are actually from the common genes which can only a few. This means, the subgroups
+from the geneset-sample matrix are eventually only from a small set of genes which are more recurrent in gene sets.
+
+
+## Discussion
+
+In what scenario is GSVA useful?
+
+What is the biological meaning of such geneset-level value? What is
+the "activity" of a gene set?
+
+For "co-expression" of gene sets, actually it comes from common genes shares
+among them. So the analysis on co-expressed gene sets is actually on
+co-expression of these shared genes. In other words, there is no necessarity
+of using the concep on geneset-levels, while analyzing these genes is
+enough.
+
+Such single-sample GSEA is more like a data transformation rather than a
+statistical analysis.
+
+If these is a clear pattern from the geneset-sample matrix, it is very likely
+such pattern can also be revealed from gene-sample matrix.
+
+Not restricted in KS-like transformatoin, there are a huge number of other
+methods to aggregate the geneset-level value.
+
+The statistical question is changed from horizontal->vertical to
+vertical->horizontal.
+
+

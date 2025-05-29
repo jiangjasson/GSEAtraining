@@ -1,5 +1,5 @@
 ---
-title: "Topic 1-03: Get pathways from MSigDB"
+title: "Topic 1-03: MSigDB gene sets"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 1-03: Get pathways from MSigDB}
+  %\VignetteIndexEntry{Topic 1-03: MSigDB gene sets}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -52,21 +52,11 @@ Since it is not a table, we have to read the file by lines.
 ln = readLines("h.all.v2024.1.Hs.symbols.gmt")
 ln = strsplit(ln, "\t")
 gs = lapply(ln, function(x) x[-(1:2)])
-names(gs) = sapply(ln, function(x) x[1])
+gs_names = sapply(ln, function(x) x[1])
+names(gs) = gs_names
 gs[1:2]
 ```
 
-Since reading `.gmt` file is a basic task, we can wrap the code into a function:
-
-```{r}
-read_gmt = function(file) {
-    ln = readLines(file)
-    ln = strsplit(ln, "\t")
-    gs = lapply(ln, function(x) x[-(1:2)])
-    names(gs) = sapply(ln, function(x) x[1])
-    gs
-}
-```
 
 ```{r, echo = FALSE}
 invisible(file.remove("h.all.v2024.1.Hs.symbols.gmt"))
@@ -75,9 +65,10 @@ invisible(file.remove("h.all.v2024.1.Hs.symbols.gmt"))
 ## Read gene sets from MSigDB
 
 All the MSigDB gene sets are hosted on https://data.broadinstitute.org/gsea-msigdb/msigdb/release/.
+In the **GSEAtopics** packages, there are several helper functions to get gene sets from a specific collection.
 
 ```{r}
-library(GSEAtutorial)
+library(GSEAtopics)
 list_msigdb_versions()
 list_msigdb_collections("2024.1.Hs")
 lt = get_msigdb(version = "2024.1.Hs", collection = "h.all")
@@ -90,9 +81,9 @@ There is a package **msigdbr** on https://cran.r-project.org/web/packages/msigdb
 
 ## Practice 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 The gene set resource on https://maayanlab.cloud/Enrichr/#libraries is very useful. You may
 want to use it some day in the future. Take one gene set collection (e.g. the COVID-19 related gene sets), download the corresponding gene set file (in `.gmt` format) and try to read into R as a list or a two-column data frame.
@@ -119,7 +110,7 @@ df = data.frame(
 head(df)
 ```
 
-Or use the `list_to_dataframe()` function in **GSEAtraining**:
+Or use the `list_to_dataframe()` function in **GSAEtopics**:
 
 ```{r}
 df = list_to_dataframe(gs)
@@ -130,35 +121,3 @@ head(df)
 invisible(file.remove("covid-19.gmt"))
 ```
 
-
-### {.tabset}
-
-#### Practice 2
-
-We always recommend to use Entrez IDs as the internal gene IDs for analysis. In the previous practice for COVID-19 gene sets, genes are in symbols.
-Can you convert them to gene sets where genes are in Entrez IDs?
-
-You can directly use the `gs` object generated from the previous solution code.
-
-#### Solution
-
-Method 1: use `mapIDs()`
-
-```{r}
-gs2 = lapply(gs, function(x) {
-    x2 = mapIds(org.Hs.eg.db, keys = x, keytype = "SYMBOL", column = "ENTREZID")
-    unique(x2[!is.na(x2)])
-})
-gs2[1:2]
-```
-
-Method 2: use `map_to_entrez_id()` to generating mappings only to protein-coding genes.
-
-```{r}
-map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
-gs2 = lapply(gs, function(x) {
-    x2 = map[x]
-    unique(x2[!is.na(x2)])
-})
-gs2[1:2]
-```

@@ -1,5 +1,5 @@
 ---
-title: "Topic 2-02: Implement ORA from stratch"
+title: "Topic 2-02: Implement ORA from scratch"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 2-02: Implement ORA from stratch}
+  %\VignetteIndexEntry{Topic 2-02: Implement ORA from scratch}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -112,6 +112,7 @@ ora_single = function(genes, gene_set, universe) {
 
     p
 }
+
 ora =  function(genes, gene_sets, universe) {
     ns = length(gene_sets)
     p = numeric(ns)
@@ -190,13 +191,14 @@ ora = function(genes, gene_sets, universe = NULL) {
 }
 ```
 
-Let's try our `ora()` with 1000 random genes on the GO gene sets:
+Let's try our `ora()` with 1000 random genes on the GO BP gene sets:
 
 ```{r}
 library(org.Hs.eg.db)
-library(GSEAtutorial)
-gs = get_GO_gene_sets_from_orgdb(org.Hs.eg.db, gene_id_type = "ENTREZID")
-gs = lapply(gs, unique)  # important!, there are duplicated genes in some GO terms
+library(GSEAtopics)
+lt = load_go_genesets(org.Hs.eg.db, "BP")
+gs = lt$gs
+
 genes = random_genes(org.Hs.eg.db, 1000, "ENTREZID")
 
 df = ora(genes, gs)
@@ -206,6 +208,9 @@ head(df)
 
 ## Further optimization
 
+**Why do we need to further optimize ORA?** The hypergeometric method is not only used in ORA, but is more like an universal method. 
+In many cases, the tests are applied for a huge number of times (> thousands).
+
 We first rename `ora()` to `ora_old()` later for comparison.
 
 ```{r}
@@ -213,13 +218,17 @@ ora_old = ora
 ```
 
 `ora()` is already very fast. However, in the previous implementation, there is still a part which is relatively slow in the function.
-Let't first do a profiling.
+Let't first do a code profiling.
 
 ```{r}
 Rprof()
 df = ora(genes, gs)
 Rprof(NULL)
 summaryRprof()
+```
+
+```{r, echo = FALSE}
+invisible(file.remove("Rprof.out"))
 ```
 
 We can see the `intersect()` function consumes more than 90% of the total runtime. `intersect()` internally uses the `match()` function,
@@ -388,27 +397,28 @@ ora = function(genes, gene_sets, universe = NULL, min_hits = 3, min_size = 5, ma
 
 ## Practice 
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 The file `de.rds` contains results from a differential expression (DE) analysis.
 
 ```{r}
-de = readRDS(system.file("extdata", "de.rds", package = "GSEAtutorial"))
+de = readRDS(system.file("extdata", "de.rds", package = "GSEAtopics"))
 de = de[, c("symbol", "p_value")]
 de = de[!is.na(de$p_value) & de$symbol != "", ]
 head(de)
 ```
 
 Take the `symbol` and `p_value` columns, set cutoff of `p_value` to 0.05, 0.01
-and 0.001 respectively to filter the significant DE genes (of course, in
+and 0.001 respectively to filter the significant DE genes (of course, in realworld
 applications, you need to correct p-values), apply `ora()` to the three DE
-gene lists using the GO BP gene sets (think how to obtain the GO gene sets from **org.Hs.eg.db**) and compare the ORA results (the whatever comparison
-you can think of).
+gene lists using the GO BP gene sets and compare the three ORA results.
 
-If you EntreZ ID in the gene sets, you need to convert gene symbols for the DE genes to EntreZ IDs.
-But you can also choose to use gene symbols in the gene sets.
+
+1. You can use symbols for genes, then you need to generate GO BP genes sets also in gene symbols.
+2. You can use EntreZ IDs for genes, then you need to convert genes in `de` to EntreZ IDs.
+
 
 #### Solution
 
@@ -418,20 +428,39 @@ The three DE gene lists:
 de_genes_1 = de$symbol[de$p_value < 0.05]
 de_genes_2 = de$symbol[de$p_value < 0.01]
 de_genes_3 = de$symbol[de$p_value < 0.001]
+```
 
+Since genes are in symbols, we first obtain a global mapping from symbols to EntreZ IDs:
+
+```{r}
+map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+
+de_genes_1 = unique(map[de_genes_1])
+de_genes_1 = de_genes_1[!is.na(de_genes_1)]
+
+de_genes_2 = unique(map[de_genes_2])
+de_genes_2 = de_genes_2[!is.na(de_genes_2)]
+
+de_genes_3 = unique(map[de_genes_3])
+de_genes_3 = de_genes_3[!is.na(de_genes_3)]
+```
+
+Number of DE genes in the three settings:
+
+```{r}
 length(de_genes_1)
 length(de_genes_2)
 length(de_genes_3)
 ```
 
-Get the GO BP gene sets. Note genes in `de_genes_*` are symbols, thus genes in gene sets
-should also be symbols.
+
+Get the GO BP gene sets.
 
 ```{r}
-gs = get_GO_gene_sets_from_orgdb(org.Hs.eg.db, "BP", gene_id_type = "SYMBOL")
+library(GSEAtopics)
+gs = load_go_genesets(org.Hs.eg.db, "BP")$gs
 gs[1]
 ```
-
 
 We perform ORA for the three DE gene lists.
 
@@ -449,10 +478,9 @@ sum(tb2$p_adjust < 0.05)
 sum(tb3$p_adjust < 0.05)
 ```
 
-Actually we can see gene set enrichment analysis is a robust method
-which is not sensitive to DE cutoffs (at least for this dataset).
+The numbers of significant GO terms are very comparible.
 
-Make a Venn (Euler) diagram:
+Make a Venn (Euler) diagram of the significant GO terms:
 
 
 ```{r}
@@ -473,218 +501,81 @@ plot(euler(list("DE_cutoff_0.05"  = de_genes_1,
 ```
 
 
+We could roughly conclude that ORA is more robust than DE analysis.
 
-### {.tabset}
 
-#### Practice 2
+### Practice 2 {.tabset}
+
+#### Practice
 
 The `ora()` function can be used as the core part of a full-functional function for ORA analysis.
-Please implement a `ora_go()` for GO analysis
+Please implement a `ora_go()` for GO analysis or a `ora_kegg()` for KEGG pathway analysis.
+Following are two templates of the two functions.
+
+```r
+ora_go = function(genes, org_db, ontology) {
+    # generate go gene sets
+    # apply ora()
+}
+```
+
+`org_db` and `ontology` are used to retrieve GO gene sets for a specific namespace. 
+
+
+```r
+ora_kegg = function(genes, organism) {
+    # generate kegg gene sets
+    # apply ora()
+}
+```
+
+`organism` is the organism code.
+
+To make it simple, we assume `genes` is always in EntreZ ID type.
 
 
 #### Solution
 
 
 ```{r}
-CACHE = new.env(parent = emptyenv())
+ora_go = function(genes, org_db = org.Hs.eg.db, ontology = "BP") {
+    tb = AnnotationDbi::select(org_db, keys = ontology, keytype = "ONTOLOGYALL", 
+        columns = c("ENTREZID", "GOALL"))
+    gs = split(tb$ENTREZID, tb$GOALL)
+    gs = lapply(gs, function(x) {
+        as.character(unique(x))
+    })
 
-load_go_genesets = function(org_db, ontology) {
-    db_info = dbInfo(dbconn(org_db))
-    organism = db_info$value[db_info$name == "ORGANISM"]
-    if(is.null(CACHE$go_genesets[[organism]][[ontology]])) {
-        suppressMessages(tb <- AnnotationDbi::select(org_db, keys = ontology, keytype = "ONTOLOGYALL", columns = c("ENTREZID", "GOALL")))
-        gs = split(tb$ENTREZID, tb$GOALL)
-        go_gs = lapply(gs, function(x) {
-            as.character(unique(x))
-        })
-
-        go_names = Term(GOTERM)[names(go_gs)]
-
-        CACHE$go_genesets[[organism]][[ontology]]$go_names = go_names
-        CACHE$go_genesets[[organism]][[ontology]]$go_gs = go_gs
-    } else {
-        go_names = CACHE$go_genesets[[organism]][[ontology]]$go_names
-        go_gs = CACHE$go_genesets[[organism]][[ontology]]$go_gs
-    }
-
-    list(names = go_names, gs = go_gs)
+    ora(genes, gs)
 }
 
-ora_go = function(genes, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...) {
-    lt = load_go_genesets(org_db, ontology)
-   
-    df = ora(genes, lt$gs, ...)
-    df$description = lt$names[df$gene_set]
-    df
-}
-
-load_kegg_genesets = function(organism, db) {
-    if(is.null(CACHE$kegg_pathways[[db]][[organism]])) {
-        if(db == "pathway") {
-            gs_names = read.table(url(paste0("https://rest.kegg.jp/list/", db, "/", organism)), sep = "\t", quote = "")
-        } else {
-            gs_names = read.table(url(paste0("https://rest.kegg.jp/list/", db)), sep = "\t", quote = "")
-        }
-        gs_names = structure(gs_names[, 2], names = gs_names[, 1])
-
-        gs_genes = read.table(url(paste0("https://rest.kegg.jp/link/", db, "/", organism)), sep = "\t", quote = "")
-        gs_genes[, 1] = gsub("^\\w+:", "", gs_genes[, 1])
-        gs_genes[, 2] = gsub("^\\w+:", "", gs_genes[, 2])
-        if(db == "module") {
-            gs_genes[, 2] = gsub("^[a-zA-Z]+_", "", gs_genes[, 2])
-        }
-
-        gs = split(gs_genes[, 1], gs_genes[, 2])
-        gs = lapply(gs, function(x) {
-            as.character(unique(x))
-        })
-
-        CACHE$kegg_pathways[[db]][[organism]]$gs_names = gs_names
-        CACHE$kegg_pathways[[db]][[organism]]$gs = gs
-    } else {
-        gs_names = CACHE$kegg_pathways[[db]][[organism]]$gs_names
-        gs = CACHE$kegg_pathways[[db]][[organism]]$gs
-    }
-
-    list(names = gs_names, gs = gs)
-}
-
-# db: pathway, module, ko, network, disease, drug
-ora_kegg = function(genes, organism = "hsa", db = "pathway", ...) {
-    lt = load_kegg_genesets(organism, db)
-
-    df = ora(genes, lt$gs, ...)
-    df$description = lt$names[df$gene_set]
-    df
-}
-
-
-load_msigdb_genesets = function(collection, version) {
-    dataset = paste0(version, "/", collection)
-    if(is.null(CACHE$msigdb_genesets[[dataset]])) {
-        gs = get_msigdb(version = version, collection = collection)
-        CACHE$msigdb_genesets[[dataset]] = gs
-    } else {
-        gs = CACHE$msigdb_genesets[[dataset]]
-    }
-
-    list(gs = gs)
-}
-
-ora_msigdb = function(genes, collection = "h.all", version = "2024.1.Hs", ...) {
-    lt = load_msigdb_genesets(collection, version)
-
-    df = ora(genes, lt$gs, ...)
-    df
-}
-
-library(reactome.db)
-load_reactome_genesets = function(organism) {
-    if(is.null(CACHE$reactome_pathways)) {
-        pathway_names = unlist(as.list(reactomePATHID2NAME))
-        pathway_gs = as.list(reactomePATHID2EXTID)
-
-        cn = intersect(names(pathway_names), names(pathway_gs))
-        pathway_names = pathway_names[cn]
-        pathway_gs = pathway_gs[cn]
-
-        CACHE$reactome_pathways$pathway_gs = pathway_gs
-        CACHE$reactome_pathways$pathway_names = pathway_names
-    } else {
-        pathway_gs = CACHE$reactome_pathways$pathway_gs
-        pathway_names = CACHE$reactome_pathways$pathway_names
-    }
-
-    l = grepl(paste0("^R-", organism, "-"), names(pathway_names))
-    list(names = pathway_names[l], gs = pathway_gs[l])
-}
-
-ora_reactome = function(genes, organism = "HSA", ...) {
-    lt = load_reactome_genesets(organism)
-
-    df = ora(genes, lt$gs, ...)
-    df$description = lt$names[df$gene_set]
-    df
-}
-
-library(UniProtKeywords)
-ora_keywords = function(genes, organism = "human", ...) {
-    gs = load_keyword_genesets(organism)
-    df = ora(genes, gs, ...)
-    df
-}
-
-library(simona)
-load_simona_genesets = function(fun, ontology, organism = "human", ...) {
-    if(is.null(CACHE$simona_genesets[[ontology]][[organism]])) {
-        dag = fun(organism)
-        mc = mcols(dag)
-        gs_names = structure(mc$name, names = rownames(mc))
-        all_terms = dag_all_terms(dag)
-        gs = term_annotations(dag, all_terms)
-        gs_names = gs_names[all_terms]
-
-        org_db = switch(organism,
-            human = org.Hs.eg.db::org.Hs.eg.db,
-            mouse = org.Ms.eg.db::org.Ms.eg.db,
-            rat   = org.Rn.eg.db::org.Rn.eg.db,
-            stop("not supported")
-        )
-
-        x = keys(org_db, keytype = "SYMBOL")
-        suppressMessages(map_tb <- AnnotationDbi::select(org_db, keys = x, keytype = "SYMBOL", columns = c("ENTREZID", "GENETYPE")))
-        map_tb = map_tb[map_tb$GENETYPE == "protein-coding", , drop = FALSE]
-        map_tb = map_tb[!duplicated(map_tb[, 1]), , drop = FALSE]
-        map = structure(map_tb[, 2], names = map_tb[, 1])
-
-        gs = lapply(gs, function(x) {
-            x2 = map[x]
-            unique(x2[!is.na(x2)])
-        })
-
-        n = sapply(gs, length)
-        gs = gs[n > 0]
-        gs_names = gs_names[n > 0]
-
-        CACHE$simona_genesets[[ontology]][[organism]]$gs = gs
-        CACHE$simona_genesets[[ontology]][[organism]]$gs_names = gs_names
-    } else {
-        gs = CACHE$simona_genesets[[ontology]][[organism]]$gs
-        gs_names = CACHE$simona_genesets[[ontology]][[organism]]$gs_names
-    }
-
-    list(gs = gs, names = gs_names)
-}
-
-# the human phenotype ontology
-ora_phenotype = function(genes, organism = "human", ...) {
-    lt = load_simona_genesets(ontology_hp, "hp", organism = organism)
-
-    df = ora(genes, lt$gs, ...)
-    df$description = lt$names[df$gene_set]
-    df
-}
-
-# disease ontology
-ora_disease = function(genes, organism = "human", ...) {
-    lt = load_simona_genesets(ontology_rdo, "rdo", organism = organism)
-
-    df = ora(genes, lt$gs, ...)
-    df$description = lt$names[df$gene_set]
-    df
+ora_kegg = function(genes, organism = "hsa") {
+    pathway_genes = read.table(url(paste0("https://rest.kegg.jp/link/pathway/", organism)), 
+        sep = "\t", quote = "")
+    pathway_genes[, 1] = gsub("^\\w+:", "", pathway_genes[, 1])
+    pathway_genes[, 2] = gsub("^\\w+:", "", pathway_genes[, 2])
+    pathway_genes = split(pathway_genes[, 1], pathway_genes[, 2])
+        
+    ora(genes, pathway_genes)
 }
 ```
 
-Let's test these `ora_*()` functions.
+Let's test these two `ora_*()` functions.
 
 ```{r}
 genes = random_genes(org.Hs.eg.db, 1000)
 head(ora_go(genes))
 head(ora_kegg(genes))
-head(ora_msigdb(genes))
-head(ora_reactome(genes))
-head(ora_keywords(genes))
-head(ora_phenotype(genes))
-head(ora_disease(genes))
 ```
+
+
+In **GSEAtopics** there are the following `ora_*()` functions:
+
+- `ora_go()`
+- `ora_kegg()`
+- `ora_msigdb()`
+- `ora_reactome()`
+- `ora_keywords()`
+- `ora_phenotype()`
+- `ora_disease()`
 

@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -68,6 +68,9 @@ Following functions are very similar as in online GREAT.
 ```{r}
 tb = getEnrichmentTable(res)
 plotVolcano(res)
+```
+
+```{r, fig.width = 10}
 plotRegionGeneAssociations(res)
 getRegionGeneAssociations(res)
 plotRegionGeneAssociations(res, term_id = "HALLMARK_APOPTOSIS")
@@ -132,15 +135,30 @@ reduce the false positives. Examples are:
 - regions with certain level of gene densities
 - exons (coding regions)
 
+A very useful case is to perform GREAT only in promoter regions or in distal regions from gene:
+
+```r
+great(gr, ..., background = promoters)
+great(gr, ..., background = distal)
+great(gr, ..., background = gene_body)
+```
+
+**Question:** how to obtain intergenic and distal regions from TSS?
+
+
 ## Extend from the complete gene
 
-This feature is only available in the newer version of **rGREAT** (>= 2.10.0).
+By default genes are extended only from TSS. In the newer version of **rGREAT** (>= 2.10.0),
+you can also extend from the complete gene bodies.
 
 ```r
 great(gr, "BP", "hg19", extend_from = "gene")
 ```
 
 ## Using other gene sets
+
+`great()` supports self-defined gene sets. Just make sure genes in gene models have
+the same ID type as in gene sets.
 
 More gene sets can be set as a list of gene vectors. For most organisms, EntreZ IDs
 should be used as the gene ID type in gene sets.
@@ -165,9 +183,9 @@ gs_kegg[1:2]
 great(gr, gs_kegg, "hg19")
 ```
 
-## Other organisms who have txdb packages
+## Other organisms which have TxDb packages
 
-On Bioconductor, there are a family of annotation packages with name **txdb.\*.db**.
+On Bioconductor, there are a family of annotation packages with name **TxDb.\*.db**.
 These packages contain sources of TSS definitions.
 
 All supported **txdb.\*.db** packages:
@@ -186,6 +204,7 @@ great(gr, "BP", "rn7")
 
 Note `gr` should have `chr` prefix for most of the organisms.
 
+
 ## Use MSigDB gene sets for other organisms
 
 Taking chimpanzee as an example. There is an TxDb on Bioconductor.
@@ -195,6 +214,7 @@ gr = randomRegions(nr = 1000, genome = "panTro6")
 ```
 
 ```{r}
+library(GSEAtopics)
 gs = get_msigdb(version = "2024.1.Hs", collection = "h.all")
 gs2 = gs_map_to_orthologues(gs, from = "Homo.sapiens", to = "Pan.troglodytes")
 
@@ -202,10 +222,10 @@ great(gr, gs2, "panTro6")
 ```
 
 
-## Other organisms who have txdb object on AnnotationHub
+## Other organisms who have TxDb object on AnnotationHub
 
-For some other organisms, although they don't have a **txdb** package on Bioconductor,
-but they have a `txdb` object on **AnnotationHub**:
+For some other organisms, although they don't have a **TxDb** package on Bioconductor,
+but they have a `TxDb` object on **AnnotationHub**:
 
 ```{r}
 library(AnnotationHub)
@@ -216,11 +236,7 @@ query(ah, "TxDb")
 But it seems many of those organisms are microbes. I will not introduce it here.
 
 
-## Other organisms who do not have txdb objects
-
-Then we need to obtain the TSS definition manually. Obtaining gene sets for an organism
-is relatively easy, but it is sometimes difficult to find a proper genome version because
-for these "rare" genomes, their genome data evolves very fast.
+## Other organisms who do not have TxDb objects
 
 ### Get TSS from NCBI
 
@@ -263,9 +279,9 @@ Remember to double check the format of chromosome names in `gr` and in `genes`.
 
 ## Practice
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 
 Run local GREAT analysis with a list of TFBS from UCSC table browser:

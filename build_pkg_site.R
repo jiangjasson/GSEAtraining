@@ -1,4 +1,3 @@
-writeLines("destination: docs", "_pkgdown.yml")
 if(file.exists(".Rbuildignore")) {
 	ln = readLines(".Rbuildignore")
 	if(!any(ln == "^_pkgdown\\.yml$")) {

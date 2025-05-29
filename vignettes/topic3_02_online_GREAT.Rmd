@@ -12,6 +12,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 6,
+    fig.height = 6,
+    fig.align = "center"
+)
+```
 
 We first read the peaks (https://github.com/jokergoo/GSEAtraining/blob/master/inst/extdata/mm9_chipseq_peaks.bed) as a data frame.
 
@@ -92,12 +104,12 @@ shinyReport(job)
 
 ## Practice
 
-### {.tabset}
+### Practice 1 {.tabset}
 
-#### Practice 1
+#### Practice
 
 
-Perform GREAT analysis on the GREAT website with a list of TFBS from UCSC table browser:
+Perform GREAT analysis on the GREAT website with a list of TFBS from UCSC table browser (https://genome.ucsc.edu/cgi-bin/hgTables):
 
 ```
 clade: Mammal
@@ -111,9 +123,9 @@ table: 22Rv1 ZFX (encTfChipRkENCFF445OFX)
 In the "output format" field, select "BED - browser extensible data", then click the button "get output". In the next page, click the button "get BED".
 
 
-### {.tabset}
+### Practice 2 {.tabset}
 
-#### Practice 2
+#### Practice
 
 Download the regions in practice 1 and perform online GREAT analysis with the **rGREAT** package.
 

@@ -1,5 +1,5 @@
 ---
-title: "Topic 6-01: Implement the GREAT method"
+title: "Topic 3-01: Implement the GREAT method"
 author: "Zuguang Gu <z.gu@dkfz.de>"
 date: '`r Sys.Date()`'
 output:
@@ -7,7 +7,7 @@ output:
     toc: true
     toc_float: true
 vignette: >
-  %\VignetteIndexEntry{Topic 6-01: Implement the GREAT method}
+  %\VignetteIndexEntry{Topic 3-01: Implement the GREAT method}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -40,10 +40,10 @@ regions = randomRegions(1000, genome = "hg19")
 regions
 ```
 
-On Bioconductor, "gene models" for standard genome are provided via txdb* packages. For
+On Bioconductor, "gene models" for standard genome are provided via TxDb* packages. For
 human genome hg19, there is a **TxDb.Hsapiens.UCSC.hg19.knownGene** package.
 
-We use `genes()` to get gene coordinates next `promoters()` to get TSSs of genes.
+We use `genes()` to get gene coordinates, next `promoters()` to get TSSs of genes.
 
 ```{r}
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
@@ -143,6 +143,7 @@ It is important to note, extended regions in `extended_tss` may overlap.
 Next we use an example gene set from the hallmark gene sets:
 
 ```{r}
+library(GSEAtopics)
 gs = get_msigdb(version = "2024.1.Hs", collection = "h.all")
 geneset = gs[[1]]
 ```
@@ -190,7 +191,7 @@ ov = findOverlaps(regions, gs_region)
 k = length(unique(queryHits(ov)))
 ```
 
-In this step, instead of ocerlaping the complete intervals in `regions`, we can also just overlap the middle points:
+In this step, instead of overlapping the complete intervals in `regions`, we can also just overlap the middle points:
 
 ```{r}
 regions_mid = GRanges(seqnames = seqnames(regions), ranges = IRanges(mid(regions)))
@@ -235,6 +236,12 @@ chr_len = seqlengths(tss)
 chr_len = chr_len[chromosomes]
 background = GRanges(seqnames = names(chr_len), ranges = IRanges(1, chr_len))
 background
+```
+
+There is also a helper function `seqlengths_as_GRanges()`:
+
+```r
+seqlengths_as_GRanges(tss, chromosomes)
 ```
 
 Next we extract the gap regions from UCSC table browser, or use the helper function `getGapFromUCSC()`. Be careful
@@ -307,4 +314,6 @@ Then similarly, we can also set the default background as union of extended TSSs
 ```r
 background = reduce(extended_tss[extended_tss$gene_id %in% unique(unlist(gs))])
 ```
+
+
 

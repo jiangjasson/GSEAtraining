@@ -145,7 +145,10 @@ genesets_similarity_heatmap = function(lt, weight = NULL, min_pct = 0.5, max_k =
     g = graph_from_adjacency_matrix(sm, weighted = TRUE, mode = "upper", diag = FALSE)
     cl = membership(cluster_louvain(g, resolution = resolution))
 
-    ht = Heatmap(sm, row_split = cl, column_split = cl, show_row_dend = FALSE, show_column_dend = FALSE, row_names_side = "left", row_title = NULL, column_title = NULL)
+    ht = Heatmap(sm, col = c("white", "red"), name = "similarity", 
+        row_split = cl, column_split = cl, show_row_dend = FALSE, 
+        show_column_dend = FALSE, row_names_side = "left", 
+        row_title = NULL, column_title = NULL)
 
     ind_list = split(1:nrow(sm), cl)
     ind_list = ind_list[sapply(ind_list, function(ind) {

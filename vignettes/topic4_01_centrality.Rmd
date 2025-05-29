@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
     tidy  = FALSE,
     message = FALSE,
     warning = FALSE,
-    fig.width = 8,
-    fig.height = 8,
+    fig.width = 6,
+    fig.height = 6,
     fig.align = "center"
 )
 ```
@@ -38,10 +38,10 @@ universe = gene.list$bk
 ```
 
 ```{r}
+library(GSEAtopics)
 library(org.Hs.eg.db)
-map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
-genes = map[genes]; genes = unname(genes[!is.na(genes)])
-universe = map[universe]; universe = unname(universe[!is.na(universe)])
+genes = convert_to_entrez_id(genes)
+universe = convert_to_entrez_id(universe)
 ```
 
 The most important part in topology-based pathway enrichment analysis is that we need pathways in the network representations.
@@ -136,7 +136,7 @@ sum(s_random > s)/length(s_random)
 ```
 
 
-Question: can you also integrate the centralities into the standard GSEA method?
+**Question**: can you do a two-sided test?
 
 ## Helper functions
 
