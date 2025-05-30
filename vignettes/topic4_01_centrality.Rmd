@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 ## ORA extension
@@ -40,8 +41,8 @@ universe = gene.list$bk
 ```{r}
 library(GSEAtopics)
 library(org.Hs.eg.db)
-genes = convert_to_entrez_id(genes)
-universe = convert_to_entrez_id(universe)
+genes = convert_to_entrez(genes)
+universe = convert_to_entrez(universe)
 ```
 
 The most important part in topology-based pathway enrichment analysis is that we need pathways in the network representations.

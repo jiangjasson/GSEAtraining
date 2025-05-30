@@ -1,3 +1,82 @@
 destination: docs
 template:
   bootstrap: 5
+
+
+navbar:
+  title: "GSEAtopics"
+  left:
+    - text: "Articles"
+      menu:
+        - text: "Topic 1: Gene set resources"
+        - text: "Topic 1-01: Data representation of gene sets in R"
+          href: articles/topic1_00_format.html
+        - text: "Topic 1-02: GO gene sets"
+          href: articles/topic1_01_GO.html
+        - text: "Topic 1-03: Get pathways from KEGG"
+          href: articles/topic1_02_kegg.html
+        - text: "Topic 1-04: Get pathways from MSigDB"
+          href: articles/topic1_03_msigdb.html
+        - text: "Topic 1-05: Get pathways from Reactome"
+          href: articles/topic1_04_Reactome.html
+        - text: "Topic 1-06: Get gene sets from UniProt Keywords"
+          href: articles/topic1_05_UniProtKeywords.html
+        - text: "Topic 1-07: Get GO/KEGG gene sets for other organisms"
+          href: articles/topic1_06_more_gene_sets.html
+        - text: "Topic 1-08: Generate gene sets for other organisms by mapping to orthologues"
+          href: articles/topic1_07_ortholog.html
+        - text: "Topic 1-09: Gene ID conversion"
+          href: articles/topic1_08_gene_id.html
+
+        - text: -------
+        - text: "Topic 2: ORA and GSEA"
+        - text: "Topic 2-01: ORA on a single gene set"
+          href: articles/topic2_01_ora_single_gene_set.html
+        - text: "Topic 2-02: Implement ORA from scratch"
+          href: articles/topic2_02_implement_ora.html
+        - text: "Topic 2-03: Implement GSEA from scratch"
+          href: articles/topic2_03_implement_gsea.html
+        - text: "Topic 2-04: fgsea"
+          href: articles/topic2_04_fgsea.html
+        - text: "Topic 2-05: Compare ORA and GSEA"
+          href: articles/topic2_05_compare_ORA_GSEA.html
+
+        - text: -------
+        - text: "Topic 3: Application in genomics"
+        - text: "Topic 3-01: Implement the GREAT method"
+          href: articles/topic3_01_implement_GREAT.html
+        - text: "Topic 3-02: Online GREAT analysis"
+          href: articles/topic3_02_online_GREAT.html
+        - text: "Topic 3-03: Local GREAT analysis"
+          href: articles/topic3_03_local_GREAT.html
+
+
+        - text: -------
+        - text: "Topic 4: Topology-based"
+        - text: "Topic 4-01: Centrality-based pathway enrichment analysis"
+          href: articles/topic4_01_centrality.html
+
+        - text: -------
+        - text: "Topic 5: Single-sample GSEA"
+        - text: "Topic 5-01: Single-sample GSEA"
+          href: articles/topic5_01_single_sample.html
+
+        - text: -------
+        - text: "Topic 6: Similarity, clustering and summarization"
+        - text: "Topic 6-01: Similarities of terms"
+          href: articles/topic6_01_similarity.html
+        - text: "Topic 6-02: Cluster and summarize"
+          href: articles/topic6_02_cluster_and_summarize.html
+
+        - text: -------
+        - text: "Topic 7: Visualization"
+        - text: "Topic 7-01: Visualization"
+          href: articles/topic7_01_visualization.html
+
+        - text: -------
+        - text: "Topic 8: GSEA framework"
+        - text: "Topic 8-01: GSEA framework"
+          href: articles/topic8_01_GSEA_framework.html
+
+    - text: "Reference"
+      href: reference/index.html

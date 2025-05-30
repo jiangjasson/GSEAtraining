@@ -8,11 +8,11 @@
 \alias{load_simona_genesets}
 \title{Load various gene sets}
 \usage{
-load_go_genesets(org_db, ontology)
+load_go_genesets(org_db, ontology = "BP")
 
-load_kegg_genesets(organism, db)
+load_kegg_genesets(organism, db = "pathway")
 
-load_msigdb_genesets(collection, version)
+load_msigdb_genesets(collection = "h.all", version = "2024.1.Hs")
 
 load_reactome_genesets(organism)
 
@@ -21,7 +21,7 @@ load_simona_genesets(fun, ontology, organism = "human")
 \arguments{
 \item{org_db}{An \code{OrgDb} object.}
 
-\item{ontology}{Just a tag, please use "hp" and "rdo".}
+\item{ontology}{Just a tag, please use \code{"hp"} or \code{"rdo"}.}
 
 \item{organism}{See \strong{Details}.}
 
@@ -31,7 +31,7 @@ load_simona_genesets(fun, ontology, organism = "human")
 
 \item{version}{Version of the MSigDB database. All possible values can be found via \code{\link[=list_msigdb_collections]{list_msigdb_collections()}}.}
 
-\item{fun}{Use \code{ontology_hp} and \code{ontology_rdo}.}
+\item{fun}{Use \code{\link[simona:ontology]{simona::ontology_hp}} or \code{\link[simona:ontology]{simona::ontology_rdo}}.}
 }
 \description{
 Load various gene sets
@@ -45,6 +45,12 @@ The value should be set differently for specific \verb{fgsea_*()} functions.
 \item for \code{load_reactome_genesets()}, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.
 \item for \code{load_simona_genesets()}, the value can only be one of "human", "mouse" and "rat".
 }
+
+All valid values for \code{load_reactome_genesets()} are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+  "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+}\if{html}{\out{</div>}}
 
 The human phenotype gene sets and disease gene sets are supported by the \strong{simona} package.
 }

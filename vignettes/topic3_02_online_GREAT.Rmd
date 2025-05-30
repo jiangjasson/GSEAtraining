@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 We first read the peaks (https://github.com/jokergoo/GSEAtraining/blob/master/inst/extdata/mm9_chipseq_peaks.bed) as a data frame.

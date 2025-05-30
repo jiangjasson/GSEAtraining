@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 There are two types of similarity methods, the count-based and semantic-based. We look at them separately.
@@ -43,7 +44,7 @@ gs = p53_dataset$gs
 library(genefilter)
 tdf = rowttests(expr, factor(condition))
 diff = rownames(expr)[abs(tdf$statistic) > 2]
-tb_ora = ora(diff, universe = rownames(expr), gs = gs)
+tb_ora = ora(diff, gs, universe = rownames(expr))
 sig = tb_ora$gene_set[tb_ora$p_value < 0.05]
 ```
 
@@ -75,7 +76,7 @@ The similarity matrix can be thought of as an adjacency matrix. The **igraph** p
 library(igraph)
 g = graph_from_adjacency_matrix(sm, weighted = TRUE, mode = "upper", diag = FALSE)
 cl = membership(cluster_louvain(g))
-Heatmap(sm, , name = "jaccard", col = c("white", "red"),
+Heatmap(sm, , name = "jaccard", col = c("white", "red"), border = "black",
     row_split = cl, column_split = cl)
 ```
 
@@ -105,7 +106,7 @@ For the visualization purpose, can we add such driving genes to the heatmap?
 Let's first adjust the heatmap:
 
 ```{r}
-ht = Heatmap(sm, name = "jaccard", col = c("white", "red"), 
+ht = Heatmap(sm, name = "jaccard", col = c("white", "red"), border = "black",
     row_split = cl, column_split = cl, row_names_side = "left",
     show_row_dend = FALSE, show_column_dend = FALSE, row_title = NULL, column_title = NULL)
 ```
@@ -148,7 +149,7 @@ can be used for calculating the similarities.
 l = tb_gsea$p_adjust < 0.1
 gs3 = tb_gsea[l, "leading_edge"]
 names(gs3) = tb_gsea$gene_set[l]
-genesets_similarity_heatmap(gs3, weight = s, resolution = 2)
+genesets_similarity_heatmap(gs3, weight = s, resolution = 1.5)
 ```
 
 **Thoughts**: GSVA or the single-sample GSEA converts the original gene-sample matrix to geneset-sample matrix. One the aim of such transformation
@@ -303,7 +304,7 @@ for `padj_cutoff` to let the number of GO terms be in `[100, 1000]`.
 
 In some cases, the similarity heatmap is not necessary to put into the final report.
 
-```{r, fig.width = 8, fig.height = 4.5}
+```{r, fig.width = 8, fig.height = 6}
 df = tbl[[1]]
 go_id = df$gene_set[df$p_adjust < 0.01]
 simplifyGO(go_id)
@@ -317,7 +318,7 @@ When there is only one enrichment results, there are two inputs for `summarizeGO
 - A vector of GO IDs
 - A numeric vector of corresponding statistics which are mapped to barplots.
 
-```{r, fig.width = 8, fig.height = 5}
+```{r, fig.width = 8, fig.height = 6}
 l = df$p_adjust < 0.01
 summarizeGO(df$gene_set[l], -log10(df$p_adjust)[l], axis_label = "average -log10(p.adjust)")
 ```
@@ -325,7 +326,7 @@ summarizeGO(df$gene_set[l], -log10(df$p_adjust)[l], axis_label = "average -log10
 
 Or visualize average log2 fold enrichment:
 
-```{r, fig.width = 8, fig.height = 5}
+```{r, fig.width = 8, fig.height = 6}
 l = df$p_adjust < 0.01
 summarizeGO(df$gene_set[l], df$log2fe[l], axis_label = "average log2(fold enrichment)")
 ```
@@ -380,7 +381,7 @@ de_genes_2 = de$symbol[de$p_value < 0.01]
 de_genes_3 = de$symbol[de$p_value < 0.001]
 
 library(org.Hs.eg.db)
-map = GSEAtopics::map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+map = GSEAtopics::map_to_entrez("SYMBOL", org.Hs.eg.db)
 
 de_genes_1 = unique(map[de_genes_1])
 de_genes_1 = de_genes_1[!is.na(de_genes_1)]

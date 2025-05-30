@@ -33,3 +33,7 @@ If this argument is not specified, a menu will be printed to let users to select
 \description{
 Retrieve gene sets from MSigDB
 }
+\examples{
+list_msigdb_versions()
+list_msigdb_collections("2024.1.Hs")
+}

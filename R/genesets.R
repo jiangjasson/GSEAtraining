@@ -5,7 +5,16 @@
 #' @param from Latin name of the "from" organism.
 #' @param to Latin name of the "to" organism.
 #' 
+#' @details
+#' Gene IDs in `gs` must be EntreZ IDs.
+#' 
+#' Gene sets are removed if none of the genes can ba mapped.
+#' 
 #' @export
+#' @examples
+#' gs_human = load_msigdb_genesets()$gs
+#' gs_dolphin = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", 
+#'     to = "Tursiops.truncatus")
 gs_map_to_orthologues = function(gs, from, to) {
     from = gsub(" ", ".", from)
     to = gsub(" ", ".", to)
@@ -74,6 +83,13 @@ load_go_genesets = function(org_db, ontology = "BP") {
 #' - for `load_kegg_genesets()`, the value should be a KEGG organism code, such as "hsa" or "mmu".
 #' - for `load_reactome_genesets()`, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.
 #' - for `load_simona_genesets()`, the value can only be one of "human", "mouse" and "rat".
+#' 
+#' All valid values for `load_reactome_genesets()` are:
+#' 
+#' ```
+#' c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+#'   "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+#' ```
 #' 
 #' @rdname load_gene_sets
 load_kegg_genesets = function(organism, db = "pathway") {
@@ -151,9 +167,9 @@ load_reactome_genesets = function(organism) {
 
         df = read.table(url("https://reactome.org/download/current/ReactomePathwaysRelation.txt"), sep = "\t")
         df = df[grepl(organism, df[, 1]) & grepl(organism, df[, 2]), ]
-        dag = create_ontology_DAG(df[, 1], df[, 2], annotation = gs)
+        dag = simona::create_ontology_DAG(df[, 1], df[, 2], annotation = gs)
 
-        gs2 = term_annotations(dag, setdiff(dag_all_terms(dag), "~~all~~"))
+        gs2 = simona::term_annotations(dag, setdiff(simona::dag_all_terms(dag), "~~all~~"))
         
         singleton = setdiff(names(gs), names(gs2))
         if(length(singleton)) {
@@ -174,8 +190,8 @@ load_reactome_genesets = function(organism) {
     list(names = pathway_names, gs = pathway_gs)
 }
 
-#' @param fun Use `ontology_hp` and `ontology_rdo`.
-#' @param ontology Just a tag, please use "hp" and "rdo".
+#' @param fun Use [`simona::ontology_hp`] or [`simona::ontology_rdo`].
+#' @param ontology Just a tag, please use `"hp"` or `"rdo"`.
 #' 
 #' @details
 #' The human phenotype gene sets and disease gene sets are supported by the **simona** package.

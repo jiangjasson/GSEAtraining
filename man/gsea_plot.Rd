@@ -7,9 +7,10 @@
 gsea_plot(s, which, gs, col = seq_along(which), panel_height = c(6, 1, 3))
 }
 \arguments{
-\item{s}{A numeric vector of gene scores.}
+\item{s}{A numeric vector of gene scores with gene IDs as names.}
 
-\item{which}{Which gene sets to draw. Multiple gene sets are allowed.}
+\item{which}{Which gene sets to draw. Multiple gene sets are allowed. The value can be integer indices
+or names in \code{gs}.}
 
 \item{gs}{A list of gene sets. Genes should have the same gene ID type as in \code{s}.}
 
@@ -19,4 +20,12 @@ gsea_plot(s, which, gs, col = seq_along(which), panel_height = c(6, 1, 3))
 }
 \description{
 GSEA plot
+}
+\examples{
+data(p53_dataset)
+s = p53_dataset$s2n
+gs = p53_dataset$gs
+
+gsea_plot(s, "p53hypoxiaPathway", gs)
+gsea_plot(s, 1:3, gs)
 }

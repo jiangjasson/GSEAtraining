@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GSEAtopics</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,35 +29,50 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-00: Data representation of gene sets in R</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-01: GO gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-02: KEGG gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-03: MSigDB gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-04: Reactome gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-05: UniProt keywords gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-06: GO/KEGG gene sets for other organisms</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-07: Generate gene sets for other organisms by mapping to orthologues</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-08: Gene ID conversion</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Topic 1: Gene set resources</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-01: Data representation of gene sets in R</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-02: GO gene sets</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-03: Get pathways from KEGG</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-04: Get pathways from MSigDB</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-05: Get pathways from Reactome</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-06: Get gene sets from UniProt Keywords</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-07: Get GO/KEGG gene sets for other organisms</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-08: Generate gene sets for other organisms by mapping to orthologues</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-09: Gene ID conversion</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 2: ORA and GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic2_01_ora_single_gene_set.html">Topic 2-01: ORA on a single gene set</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_02_implement_ora.html">Topic 2-02: Implement ORA from scratch</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_03_implement_gsea.html">Topic 2-03: Implement GSEA from scratch</a></li>
-    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-05: fgsea</a></li>
+    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-04: fgsea</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_05_compare_ORA_GSEA.html">Topic 2-05: Compare ORA and GSEA</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 3: Application in genomics</h6></li>
     <li><a class="dropdown-item" href="../articles/topic3_01_implement_GREAT.html">Topic 3-01: Implement the GREAT method</a></li>
     <li><a class="dropdown-item" href="../articles/topic3_02_online_GREAT.html">Topic 3-02: Online GREAT analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-02: Local GREAT analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-03: Local GREAT analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 4: Topology-based</h6></li>
     <li><a class="dropdown-item" href="../articles/topic4_01_centrality.html">Topic 4-01: Centrality-based pathway enrichment analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 5: Single-sample GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic5_01_single_sample.html">Topic 5-01: Single-sample GSEA</a></li>
-    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarity of gene sets</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 6: Similarity, clustering and summarization</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarities of terms</a></li>
     <li><a class="dropdown-item" href="../articles/topic6_02_cluster_and_summarize.html">Topic 6-02: Cluster and summarize</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 7: Visualization</h6></li>
     <li><a class="dropdown-item" href="../articles/topic7_01_visualization.html">Topic 7-01: Visualization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 8: GSEA framework</h6></li>
     <li><a class="dropdown-item" href="../articles/topic8_01_GSEA_framework.html">Topic 8-01: GSEA framework</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -81,7 +96,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-05-29</h4>
+            <h4 data-toc-skip class="date">2025-05-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtopics/blob/HEAD/vignettes/topic2_05_compare_ORA_GSEA.Rmd" class="external-link"><code>vignettes/topic2_05_compare_ORA_GSEA.Rmd</code></a></small>
       <div class="d-none name"><code>topic2_05_compare_ORA_GSEA.Rmd</code></div>
@@ -127,7 +142,7 @@ following code, we explicitly set <code>universe</code> to the total
 genes in the experiment, as we want to make the “universe genes” the
 same in both ORA and GSEA analysis.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb_ora</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">diff</span>, universe <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>, gs <span class="op">=</span> <span class="va">gs</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb_ora</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">diff</span>, <span class="va">gs</span>, universe <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="gsea">GSEA<a class="anchor" aria-label="anchor" href="#gsea"></a>
@@ -158,7 +173,7 @@ methods:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tb_ora</span><span class="op">[</span><span class="va">cn</span>, <span class="st">"log2fe"</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">tb_gsea</span><span class="op">[</span><span class="va">cn</span>, <span class="st">"nes"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic2_05_compare_ORA_GSEA_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>So we would say in general, ORA and GSEA are not comparible as they
-correspond to two different test answering different questions.</p>
+correspond to two different tests answering different questions.</p>
 <p>However, they might agree very well for top-significant gene
 sets:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -207,19 +222,19 @@ functions, we need to convert genes all to EntreZ IDs.</p>
 experiment as universe. Note the p53 dataset is very old and the total
 number of genes in the experiment is quite small.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb_ora1</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="va">diff</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb_ora1</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez</a></span><span class="op">(</span><span class="va">diff</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.680 )</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb_ora2</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="va">diff</span><span class="op">)</span>, universe <span class="op">=</span> <span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb_ora2</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez</a></span><span class="op">(</span><span class="va">diff</span><span class="op">)</span>, universe <span class="op">=</span> <span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">expr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.690 )</span></span></code></pre>
 <pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.730 )</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb_gsea</span> <span class="op">=</span> <span class="fu"><a href="../reference/fgsea.html">fgsea_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez_id</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">tb_gsea</span> <span class="op">=</span> <span class="fu"><a href="../reference/fgsea.html">fgsea_go</a></span><span class="op">(</span><span class="fu"><a href="../reference/id_mapping.html">convert_to_entrez</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   gene id might be SYMBOL (p =  0.640 )</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_GO</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ORA1 <span class="op">=</span> <span class="va">tb_ora1</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">tb_ora1</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>              ORA2 <span class="op">=</span> <span class="va">tb_ora2</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">tb_ora2</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>              GSEA <span class="op">=</span> <span class="va">tb_gsea</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">tb_gsea</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>             ORA2 <span class="op">=</span> <span class="va">tb_ora2</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">tb_ora2</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>             GSEA <span class="op">=</span> <span class="va">tb_gsea</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">tb_gsea</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="va">lt_GO</span><span class="op">)</span>, quantities <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic2_05_compare_ORA_GSEA_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>The agreement on individual is so bad, even for two ORA settings.</p>

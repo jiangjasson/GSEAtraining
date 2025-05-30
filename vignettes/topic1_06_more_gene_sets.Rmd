@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 
@@ -79,6 +80,7 @@ These **org.\*.db** packages can be used in the same way as what we have seen wi
 
 ```r
 select(org.*.db, keys = keys(org.*.db), columns = c("GOALL", "ONTOLOGYALL"))
+select(org.*.db, keys = "BP", keytype = "ONTOLOGYALL", columns = c("ENTREZID", "GOALL"))
 as.list(org.*.egGO2ALLEGS)
 ```
 
@@ -169,5 +171,5 @@ gs = load_go_genesets(orgdb, "BP")
 
 
 ```{r}
-lt = load_kegg_genesets("aml", "pathway")
+lt = load_kegg_genesets("aml")
 ```

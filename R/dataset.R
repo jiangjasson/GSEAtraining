@@ -1,8 +1,10 @@
 
 #' P53 dataset
 #' 
+#' @usage data(p53_dataset)
+#' 
 #' @details
-#' P53 dataset as well as the c2 gene sets are from \url{https://data.broadinstitute.org/gsea-msigdb/gsea/dataset_files/}.
+#' P53 dataset as well as the C2 gene sets are from \url{https://data.broadinstitute.org/gsea-msigdb/gsea/dataset_files/}.
 #' 
 #' The following code is used to generate the dataset:
 #' 
@@ -29,5 +31,7 @@
 #' 
 #' p53_dataset = list(expr = expr, condition = condition, s2n = s, gs = gs)
 #' ```
+#' 
+#' A positive signal-to-noise ratio (`s2n`) means up-regulation in `MUT`.
 #' 
 "p53_dataset"

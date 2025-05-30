@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 We need an expression matrix as well as experimental collections.
@@ -212,7 +213,7 @@ by t-tests on the geneset-sample matrix.
 ```{r, message=FALSE}
 library(genefilter)
 
-df_gs_zvalue_diff = rowttests(mat_gs_zvalue_diff, condition,)
+df_gs_zvalue_diff = rowttests(mat_gs_zvalue_diff, condition)
 df_gs_zvalue_diff$fdr = p.adjust(df_gs_zvalue_diff$p.value, "BH")
 df_gs_zvalue_diff = df_gs_zvalue_diff[order(df_gs_zvalue_diff$p.value), ]
 
@@ -309,7 +310,7 @@ from the geneset-sample matrix are eventually only from a small set of genes whi
 
 ## Discussion
 
-In what scenario is GSVA useful?
+In what scenario is GSVA or single-sample GSEA useful?
 
 What is the biological meaning of such geneset-level value? What is
 the "activity" of a gene set?
@@ -331,5 +332,10 @@ methods to aggregate the geneset-level value.
 
 The statistical question is changed from horizontal->vertical to
 vertical->horizontal.
+
+Correlation structure has been changed.
+
+Different activities in different samples may be from different genes, which makes
+the inference in chaos.
 
 

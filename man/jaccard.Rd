@@ -24,8 +24,13 @@ genesets_similarity_heatmap(
 
 \item{max_k}{Maximal number of recurrent genes to use on the plot.}
 
-\item{resolution}{For controlling the graph clustering method.}
+\item{resolution}{For controlling the graph clustering method, pass to \code{\link[igraph:cluster_louvain]{igraph::cluster_louvain()}}.}
 }
 \description{
 Jaccard coefficent
+}
+\examples{
+data(p53_dataset)
+gs = p53_dataset$gs
+jaccard(gs[grep("p53", names(gs), ignore.case = TRUE)])
 }

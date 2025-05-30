@@ -16,3 +16,13 @@ gs_map_to_orthologues(gs, from, to)
 \description{
 Generate gene sets by mapping to orthologues
 }
+\details{
+Gene IDs in \code{gs} must be EntreZ IDs.
+
+Gene sets are removed if none of the genes can ba mapped.
+}
+\examples{
+gs_human = load_msigdb_genesets()$gs
+gs_dolphin = gs_map_to_orthologues(gs_human, from = "Homo.sapiens", 
+    to = "Tursiops.truncatus")
+}

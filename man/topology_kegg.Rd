@@ -14,7 +14,7 @@ ora_kegg_topology(
   centrality = igraph::degree,
   organism = "hsa",
   pl = NULL,
-  perm = 1000,
+  nperm = 1000,
   min_hits = 3,
   min_size = 5,
   max_size = 2500,
@@ -24,8 +24,11 @@ ora_kegg_topology(
 gsea_kegg_topology(
   s,
   centrality = igraph::degree,
+  null_side = c("both", "right", "left"),
+  abs = TRUE,
   organism = "hsa",
   pl = NULL,
+  nperm = 1000,
   min_size = 5,
   max_size = 2500,
   verbose = TRUE
@@ -34,7 +37,7 @@ gsea_kegg_topology(
 \arguments{
 \item{organism}{KEGG organism code.}
 
-\item{genes}{A vector of genes.}
+\item{genes}{A vector of genes, must be in the EntreZ ID type.}
 
 \item{universe}{A vector of universe genes. If it is not specified, the total genes in the KEGG pathways are used.}
 
@@ -43,7 +46,7 @@ gsea_kegg_topology(
 \item{pl}{A list of KEGG pathways as \code{igraph} objects. If the organism is one of "hsa", "mmu" or "rno", the corresponding \code{pl} is already
 generated and will be loaded automatically. For other organisms, use \code{retrieve_all_kegg_graphs()} to generate one.}
 
-\item{perm}{Number of permutations.}
+\item{nperm}{Number of permutations.}
 
 \item{min_hits}{Minimal number of the overlapping genes in \code{genes} and pathways.}
 
@@ -53,7 +56,11 @@ generated and will be loaded automatically. For other organisms, use \code{retri
 
 \item{verbose}{Whether to print messages?}
 
-\item{s}{A numeric vector of gene scores.}
+\item{s}{A numeric vector of gene scores. Names must be in the EntreZ ID type.}
+
+\item{null_side}{How to calculate p-values?}
+
+\item{abs}{Whether use absolute values of \code{s}?}
 }
 \description{
 Centrality-based KEGG enrichment analysis

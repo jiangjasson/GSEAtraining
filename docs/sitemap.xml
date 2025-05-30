@@ -43,8 +43,9 @@
 <url><loc>/reference/msigdb.html</loc></url>
 <url><loc>/reference/native_gsea.html</loc></url>
 <url><loc>/reference/ora.html</loc></url>
+<url><loc>/reference/orgdb.html</loc></url>
 <url><loc>/reference/p53_dataset.html</loc></url>
-<url><loc>/reference/random_genes.html</loc></url>
+<url><loc>/reference/seqlengths_as_GRanges.html</loc></url>
 <url><loc>/reference/ss_gsea.html</loc></url>
 <url><loc>/reference/topology_kegg.html</loc></url>
 <url><loc>/reference/wrap_text.html</loc></url>

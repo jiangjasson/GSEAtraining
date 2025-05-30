@@ -10,6 +10,21 @@
 #' @rdname fgsea
 #' @export
 #' @importFrom fgsea fgsea
+#' @details
+#' Except `fgsea_wrapper()`, gene IDs in `s` in all `fgsea_*()` functions must be EntreZ IDs.
+#' 
+#' @examples
+#' data(p53_dataset)
+#' s = p53_dataset$s2n
+#' gs = p53_dataset$gs
+#' 
+#' fgsea_wrapper(s, gs) |> head()
+#' 
+#' s2 = convert_to_entrez(s)
+#' 
+#' fgsea_go(s2) |> head()
+#' fgsea_kegg(s2) |> head()
+#' fgsea_msigdb(s2) |> head()
 fgsea_wrapper = function(s, gs, min_size = 5, max_size = 2000, ...) {
     s = sort(s, decreasing = TRUE)
     df = fgsea(gs, s, minSize = min_size, maxSize = max_size, ...)
@@ -42,8 +57,15 @@ fgsea_go = function(s, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...
 #' 
 #' - for `fgsea_kegg()`, the value should be a KEGG organism code, such as "hsa" or "mmu".
 #' - for `fgsea_reactome()`, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.
-#' - for `fgsea_keywords()`, the value can be a organism name, e.g. "human", the latin name or the taxon ID.
+#' - for `fgsea_keywords()`, the value can be a organism name, e.g. "human", the latin name or the taxon ID. Please check [`UniProtKeywords::load_keyword_genesets()`].
 #' - for `fgsea_phenotype()` and `fgsea_disease()`, the value can only be one of "human", "mouse" and "rat".
+#' 
+#' All valid values for `fgsea_reactome()` are:
+#' 
+#' ```
+#' c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+#'   "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+#' ```
 #' 
 fgsea_kegg = function(s, organism = "hsa", db = "pathway", ...) {
     lt = load_kegg_genesets(organism, db)
@@ -114,18 +136,20 @@ fgsea_disease = function(s, organism = "human", ...) {
 #' @param condition The condition labels of samples. The value should be a factor where `level[1]` corresponds to the treatment group and `level[2]` corresponds to the control group.
 #' @param gs A list of gene sets. Genes should have the same ID types as `expr`.
 #' @param direction Whether the test is one-sided or two-sided.
-#' @param power Power added to the weight.
+#' @param power Power added to the absolute value of weight.
 #' @param min_size Minimal size of gene sets for analysis.
 #' @param max_size Maximal size of gene sets for analysis.
-#' @param perm Number of permutations.
+#' @param nperm Number of permutations.
 #' @param verbose Whether to print messages?
 #' 
 #' @rdname native_gsea
 #' @export
 #' @importFrom matrixStats rowSds
 #' @import fastmatch
+#' @details
+#' The two functions are only for the purpose of studying.
 gsea_sample_perm = function(expr, condition, gs, direction = c("std", "pos", "neg"), 
-    power = 1, min_size = 5, max_size = 1000, perm = 1000, verbose = TRUE) {
+    power = 1, min_size = 5, max_size = 1000, nperm = 1000, verbose = TRUE) {
 
     if(!is.factor(condition)) {
         stop("`condition` should be a factor.")
@@ -182,8 +206,8 @@ gsea_sample_perm = function(expr, condition, gs, direction = c("std", "pos", "ne
     es = gsea_sample_perm_single(expr, condition, gs, power)
 
     ngs = length(gs)
-    es_random = matrix(nrow = ngs, ncol = perm)
-    for(i in 1:perm) {
+    es_random = matrix(nrow = ngs, ncol = nperm)
+    for(i in 1:nperm) {
         es_random[, i] = gsea_sample_perm_single(expr, sample(condition), gs, power)
     }
 
@@ -203,10 +227,10 @@ gsea_sample_perm = function(expr, condition, gs, direction = c("std", "pos", "ne
             }
         }))
     } else if(direction == "pos") {
-        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] > es[i])/perm)
+        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] > es[i])/nperm)
         nes = es/rowMeans(es_random)
     } else if(direction == "neg") {
-        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] < es[i])/perm)
+        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] < es[i])/nperm)
         nes = es/abs(rowMeans(es_random))
     }
 
@@ -219,7 +243,7 @@ gsea_sample_perm = function(expr, condition, gs, direction = c("std", "pos", "ne
 #' @rdname native_gsea
 #' @export
 gsea_gene_perm = function(s, gs, direction = c("std", "pos", "neg"), 
-    power = 1, min_size = 5, max_size = 1000, perm = 1000, verbose = TRUE) {
+    power = 1, min_size = 5, max_size = 1000, nperm = 1000, verbose = TRUE) {
 
     s = sort(s, decreasing = TRUE)
 
@@ -282,8 +306,8 @@ gsea_gene_perm = function(s, gs, direction = c("std", "pos", "neg"),
 
     # random
     ngs = length(gs)
-    es_random = matrix(nrow = ngs, ncol = perm)
-    for(i in 1:perm) {
+    es_random = matrix(nrow = ngs, ncol = nperm)
+    for(i in 1:nperm) {
         if(verbose) print(i)
         es_random[, i] = gsea_gene_perm_single(s, gs, power, random = TRUE)
     }
@@ -305,10 +329,10 @@ gsea_gene_perm = function(s, gs, direction = c("std", "pos", "neg"),
             }
         }))
     } else if(direction == "pos") {
-        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] > es[i])/perm)
+        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] > es[i])/nperm)
         nes = es/rowMeans(es_random)
     } else if(direction == "neg") {
-        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] < es[i])/perm)
+        p = sapply(seq_len(ngs), function(i) sum(es_random[i, ] < es[i])/nperm)
         nes = es/abs(rowMeans(es_random))
     }
 

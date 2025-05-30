@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GSEAtopics</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,33 +15,48 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-00: Data representation of gene sets in R</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-01: GO gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-02: KEGG gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-03: MSigDB gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-04: Reactome gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-05: UniProt keywords gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-06: GO/KEGG gene sets for other organisms</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-07: Generate gene sets for other organisms by mapping to orthologues</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-08: Gene ID conversion</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Topic 1: Gene set resources</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-01: Data representation of gene sets in R</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-02: GO gene sets</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-03: Get pathways from KEGG</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-04: Get pathways from MSigDB</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-05: Get pathways from Reactome</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-06: Get gene sets from UniProt Keywords</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-07: Get GO/KEGG gene sets for other organisms</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-08: Generate gene sets for other organisms by mapping to orthologues</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-09: Gene ID conversion</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 2: ORA and GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic2_01_ora_single_gene_set.html">Topic 2-01: ORA on a single gene set</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_02_implement_ora.html">Topic 2-02: Implement ORA from scratch</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_03_implement_gsea.html">Topic 2-03: Implement GSEA from scratch</a></li>
-    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-05: fgsea</a></li>
+    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-04: fgsea</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_05_compare_ORA_GSEA.html">Topic 2-05: Compare ORA and GSEA</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 3: Application in genomics</h6></li>
     <li><a class="dropdown-item" href="../articles/topic3_01_implement_GREAT.html">Topic 3-01: Implement the GREAT method</a></li>
     <li><a class="dropdown-item" href="../articles/topic3_02_online_GREAT.html">Topic 3-02: Online GREAT analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-02: Local GREAT analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-03: Local GREAT analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 4: Topology-based</h6></li>
     <li><a class="dropdown-item" href="../articles/topic4_01_centrality.html">Topic 4-01: Centrality-based pathway enrichment analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 5: Single-sample GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic5_01_single_sample.html">Topic 5-01: Single-sample GSEA</a></li>
-    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarity of gene sets</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 6: Similarity, clustering and summarization</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarities of terms</a></li>
     <li><a class="dropdown-item" href="../articles/topic6_02_cluster_and_summarize.html">Topic 6-02: Cluster and summarize</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 7: Visualization</h6></li>
     <li><a class="dropdown-item" href="../articles/topic7_01_visualization.html">Topic 7-01: Visualization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 8: GSEA framework</h6></li>
     <li><a class="dropdown-item" href="../articles/topic8_01_GSEA_framework.html">Topic 8-01: GSEA framework</a></li>
   </ul></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/jokergoo/GSEAtopics/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -100,6 +115,26 @@ If this argument is not specified, a menu will be printed to let users to select
 
 </dl></div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">list_msigdb_versions</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "6.0"       "6.1"       "6.2"       "7.0"       "7.1"       "7.2"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "7.3"       "7.4"       "7.5.1"     "7.5"       "2022.1.Hs" "2022.1.Mm"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2023.1.Hs" "2023.1.Mm" "2023.2.Hs" "2023.2.Mm" "2024.1.Hs" "2024.1.Mm"</span>
+<span class="r-in"><span><span class="fu">list_msigdb_collections</span><span class="op">(</span><span class="st">"2024.1.Hs"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "c1.all"             "c2.all"             "c2.cgp"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "c2.cp.biocarta"     "c2.cp.kegg_legacy"  "c2.cp.kegg_medicus"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "c2.cp.pid"          "c2.cp.reactome"     "c2.cp"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "c2.cp.wikipathways" "c3.all"             "c3.mir.mir_legacy" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "c3.mir.mirdb"       "c3.mir"             "c3.tft.gtrd"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "c3.tft.tft_legacy"  "c3.tft"             "c4.3ca"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "c4.all"             "c4.cgn"             "c4.cm"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "c5.all"             "c5.go.bp"           "c5.go.cc"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "c5.go.mf"           "c5.go"              "c5.hpo"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "c6.all"             "c7.all"             "c7.immunesigdb"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "c7.vax"             "c8.all"             "h.all"             </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

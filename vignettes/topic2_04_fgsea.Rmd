@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 The permutation-based method is by nature very slow, especially if you want to get p-values
@@ -47,7 +48,7 @@ df = fgsea(gs, s)
 head(df)
 ```
 
-You only need to make gene IDs in `s` (the name of the vector) are the same as in `gs`.
+You only need to make gene IDs in `s` (the names of the vector) are the same as in `gs`.
 
 
 ## Implement helper functions
@@ -69,7 +70,7 @@ fgsea_wrapper = function(s, gs, min_size = 5, max_size = 1000, ...) {
 }
 ```
 
-Now we can write these helper functions. The logic is the same as `ora_*()` functions.
+Now we can implement these helper functions. The logic is the same as `ora_*()` functions.
 We first retrieve gene sets than apply `fgsea_wrapper()`.
 
 
@@ -99,6 +100,8 @@ fgsea_kegg = function(s, organism = "hsa") {
 All these `fgsea_*()` functions use EntreZ IDs as the internal IDs. Then for the input
 gene score vector, genes should also have EntreZ IDs.
 
+Note, all `fgsea_*()` and `fgsea::fgsea()` do not require `s` to be pre-sorted. It is sorted internally.
+
 ### Convert gene IDs
 
 We have demonstrated how to convert gene IDs for a vector of genes. Here the scenario is 
@@ -108,10 +111,10 @@ We first generate a global mapping between symbols and EntreZ IDs:
 
 ```{r}
 library(org.Hs.eg.db)
-map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+map = map_to_entrez("SYMBOL", org.Hs.eg.db)
 ```
 
-`map_to_entrez_id()` only returns mapping for protein-coding genes. According to the pratice we have made, the human, the mapping
+`map_to_entrez()` only returns mapping for protein-coding genes. According to the pratice we have made, the human, the mapping
 between symbols and EntreZ IDs is one-to-one. But we need to be careful. 1. gene symbols change from time to time. You cannot ensure
 the symbol used in the dataset is the most recent version. 2. for other organisms, we don't know whether the mapping is also one-to-one.
 Let's do it in a conservative way.
@@ -144,11 +147,11 @@ I use the mean:
 s2 = tapply(s2, entrez, mean)
 ```
 
-In **GSEAtopics**, there is a helper function `convert_to_entrez_id()`
+In **GSEAtopics**, there is a helper function `convert_to_entrez()`
 which works on gene ID vecotr, numeric vector with gene IDs as names, and matrix with gene IDs as row names.
 
 ```{r}
-s2 = convert_to_entrez_id(s) # if is human, the the second argument can be omitted
+s2 = convert_to_entrez(s) # if is human, the the second argument can be omitted
 ```
 
 And let's try these `fgsea_*()` helper functions:
@@ -171,7 +174,7 @@ In **GSEAtopics** there are the following `fgsea_*()` functions:
 ## Compare to the native implementations
 
 Let's have a quick comparison between the `fgsea()` function and gene-permutation-based 
-function we have implemented in the previous document. We use the `gsea_gene_perm()` functionn
+function we have implemented in the previous document. We use the `gsea_gene_perm()` function
 from the **GSEAtopics** package.
 Under the default setting, both functions use the same statistic and perform two-sided test:
 
@@ -244,6 +247,7 @@ We try the following five metrics: log2 fold change, signal-to-noise ratio, t-va
 SAM moderated t-value.
 
 ```{r}
+# from here, we use MUT as the treatment group
 m1 = expr[, condition == "MUT"]
 m2 = expr[, condition == "WT"]
 
@@ -305,5 +309,5 @@ plot(euler(list(log2fc = tb_log2fc$gene_set[1:50],
     quantities = TRUE)
 ```
 
-**Conclusion:** use t-value or similar metrics as gene-level scores for GSEA analysis.
+**Conclusion:** use t-value or similar metrics as gene-level scores for GSEA analysis. Log2fc is not recommended to use.
 

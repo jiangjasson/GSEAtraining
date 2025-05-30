@@ -2,27 +2,27 @@
 
 #' Convert gene sets between list and a data frame
 #' 
-#' @param list A list of genes.
+#' @param lt A list of genes.
 #' @rdname list_to_dataframe
 #' @export
-list_to_dataframe = function(list) {
-    df = data.frame(gene_set = rep(names(list), times = sapply(list, length)),
-               gene = unlist(list))
+list_to_data_frame = function(lt) {
+    df = data.frame(gene_set = rep(names(lt), times = sapply(lt, length)),
+               gene = unlist(lt))
     rownames(df) = NULL
     df
 }
 
 
-#' @param df A two-column data frame
+#' @param df A two-column data frame.
 #' 
 #' @details
-#' In `gs_dataframe_to_list()`, which column contains genes and which column contains gene sets
+#' In `data_frame_to_list()`, which column contains genes and which column contains gene sets
 #' are automatically checked by the number of genes and gene sets. Basically number of genes
 #' should be larger than the number of gene sets.
 #' 
 #' @rdname list_to_dataframe
 #' @export
-dataframe_to_list = function(df) {
+data_frame_to_list = function(df) {
     n1 = length(unique(df[, 1]))
     n2 = length(unique(df[, 2]))
     if(n1 < n2) {
@@ -34,7 +34,7 @@ dataframe_to_list = function(df) {
 
 
 
-#' Wrap long text into several lines
+#' Wrap long text into multiple lines
 #' 
 #' @param x A vector of sentences.
 #' @param width Maximal number of chararacters per line.
@@ -85,14 +85,8 @@ check_pkg = function(pkg, bioc = FALSE) {
 }
 
 
-#' Effective degrees of freedom
-#' 
-#' @param m1 Matrix 1
-#' @param m2 Matrix 2
-#' 
-#' @export
-#' @details
-#' See \url{https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances_(sX1_%3E_2sX2_or_sX2_%3E_2sX1)}.
+
+# See \url{https://en.wikipedia.org/wiki/Student%27s_t-test#Equal_or_unequal_sample_sizes,_unequal_variances_(sX1_%3E_2sX2_or_sX2_%3E_2sX1)}.
 effective_degrees_of_freedom = function(m1, m2) {
     v1 = rowVars(m1)
     v2 = rowVars(m2)
@@ -109,8 +103,18 @@ effective_degrees_of_freedom = function(m1, m2) {
 #' @param x Any object that supports the `seqlengths()` method.
 #' @param seqnames A vector seqnames.
 #' 
+#' @details
+#' It basically generates a `GRanges` treating whole chromosomes as genomic intervals.
+#' 
 #' @export
-#' @import GenomicRanges
+#' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
+#' @importFrom GenomeInfoDb seqlengths
+#' @examples
+#' require(TxDb.Hsapiens.UCSC.hg19.knownGene)
+#' seqlengths_as_GRanges(TxDb.Hsapiens.UCSC.hg19.knownGene)
+#' seqlengths_as_GRanges(TxDb.Hsapiens.UCSC.hg19.knownGene, 
+#'     paste0("chr", c(1:22, "X", "Y")))
 seqlengths_as_GRanges = function(x, seqnames = NULL) {
     len = seqlengths(x)
     if(!is.null(seqnames)) {

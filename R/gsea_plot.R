@@ -1,8 +1,9 @@
 
 #' GSEA plot
 #' 
-#' @param s A numeric vector of gene scores.
-#' @param which Which gene sets to draw. Multiple gene sets are allowed.
+#' @param s A numeric vector of gene scores with gene IDs as names.
+#' @param which Which gene sets to draw. Multiple gene sets are allowed. The value can be integer indices
+#'              or names in `gs`.
 #' @param gs A list of gene sets. Genes should have the same gene ID type as in `s`.
 #' @param col Colors.
 #' @param panel_height Relative height of the three panels in the plot.
@@ -10,6 +11,13 @@
 #' @export
 #' @import ComplexHeatmap
 #' @import grid
+#' @examples
+#' data(p53_dataset)
+#' s = p53_dataset$s2n
+#' gs = p53_dataset$gs
+#' 
+#' gsea_plot(s, "p53hypoxiaPathway", gs)
+#' gsea_plot(s, 1:3, gs)
 gsea_plot = function(s, which, gs, col = seq_along(which), panel_height = c(6, 1, 3)) {
 
 	s = sort(s, decreasing = TRUE)

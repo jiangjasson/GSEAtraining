@@ -1,10 +1,22 @@
 
 
-#' Interactive Table for AnnotationHub
+#' Interactive table for AnnotationHub
 #' 
 #' @import DBI
 #' @import RSQLite
 #' @export
+#' @details
+#' It lists the following columns:
+#' 
+#' - ah_id
+#' - title
+#' - species
+#' - taxonomyid
+#' - genome
+#' - description
+#' - rdataclass
+#' - rdatadateadded
+#' 
 ah_shiny = function() {
 
     check_pkg("AnnotationHub", bioc = TRUE)

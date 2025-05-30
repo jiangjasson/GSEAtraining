@@ -13,7 +13,7 @@ gsea_sample_perm(
   power = 1,
   min_size = 5,
   max_size = 1000,
-  perm = 1000,
+  nperm = 1000,
   verbose = TRUE
 )
 
@@ -24,7 +24,7 @@ gsea_gene_perm(
   power = 1,
   min_size = 5,
   max_size = 1000,
-  perm = 1000,
+  nperm = 1000,
   verbose = TRUE
 )
 }
@@ -37,13 +37,13 @@ gsea_gene_perm(
 
 \item{direction}{Whether the test is one-sided or two-sided.}
 
-\item{power}{Power added to the weight.}
+\item{power}{Power added to the absolute value of weight.}
 
 \item{min_size}{Minimal size of gene sets for analysis.}
 
 \item{max_size}{Maximal size of gene sets for analysis.}
 
-\item{perm}{Number of permutations.}
+\item{nperm}{Number of permutations.}
 
 \item{verbose}{Whether to print messages?}
 
@@ -51,4 +51,7 @@ gsea_gene_perm(
 }
 \description{
 Native implementation of GSEA
+}
+\details{
+The two functions are only for the purpose of studying.
 }

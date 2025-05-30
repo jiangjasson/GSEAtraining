@@ -11,7 +11,7 @@
 \alias{ora_disease}
 \title{Over-representation analysis}
 \usage{
-ora(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size = 2500)
+ora(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size = 2000)
 
 ora_go(genes, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...)
 
@@ -58,6 +58,8 @@ ora_disease(genes, organism = "human", ...)
 Over-representation analysis
 }
 \details{
+Except \code{ora()}, gene IDs in \code{s} in all \verb{ora_*()} functions must be EntreZ IDs.
+
 The value should be set differently for specific \verb{ora_*()} functions.
 \itemize{
 \item for \code{ora_kegg()}, the value should be a KEGG organism code, such as "hsa" or "mmu".
@@ -65,4 +67,22 @@ The value should be set differently for specific \verb{ora_*()} functions.
 \item for \code{ora_keywords()}, the value can be a organism name, e.g. "human", the latin name or the taxon ID.
 \item for \code{ora_phenotype()} and \code{fgsea_disease()}, the value can only be one of "human", "mouse" and "rat".
 }
+
+All valid values for \code{fgsea_reactome()} are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+  "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+}\if{html}{\out{</div>}}
+}
+\examples{
+data(p53_dataset)
+s = p53_dataset$s2n
+gs = p53_dataset$gs
+diff = names(s)[abs(s) > 0.3]
+
+ora(diff, gs) |> head()
+
+diff2 = convert_to_entrez(diff)
+ora_go(diff2) |> head()
+ora_msigdb(diff2) |> head()
 }

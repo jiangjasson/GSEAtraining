@@ -11,6 +11,9 @@ msigdb_env$gene_sets = list()
 #' 
 #' @rdname msigdb
 #' @export
+#' @examples
+#' list_msigdb_versions()
+#' list_msigdb_collections("2024.1.Hs")
 list_msigdb_versions = function() {
     if(is.null(msigdb_env$all_versions)) {
         all_versions = get_file_list(msigdb_base_url)

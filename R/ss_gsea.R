@@ -8,6 +8,12 @@
 #' @param set_level A function to calculate the geneset-level score. This function should accept two arguments: a vector of scores for all genes, and a corresponding logical vector repressenting which genes are in the current gene set.
 #' 
 #' @export
+#' @examples
+#' data(p53_dataset)
+#' expr = p53_dataset$expr
+#' gs = p53_dataset$gs
+#' mat_gs = ss_gsea(expr, gs)
+#' head(mat_gs)
 ss_gsea = function(mat, gs, scale = TRUE, set_level = set_level_mean) {
 	if(scale) {
 		mat = t(scale(t(mat)))

@@ -2,10 +2,23 @@
 % Please edit documentation in R/shiny.R
 \name{ah_shiny}
 \alias{ah_shiny}
-\title{Interactive Table for AnnotationHub}
+\title{Interactive table for AnnotationHub}
 \usage{
 ah_shiny()
 }
 \description{
-Interactive Table for AnnotationHub
+Interactive table for AnnotationHub
+}
+\details{
+It lists the following columns:
+\itemize{
+\item ah_id
+\item title
+\item species
+\item taxonomyid
+\item genome
+\item description
+\item rdataclass
+\item rdatadateadded
+}
 }

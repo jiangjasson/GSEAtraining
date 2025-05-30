@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 
@@ -42,7 +43,7 @@ tdf = rowttests(expr, factor(condition))
 tdf$fdr = p.adjust(tdf$p.value, "BH")
 
 diff = rownames(expr)[abs(tdf$statistic) > 2]
-tb_ora = ora(diff, universe = rownames(expr), gs = gs)
+tb_ora = ora(diff, gs, universe = rownames(expr))
 sig = tb_ora$gene_set[tb_ora$p_value < 0.05]
 length(sig)
 ```
@@ -105,7 +106,7 @@ The heatmap of the similarities looks like:
 
 ```{r}
 library(ComplexHeatmap)
-Heatmap(sm, col = c("white", "red"))
+Heatmap(sm, name = "jaccard", col = c("white", "red"))
 ```
 
 The overall similarity is in general much weaker than the diagonal values. Let's set the diagonal values to `NA`:
@@ -200,6 +201,7 @@ The improvement is obvious. All P53-related gene sets are clusterd, and the clus
 
 However, when the gene set collection is huge and there are hierarchical relations between gene sets, similarity using Jaccard coeffcient
 cannot generate clear patterns. We use GO BP as an example. 
+
 ```{r}
 library(org.Hs.eg.db)
 gs_go = get_GO_gene_sets_from_orgdb(org.Hs.eg.db, gene_id_type = "SYMBOL")

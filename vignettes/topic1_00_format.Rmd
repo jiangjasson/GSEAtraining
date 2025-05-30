@@ -75,13 +75,18 @@ data.frame(
 split(df$gene, df$geneset)
 ```
 
-In the **GSAEtopics** package, there are two helper functions `list_to_dataframe()` and
-`dataframe_to_list()` that do the conversions:
+In the **GSAEtopics** package, there are two helper functions `list_to_data_frame()` and
+`data_frame_to_list()` that do the conversions:
 
 ```{r}
 library(GSEAtopics)
-list_to_dataframe(lt)
-dataframe_to_list(df)
+list_to_data_frame(lt)
+```
+
+`data_frame_to_list()` automatically guesses which columns are genesets and which columns are genes.
+
+```{r}
+data_frame_to_list(df)
 ```
 
 3. a binary matrix
@@ -108,5 +113,5 @@ for(i in seq_len(nrow(df))) {
 m
 ```
 
-Note when there are more gene sets, there will be a lot of more zeros in `m`. In this case,
+Note when there are more gene sets, there will be a lot of zeros in `m`. In this case,
 we can use "sparse matrix format" to store the data.

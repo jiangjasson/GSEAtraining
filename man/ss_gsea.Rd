@@ -18,3 +18,10 @@ ss_gsea(mat, gs, scale = TRUE, set_level = set_level_mean)
 \description{
 Single-sample GSEA transformation
 }
+\examples{
+data(p53_dataset)
+expr = p53_dataset$expr
+gs = p53_dataset$gs
+mat_gs = ss_gsea(expr, gs)
+head(mat_gs)
+}

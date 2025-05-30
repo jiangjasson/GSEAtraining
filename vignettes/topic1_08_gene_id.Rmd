@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 Gene ID conversion is a very common task in gene set enrichment analysis.
@@ -121,7 +122,7 @@ We can simply remove it.
 map[map$GENETYPE == "protein-coding", ]
 ```
 
-And it is always a good idea to only inlucde protein-coding genes in gene set enrichment analysis.
+And it is always a good idea to only include protein-coding genes in gene set enrichment analysis.
 
 
 When you run `mapIds()`, if there are multiple mappings, by default it only selects the first one,
@@ -214,13 +215,13 @@ because they are more like a "name representation" of genes.
 If the mappig is 1:1, all the methods mentioned are OK. When the mapping is 1:many, use `select()` + filtering by the "GENETYPE" column is safer.
 
 
-In the **GSEAtopics** package, there is a `map_to_entrez_id()` which generates a global mapping
+In the **GSEAtopics** package, there is a `map_to_entrez()` which generates a global mapping
 variable to EntreZ IDs for protein-coding genes.
 
 ```{r}
 library(GSEAtopics)
 # symbol to EntreZ ID
-map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+map = map_to_entrez("SYMBOL", org.Hs.eg.db)
 head(map)
 ```
 

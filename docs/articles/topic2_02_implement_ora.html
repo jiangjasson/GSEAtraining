@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GSEAtopics</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,35 +29,50 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-00: Data representation of gene sets in R</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-01: GO gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-02: KEGG gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-03: MSigDB gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-04: Reactome gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-05: UniProt keywords gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-06: GO/KEGG gene sets for other organisms</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-07: Generate gene sets for other organisms by mapping to orthologues</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-08: Gene ID conversion</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Topic 1: Gene set resources</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-01: Data representation of gene sets in R</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-02: GO gene sets</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-03: Get pathways from KEGG</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-04: Get pathways from MSigDB</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-05: Get pathways from Reactome</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-06: Get gene sets from UniProt Keywords</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-07: Get GO/KEGG gene sets for other organisms</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-08: Generate gene sets for other organisms by mapping to orthologues</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-09: Gene ID conversion</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 2: ORA and GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic2_01_ora_single_gene_set.html">Topic 2-01: ORA on a single gene set</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_02_implement_ora.html">Topic 2-02: Implement ORA from scratch</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_03_implement_gsea.html">Topic 2-03: Implement GSEA from scratch</a></li>
-    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-05: fgsea</a></li>
+    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-04: fgsea</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_05_compare_ORA_GSEA.html">Topic 2-05: Compare ORA and GSEA</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 3: Application in genomics</h6></li>
     <li><a class="dropdown-item" href="../articles/topic3_01_implement_GREAT.html">Topic 3-01: Implement the GREAT method</a></li>
     <li><a class="dropdown-item" href="../articles/topic3_02_online_GREAT.html">Topic 3-02: Online GREAT analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-02: Local GREAT analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-03: Local GREAT analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 4: Topology-based</h6></li>
     <li><a class="dropdown-item" href="../articles/topic4_01_centrality.html">Topic 4-01: Centrality-based pathway enrichment analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 5: Single-sample GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic5_01_single_sample.html">Topic 5-01: Single-sample GSEA</a></li>
-    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarity of gene sets</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 6: Similarity, clustering and summarization</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarities of terms</a></li>
     <li><a class="dropdown-item" href="../articles/topic6_02_cluster_and_summarize.html">Topic 6-02: Cluster and summarize</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 7: Visualization</h6></li>
     <li><a class="dropdown-item" href="../articles/topic7_01_visualization.html">Topic 7-01: Visualization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 8: GSEA framework</h6></li>
     <li><a class="dropdown-item" href="../articles/topic8_01_GSEA_framework.html">Topic 8-01: GSEA framework</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -81,7 +96,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-05-29</h4>
+            <h4 data-toc-skip class="date">2025-05-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtopics/blob/HEAD/vignettes/topic2_02_implement_ora.Rmd" class="external-link"><code>vignettes/topic2_02_implement_ora.Rmd</code></a></small>
       <div class="d-none name"><code>topic2_02_implement_ora.Rmd</code></div>
@@ -167,9 +182,18 @@ thus we write <code>phyper(x - 1, ...)</code> which corresponds to
 <div class="section level2">
 <h2 id="wrap-into-a-function">Wrap into a function<a class="anchor" aria-label="anchor" href="#wrap-into-a-function"></a>
 </h2>
+<p>We use a list of random DE genes and GO BP gene sets for testing.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtopics" class="external-link">GSEAtopics</a></span><span class="op">)</span></span>
+<span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_gene_sets.html">load_go_genesets</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"BP"</span><span class="op">)</span></span>
+<span><span class="va">gs_go</span> <span class="op">=</span> <span class="va">lt</span><span class="op">$</span><span class="va">gs</span></span>
+<span></span>
+<span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="../reference/orgdb.html">random_genes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">universe</span> <span class="op">=</span> <span class="fu"><a href="../reference/orgdb.html">protein_coding_genes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span></code></pre></div>
 <p>A quick and dirty way by first implementing a function working on
 single gene set, then applying it to a list of gene sets.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora_single</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_set</span>, <span class="va">universe</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">n_universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span></span>
 <span>    <span class="va">k</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span></span>
@@ -190,9 +214,12 @@ single gene set, then applying it to a list of gene sets.</p>
 <span>        <span class="va">p</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu">ora_single</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, <span class="va">universe</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="va">p</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>Or we can do it in a vectorized way:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span>, <span class="va">universe</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.7755099 0.1458202 1.0000000 0.6989436 1.0000000 1.0000000</span></span></code></pre>
+<p>Or we can do it in a vectorized way. We also wrap the results as a
+data frame not only reporting p-values.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">n_universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span></span>
 <span>    <span class="va">k</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span></span>
@@ -211,7 +238,15 @@ single gene set, then applying it to a list of gene sets.</p>
 <span>        n_total <span class="op">=</span> <span class="va">n_universe</span>,</span>
 <span>        p_value <span class="op">=</span> <span class="va">p</span></span>
 <span>    <span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span>, <span class="va">universe</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##              gene_set n_hits n_genes n_gs n_total   p_value</span></span>
+<span><span class="co">## GO:0000002 GO:0000002      1    1000   30   20600 0.7755099</span></span>
+<span><span class="co">## GO:0000012 GO:0000012      2    1000   14   20600 0.1458202</span></span>
+<span><span class="co">## GO:0000017 GO:0000017      0    1000    2   20600 1.0000000</span></span>
+<span><span class="co">## GO:0000018 GO:0000018      6    1000  143   20600 0.6989436</span></span>
+<span><span class="co">## GO:0000019 GO:0000019      0    1000    7   20600 1.0000000</span></span>
+<span><span class="co">## GO:0000022 GO:0000022      0    1000   12   20600 1.0000000</span></span></code></pre>
 <p>We can further improve the function by:</p>
 <ol style="list-style-type: decimal">
 <li>setting the default of <code>universe</code> to the total genes in
@@ -223,7 +258,7 @@ genes,</li>
 frame,</li>
 <li>ordering the result data frame by the significance.</li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -256,19 +291,8 @@ frame,</li>
 <span></span>
 <span>    <span class="va">df</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">p_value</span>, <span class="st">"BH"</span><span class="op">)</span></span>
 <span>    <span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">p_adjust</span>, <span class="va">df</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span>, ,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>Let’s try our <code><a href="../reference/ora.html">ora()</a></code> with 1000 random genes on the GO BP
-gene sets:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtopics" class="external-link">GSEAtopics</a></span><span class="op">)</span></span>
-<span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_gene_sets.html">load_go_genesets</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"BP"</span><span class="op">)</span></span>
-<span><span class="va">gs</span> <span class="op">=</span> <span class="va">lt</span><span class="op">$</span><span class="va">gs</span></span>
-<span></span>
-<span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="../reference/random_genes.html">random_genes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fl">1000</span>, <span class="st">"ENTREZID"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##              gene_set n_hits n_genes n_gs n_universe   log2fe     p_value</span></span>
 <span><span class="co">## GO:0000350 GO:0000350      2     854    2      18986 4.474556 0.002020984</span></span>
 <span><span class="co">## GO:0018993 GO:0018993      2     854    2      18986 4.474556 0.002020984</span></span>
@@ -290,76 +314,71 @@ gene sets:</p>
 <p><strong>Why do we need to further optimize ORA?</strong> The
 hypergeometric method is not only used in ORA, but is more like an
 universal method. In many cases, the tests are applied for a huge number
-of times (&gt; thousands).</p>
+of times (&gt; thousands). Also the methods for optimization can be
+applied to a large number of other scenarios.</p>
 <p>We first rename <code><a href="../reference/ora.html">ora()</a></code> to <code>ora_old()</code> later
 for comparison.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora_old</span> <span class="op">=</span> <span class="va">ora</span></span></code></pre></div>
 <p><code><a href="../reference/ora.html">ora()</a></code> is already very fast. However, in the previous
 implementation, there is still a part which is relatively slow in the
 function. Let’t first do a code profiling.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/Rprof.html" class="external-link">Rprof</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/Rprof.html" class="external-link">Rprof</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/summaryRprof.html" class="external-link">summaryRprof</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $by.self</span></span>
-<span><span class="co">##                      self.time self.pct total.time total.pct</span></span>
-<span><span class="co">## "base::intersect"         2.42    92.37       2.46     93.89</span></span>
-<span><span class="co">## "unlist"                  0.14     5.34       0.14      5.34</span></span>
-<span><span class="co">## "duplicated.default"      0.04     1.53       0.04      1.53</span></span>
-<span><span class="co">## "order"                   0.02     0.76       0.02      0.76</span></span>
+<span><span class="co">##                   self.time self.pct total.time total.pct</span></span>
+<span><span class="co">## "base::intersect"      2.32    95.08       2.34     95.90</span></span>
+<span><span class="co">## "unlist"               0.10     4.10       0.10      4.10</span></span>
+<span><span class="co">## "c"                    0.02     0.82       0.02      0.82</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $by.total</span></span>
 <span><span class="co">##                             total.time total.pct self.time self.pct</span></span>
-<span><span class="co">## "&lt;Anonymous&gt;"                     2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::do.call"                   2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::saveRDS"                   2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::tryCatch"                  2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::withCallingHandlers"       2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "block_exec"                      2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "call_block"                      2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "doTryCatch"                      2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "doWithOneRestart"                2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "eng_r"                           2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "eval"                            2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "evaluate"                        2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "evaluate::evaluate"              2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "in_dir"                          2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "in_input_dir"                    2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "knitr::knit"                     2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "ora"                             2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "process_file"                    2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "process_group"                   2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "rmarkdown::render"               2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "tryCatchList"                    2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "tryCatchOne"                     2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withCallingHandlers"             2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withOneRestart"                  2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withRestartList"                 2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withRestarts"                    2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withVisible"                     2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "with_handlers"                   2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "xfun:::handle_error"             2.62    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::intersect"                 2.46     93.89      2.42    92.37</span></span>
-<span><span class="co">## "FUN"                             2.46     93.89      0.00     0.00</span></span>
-<span><span class="co">## "intersect"                       2.46     93.89      0.00     0.00</span></span>
-<span><span class="co">## "lapply"                          2.46     93.89      0.00     0.00</span></span>
-<span><span class="co">## "sapply"                          0.18      6.87      0.00     0.00</span></span>
-<span><span class="co">## "unlist"                          0.14      5.34      0.14     5.34</span></span>
-<span><span class="co">## "unique"                          0.14      5.34      0.00     0.00</span></span>
-<span><span class="co">## "duplicated.default"              0.04      1.53      0.04     1.53</span></span>
-<span><span class="co">## "duplicated"                      0.04      1.53      0.00     0.00</span></span>
-<span><span class="co">## "order"                           0.02      0.76      0.02     0.76</span></span>
-<span><span class="co">## "["                               0.02      0.76      0.00     0.00</span></span>
-<span><span class="co">## "[.data.frame"                    0.02      0.76      0.00     0.00</span></span>
-<span><span class="co">## "standardGeneric"                 0.02      0.76      0.00     0.00</span></span>
+<span><span class="co">## "&lt;Anonymous&gt;"                     2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::do.call"                   2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::saveRDS"                   2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::tryCatch"                  2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::withCallingHandlers"       2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "block_exec"                      2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "call_block"                      2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "doTryCatch"                      2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "doWithOneRestart"                2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "eng_r"                           2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "eval"                            2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "evaluate"                        2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "evaluate::evaluate"              2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "in_dir"                          2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "in_input_dir"                    2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "knitr::knit"                     2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "ora"                             2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "process_file"                    2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "process_group"                   2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "rmarkdown::render"               2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "tryCatchList"                    2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "tryCatchOne"                     2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withCallingHandlers"             2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withOneRestart"                  2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withRestartList"                 2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withRestarts"                    2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withVisible"                     2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "with_handlers"                   2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "xfun:::handle_error"             2.44    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::intersect"                 2.34     95.90      2.32    95.08</span></span>
+<span><span class="co">## "FUN"                             2.34     95.90      0.00     0.00</span></span>
+<span><span class="co">## "intersect"                       2.34     95.90      0.00     0.00</span></span>
+<span><span class="co">## "lapply"                          2.34     95.90      0.00     0.00</span></span>
+<span><span class="co">## "sapply"                          0.18      7.38      0.00     0.00</span></span>
+<span><span class="co">## "unlist"                          0.10      4.10      0.10     4.10</span></span>
+<span><span class="co">## "unique"                          0.10      4.10      0.00     0.00</span></span>
+<span><span class="co">## "c"                               0.02      0.82      0.02     0.82</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sample.interval</span></span>
 <span><span class="co">## [1] 0.02</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sampling.time</span></span>
-<span><span class="co">## [1] 2.62</span></span></code></pre>
+<span><span class="co">## [1] 2.44</span></span></code></pre>
 <p>We can see the <code><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">intersect()</a></code> function consumes more than
 90% of the total runtime. <code><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">intersect()</a></code> internally uses the
 <code><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match()</a></code> function, and there is a faster implementation in
@@ -367,7 +386,7 @@ the <strong>fastmatch</strong> package. We also optimize the use of the
 <code><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist()</a></code> function by adding one additional argument
 <code>use.names = FALSE</code> since we do not care about the names of
 the unlisted vector.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.rforge.net/fastmatch" class="external-link">fastmatch</a></span><span class="op">)</span></span>
 <span><span class="va">ora</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
@@ -404,22 +423,19 @@ the unlisted vector.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now let’s benchmark <code>ora_old()</code> and the new
 <code><a href="../reference/ora.html">ora()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/" class="external-link">microbenchmark</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>    ora_old <span class="op">=</span> <span class="fu">ora_old</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span>,</span>
-<span>    ora <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span>,</span>
+<span>    ora_old <span class="op">=</span> <span class="fu">ora_old</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span>,</span>
+<span>    ora <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span>,</span>
 <span>    times <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##     expr        min         lq       mean     median         uq        max</span></span>
-<span><span class="co">##  ora_old 2442.29423 2463.98422 2534.61819 2522.22336 2559.21168 2726.41234</span></span>
-<span><span class="co">##      ora   56.02109   57.05343   67.22339   66.94193   77.23268   80.42708</span></span>
-<span><span class="co">##  neval</span></span>
-<span><span class="co">##     10</span></span>
-<span><span class="co">##     10</span></span></code></pre>
+<span><span class="co">##     expr        min        lq       mean     median        uq        max neval</span></span>
+<span><span class="co">##  ora_old 2461.49986 2517.6927 2594.36481 2622.99085 2638.7298 2718.99520    10</span></span>
+<span><span class="co">##      ora   56.21756   57.0681   62.43605   57.25498   72.8449   78.92734    10</span></span></code></pre>
 <p><code><a href="../reference/ora.html">ora()</a></code> is more than 40x faster than
-<code>ora_old()</code>! We have a very fast implementation of ORA than
+<code>ora_old()</code>! We have a very faster implementation of ORA than
 majority of others from R/Bioconductor.</p>
 </div>
 <div class="section level2">
@@ -435,8 +451,8 @@ improve the code.</p>
 objects <code>genes</code> and <code>gene_sets</code> all to the
 corresponding integer indicies in <code>universe</code>. This is done by
 <code><a href="https://rdrr.io/pkg/fastmatch/man/fmatch.html" class="external-link">fmatch()</a></code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ora2</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ora_int</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="va">universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">gene_sets</span>, use.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
@@ -474,62 +490,17 @@ corresponding integer indicies in <code>universe</code>. This is done by
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">gene_set</span></span>
 <span>    <span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">p_adjust</span>, <span class="va">df</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span>, ,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span></span>
-<span>    ora  <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span>,</span>
-<span>    ora2 <span class="op">=</span> <span class="fu">ora2</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span><span class="op">)</span>,</span>
+<span>    ora  <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span>,</span>
+<span>    ora_int <span class="op">=</span> <span class="fu">ora_int</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs_go</span><span class="op">)</span>,</span>
 <span>    times <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##  expr      min       lq     mean   median       uq      max neval</span></span>
-<span><span class="co">##   ora 57.16983 58.13263 65.27546 64.32504 72.89177 74.66444    10</span></span>
-<span><span class="co">##  ora2 54.24915 55.59879 59.67139 56.57408 63.93294 69.10673    10</span></span></code></pre>
-<p>Let’s make a final version of <code><a href="../reference/ora.html">ora()</a></code>:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ora</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gene_sets</span>, <span class="va">universe</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">min_hits</span> <span class="op">=</span> <span class="fl">3</span>, <span class="va">min_size</span> <span class="op">=</span> <span class="fl">5</span>, <span class="va">max_size</span> <span class="op">=</span> <span class="fl">2500</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
-<span>    <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">gene_sets</span>, use.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="va">universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span></span>
-<span>    <span class="co"># convert genes to integer indicies</span></span>
-<span>    <span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastmatch/man/fmatch.html" class="external-link">fmatch</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">universe</span><span class="op">)</span>; <span class="va">genes</span> <span class="op">=</span> <span class="va">genes</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">]</span></span>
-<span>    <span class="va">gene_sets</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">gene_sets</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">v</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/fastmatch/man/fmatch.html" class="external-link">fmatch</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">universe</span><span class="op">)</span></span>
-<span>        <span class="va">v</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">v</span><span class="op">)</span><span class="op">]</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">nl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">gene_sets</span>, <span class="va">length</span><span class="op">)</span></span>
-<span>    <span class="va">gene_sets</span> <span class="op">=</span> <span class="va">gene_sets</span><span class="op">[</span><span class="va">nl</span> <span class="op">&gt;=</span> <span class="va">min_size</span> <span class="op">&amp;</span> <span class="va">nl</span> <span class="op">&lt;=</span> <span class="va">max_size</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">n_universe</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">universe</span><span class="op">)</span></span>
-<span>    <span class="va">k</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span></span>
-<span>    </span>
-<span>    <span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">gene_sets</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span> <span class="op"><a href="https://rdrr.io/pkg/fastmatch/man/fmatch.html" class="external-link">%fin%</a></span> <span class="va">genes</span><span class="op">)</span><span class="op">)</span> <span class="co"># now %fin% is applied on integer vectors</span></span>
-<span>    <span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">gene_sets</span>, <span class="va">length</span><span class="op">)</span></span>
-<span>    <span class="va">n</span> <span class="op">=</span> <span class="va">n_universe</span> <span class="op">-</span> <span class="va">m</span></span>
-<span>    </span>
-<span>    <span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Hypergeometric.html" class="external-link">phyper</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fl">1</span>, <span class="va">m</span>, <span class="va">n</span>, <span class="va">k</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>        gene_set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">gene_sets</span><span class="op">)</span>,</span>
-<span>        n_hits <span class="op">=</span> <span class="va">x</span>,</span>
-<span>        n_genes <span class="op">=</span> <span class="va">k</span>,</span>
-<span>        n_gs <span class="op">=</span> <span class="va">m</span>,</span>
-<span>        n_total <span class="op">=</span> <span class="va">n_universe</span>,</span>
-<span>        log2fe <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">x</span><span class="op">*</span><span class="va">n_universe</span><span class="op">/</span><span class="va">k</span><span class="op">/</span><span class="va">m</span><span class="op">)</span>,</span>
-<span>        p_value <span class="op">=</span> <span class="va">p</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">df</span> <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">n_hits</span> <span class="op">&gt;=</span> <span class="va">min_hits</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">df</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">p_value</span>, <span class="st">"BH"</span><span class="op">)</span></span>
-<span>    <span class="va">df</span> <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">p_adjust</span>, <span class="va">df</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span>, ,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>    <span class="va">df</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<span><span class="co">##     expr      min       lq     mean   median       uq      max neval</span></span>
+<span><span class="co">##      ora 55.45078 56.85429 61.79112 57.49313 68.55270 70.66006    10</span></span>
+<span><span class="co">##  ora_int 54.58678 55.43823 60.59123 58.38123 66.34071 69.61644    10</span></span></code></pre>
+<p>And this is how <code><a href="../reference/ora.html">GSEAtopics::ora()</a></code> is optimized.</p>
 </div>
 <div class="section level2">
 <h2 id="practice">Practice<a class="anchor" aria-label="anchor" href="#practice"></a>
@@ -548,7 +519,7 @@ corresponding integer indicies in <code>universe</code>. This is done by
 
 <p>The file <code>de.rds</code> contains results from a differential
 expression (DE) analysis.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"de.rds"</span>, package <span class="op">=</span> <span class="st">"GSEAtopics"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">de</span> <span class="op">=</span> <span class="va">de</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"p_value"</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">de</span> <span class="op">=</span> <span class="va">de</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">de</span><span class="op">$</span><span class="va">p_value</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">de</span><span class="op">$</span><span class="va">symbol</span> <span class="op">!=</span> <span class="st">""</span>, <span class="op">]</span></span>
@@ -576,14 +547,14 @@ sets also in gene symbols.</li>
 <div class="tab-pane" id="solution" role="tabpanel" aria-labelledby="solution-tab">
 
 <p>The three DE gene lists:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de_genes_1</span> <span class="op">=</span> <span class="va">de</span><span class="op">$</span><span class="va">symbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span></span>
 <span><span class="va">de_genes_2</span> <span class="op">=</span> <span class="va">de</span><span class="op">$</span><span class="va">symbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">]</span></span>
 <span><span class="va">de_genes_3</span> <span class="op">=</span> <span class="va">de</span><span class="op">$</span><span class="va">symbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">p_value</span> <span class="op">&lt;</span> <span class="fl">0.001</span><span class="op">]</span></span></code></pre></div>
 <p>Since genes are in symbols, we first obtain a global mapping from
 symbols to EntreZ IDs:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">map</span> <span class="op">=</span> <span class="fu"><a href="../reference/id_mapping.html">map_to_entrez_id</a></span><span class="op">(</span><span class="st">"SYMBOL"</span>, <span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">map</span> <span class="op">=</span> <span class="fu"><a href="../reference/id_mapping.html">map_to_entrez</a></span><span class="op">(</span><span class="st">"SYMBOL"</span>, <span class="va">org.Hs.eg.db</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">de_genes_1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">map</span><span class="op">[</span><span class="va">de_genes_1</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">de_genes_1</span> <span class="op">=</span> <span class="va">de_genes_1</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">de_genes_1</span><span class="op">)</span><span class="op">]</span></span>
@@ -594,17 +565,17 @@ symbols to EntreZ IDs:</p>
 <span><span class="va">de_genes_3</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">map</span><span class="op">[</span><span class="va">de_genes_3</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">de_genes_3</span> <span class="op">=</span> <span class="va">de_genes_3</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">de_genes_3</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>Number of DE genes in the three settings:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">de_genes_1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 2568</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">de_genes_2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 1415</span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">de_genes_3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 685</span></span></code></pre>
 <p>Get the GO BP gene sets.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/GSEAtopics" class="external-link">GSEAtopics</a></span><span class="op">)</span></span>
 <span><span class="va">gs</span> <span class="op">=</span> <span class="fu"><a href="../reference/load_gene_sets.html">load_go_genesets</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="st">"BP"</span><span class="op">)</span><span class="op">$</span><span class="va">gs</span></span>
 <span><span class="va">gs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
@@ -614,36 +585,36 @@ symbols to EntreZ IDs:</p>
 <span><span class="co">## [17] "10000"  "11232"  "50484"  "55186"  "56652"  "64863"  "80119"  "83667" </span></span>
 <span><span class="co">## [25] "84275"  "84461"  "92667"  "131474" "201973" "219736"</span></span></code></pre>
 <p>We perform ORA for the three DE gene lists.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb1</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">de_genes_1</span>, <span class="va">gs</span><span class="op">)</span></span>
 <span><span class="va">tb2</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">de_genes_2</span>, <span class="va">gs</span><span class="op">)</span></span>
 <span><span class="va">tb3</span> <span class="op">=</span> <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">de_genes_3</span>, <span class="va">gs</span><span class="op">)</span></span></code></pre></div>
 <p>Compare number of significant GO terms:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tb1</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 1513</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## [1] 1197</span></span></code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tb2</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 1328</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## [1] 977</span></span></code></pre>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tb3</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 1205</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 891</span></span></code></pre>
 <p>The numbers of significant GO terms are very comparible.</p>
 <p>Make a Venn (Euler) diagram of the significant GO terms:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jolars/eulerr" class="external-link">eulerr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"DE_cutoff_0.05"</span>  <span class="op">=</span> <span class="va">tb1</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="va">tb1</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span>,</span>
 <span>                <span class="st">"DE_cutoff_0.01"</span>  <span class="op">=</span> <span class="va">tb2</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="va">tb2</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span>,</span>
 <span>                <span class="st">"DE_cutoff_0.001"</span> <span class="op">=</span> <span class="va">tb3</span><span class="op">$</span><span class="va">gene_set</span><span class="op">[</span><span class="va">tb3</span><span class="op">$</span><span class="va">p_adjust</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>     quantities <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic2_02_implement_ora_files/figure-html/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="topic2_02_implement_ora_files/figure-html/unnamed-chunk-20-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>And the Venn diagram for DE genes:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://jolars.github.io/eulerr/reference/euler.html" class="external-link">euler</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"DE_cutoff_0.05"</span>  <span class="op">=</span> <span class="va">de_genes_1</span>,</span>
 <span>                <span class="st">"DE_cutoff_0.01"</span>  <span class="op">=</span> <span class="va">de_genes_2</span>,</span>
 <span>                <span class="st">"DE_cutoff_0.001"</span> <span class="op">=</span> <span class="va">de_genes_3</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>     quantities <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic2_02_implement_ora_files/figure-html/unnamed-chunk-22-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="topic2_02_implement_ora_files/figure-html/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;"></p>
 <p>We could roughly conclude that ORA is more robust than DE
 analysis.</p>
 </div>
@@ -666,14 +637,14 @@ full-functional function for ORA analysis. Please implement a
 <code><a href="../reference/ora.html">ora_go()</a></code> for GO analysis or a <code><a href="../reference/ora.html">ora_kegg()</a></code> for
 KEGG pathway analysis. Following are two templates of the two
 functions.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora_go</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">org_db</span>, <span class="va">ontology</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># generate go gene sets</span></span>
 <span>    <span class="co"># apply ora()</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><code>org_db</code> and <code>ontology</code> are used to retrieve GO
 gene sets for a specific namespace.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora_kegg</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">organism</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># generate kegg gene sets</span></span>
 <span>    <span class="co"># apply ora()</span></span>
@@ -684,7 +655,7 @@ ID type.</p>
 </div>
 <div class="tab-pane" id="solution-1" role="tabpanel" aria-labelledby="solution-1-tab">
 
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ora_go</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">genes</span>, <span class="va">org_db</span> <span class="op">=</span> <span class="va">org.Hs.eg.db</span>, <span class="va">ontology</span> <span class="op">=</span> <span class="st">"BP"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">tb</span> <span class="op">=</span> <span class="fu">AnnotationDbi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org_db</span>, keys <span class="op">=</span> <span class="va">ontology</span>, keytype <span class="op">=</span> <span class="st">"ONTOLOGYALL"</span>, </span>
 <span>        columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENTREZID"</span>, <span class="st">"GOALL"</span><span class="op">)</span><span class="op">)</span></span>
@@ -706,25 +677,32 @@ ID type.</p>
 <span>    <span class="fu"><a href="../reference/ora.html">ora</a></span><span class="op">(</span><span class="va">genes</span>, <span class="va">pathway_genes</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Let’s test these two <code>ora_*()</code> functions.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="../reference/random_genes.html">random_genes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fl">1000</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">=</span> <span class="fu"><a href="../reference/orgdb.html">random_genes</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, <span class="fl">1000</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ora.html">ora_go</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##     gene_set n_hits n_genes n_gs n_total    log2fe      p_value  p_adjust</span></span>
-<span><span class="co">## 1 GO:0032956     31     831  352   18986 1.0087084 0.0001838150 0.1803908</span></span>
-<span><span class="co">## 2 GO:0030036     54     831  744   18986 0.7296724 0.0001913197 0.1803908</span></span>
-<span><span class="co">## 3 GO:0051148     11     831   72   18986 1.8034503 0.0002778395 0.1803908</span></span>
-<span><span class="co">## 4 GO:0051147     18     831  166   18986 1.3088293 0.0003624412 0.1803908</span></span>
-<span><span class="co">## 5 GO:2000179     10     831   64   18986 1.8358718 0.0004333313 0.1803908</span></span>
-<span><span class="co">## 6 GO:0050665      5     831   16   18986 2.8358718 0.0004630194 0.1803908</span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">##              gene_set n_hits n_genes n_gs n_total    log2fe      p_value</span></span>
+<span><span class="co">## GO:0032956 GO:0032956     31     831  352   18986 1.0087084 0.0001838150</span></span>
+<span><span class="co">## GO:0030036 GO:0030036     54     831  744   18986 0.7296724 0.0001913197</span></span>
+<span><span class="co">## GO:0051148 GO:0051148     11     831   72   18986 1.8034503 0.0002778395</span></span>
+<span><span class="co">## GO:0045608 GO:0045608      3     831    4   18986 4.0989062 0.0003233084</span></span>
+<span><span class="co">## GO:0045632 GO:0045632      3     831    4   18986 4.0989062 0.0003233084</span></span>
+<span><span class="co">## GO:2000981 GO:2000981      3     831    4   18986 4.0989062 0.0003233084</span></span>
+<span><span class="co">##             p_adjust</span></span>
+<span><span class="co">## GO:0032956 0.7007671</span></span>
+<span><span class="co">## GO:0030036 0.7007671</span></span>
+<span><span class="co">## GO:0051148 0.7007671</span></span>
+<span><span class="co">## GO:0045608 0.7007671</span></span>
+<span><span class="co">## GO:0045632 0.7007671</span></span>
+<span><span class="co">## GO:2000981 0.7007671</span></span></code></pre>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ora.html">ora_kegg</a></span><span class="op">(</span><span class="va">genes</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   gene_set n_hits n_genes n_gs n_total   log2fe      p_value    p_adjust</span></span>
-<span><span class="co">## 1 hsa04611     17     369  126    8866 1.696774 1.688702e-05 0.004002223</span></span>
-<span><span class="co">## 2 hsa04015     19     369  212    8866 1.106598 1.319448e-03 0.149584976</span></span>
-<span><span class="co">## 3 hsa04915     14     369  139    8866 1.275004 1.893481e-03 0.149584976</span></span>
-<span><span class="co">## 4 hsa04929      8     369   65    8866 1.564223 5.289774e-03 0.163931108</span></span>
-<span><span class="co">## 5 hsa04961      7     369   53    8866 1.666025 6.039674e-03 0.163931108</span></span>
-<span><span class="co">## 6 hsa04664      8     369   69    8866 1.478066 7.591768e-03 0.163931108</span></span></code></pre>
+<pre><code><span><span class="co">##          gene_set n_hits n_genes n_gs n_total   log2fe      p_value    p_adjust</span></span>
+<span><span class="co">## hsa04611 hsa04611     17     369  126    8866 1.696774 1.688702e-05 0.006180648</span></span>
+<span><span class="co">## hsa04015 hsa04015     19     369  212    8866 1.106598 1.319448e-03 0.231004646</span></span>
+<span><span class="co">## hsa04915 hsa04915     14     369  139    8866 1.275004 1.893481e-03 0.231004646</span></span>
+<span><span class="co">## hsa04929 hsa04929      8     369   65    8866 1.564223 5.289774e-03 0.253159432</span></span>
+<span><span class="co">## hsa04961 hsa04961      7     369   53    8866 1.666025 6.039674e-03 0.253159432</span></span>
+<span><span class="co">## hsa04664 hsa04664      8     369   69    8866 1.478066 7.591768e-03 0.253159432</span></span></code></pre>
 <p>In <strong>GSEAtopics</strong> there are the following
 <code>ora_*()</code> functions:</p>
 <ul>

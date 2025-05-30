@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 There are ORA and GSEA for gene set analysis. A natural question is 
@@ -74,7 +75,7 @@ we explicitly set `universe` to the total genes in the experiment, as we want
 to make the "universe genes" the same in both ORA and GSEA analysis.
 
 ```{r, message = FALSE}
-tb_ora = ora(diff, universe = rownames(expr), gs = gs)
+tb_ora = ora(diff, gs, universe = rownames(expr))
 ```
 
 
@@ -110,7 +111,7 @@ plot(tb_ora[cn, "p_value"], tb_gsea[cn, "p_value"])
 plot(tb_ora[cn, "log2fe"], log2(abs(tb_gsea[cn, "nes"])))
 ```
 
-So we would say in general, ORA and GSEA are not comparible as they correspond to two different test answering different questions.
+So we would say in general, ORA and GSEA are not comparible as they correspond to two different tests answering different questions.
 
 However, they might agree very well for top-significant gene sets:
 
@@ -126,13 +127,13 @@ We also do ORA using the default universe and all genes in the experiment as uni
 the total number of genes in the experiment is quite small.
 
 ```{r}
-tb_ora1 = ora_go(convert_to_entrez_id(diff))
-tb_ora2 = ora_go(convert_to_entrez_id(diff), universe = convert_to_entrez_id(rownames(expr)))
-tb_gsea = fgsea_go(convert_to_entrez_id(s))
+tb_ora1 = ora_go(convert_to_entrez(diff))
+tb_ora2 = ora_go(convert_to_entrez(diff), universe = convert_to_entrez(rownames(expr)))
+tb_gsea = fgsea_go(convert_to_entrez(s))
 
 lt_GO = list(ORA1 = tb_ora1$gene_set[order(tb_ora1$p_value)[1:100]], 
-              ORA2 = tb_ora2$gene_set[order(tb_ora2$p_value)[1:100]], 
-              GSEA = tb_gsea$gene_set[order(tb_gsea$p_value)[1:100]])
+             ORA2 = tb_ora2$gene_set[order(tb_ora2$p_value)[1:100]], 
+             GSEA = tb_gsea$gene_set[order(tb_gsea$p_value)[1:100]])
 plot(euler(lt_GO), quantities = TRUE)
 ```
 

@@ -44,13 +44,13 @@ retrieve_all_kegg_graphs = function(organism = "hsa") {
 
 #' Centrality-based KEGG enrichment analysis
 #' 
-#' @param genes A vector of genes.
+#' @param genes A vector of genes, must be in the EntreZ ID type.
 #' @param universe A vector of universe genes. If it is not specified, the total genes in the KEGG pathways are used.
 #' @param centrality Centrality method. The value should be a function which accepts an `igraph` object and returns a vector of centrality values.
 #' @param organism KEGG organism code.
 #' @param pl A list of KEGG pathways as `igraph` objects. If the organism is one of "hsa", "mmu" or "rno", the corresponding `pl` is already
 #'      generated and will be loaded automatically. For other organisms, use `retrieve_all_kegg_graphs()` to generate one.
-#' @param perm Number of permutations.
+#' @param nperm Number of permutations.
 #' @param min_hits Minimal number of the overlapping genes in `genes` and pathways.
 #' @param min_size Minimal number of genes in pathways.
 #' @param max_size Maximal number of genes in pathways.
@@ -74,7 +74,7 @@ retrieve_all_kegg_graphs = function(organism = "hsa") {
 #' @import igraph
 #' @rdname topology_kegg
 ora_kegg_topology = function(genes, universe = NULL, centrality = igraph::degree, organism = "hsa", pl = NULL,
-    perm = 1000, min_hits = 3, min_size = 5, max_size = 2500, verbose = TRUE) {
+    nperm = 1000, min_hits = 3, min_size = 5, max_size = 2500, verbose = TRUE) {
 
     if(organism %in% c("hsa", "mmu", "rno")) {
         pl = readRDS(system.file("extdata", paste0("kegg_", organism, "_pathway_graphs.rds"), package = "GSEAtutorial"))
@@ -116,10 +116,10 @@ ora_kegg_topology = function(genes, universe = NULL, centrality = igraph::degree
 
     ngs = length(cen)
 
-    stat_random = matrix(nrow = ngs, ncol = perm)
-    for(i in 1:perm) {
+    stat_random = matrix(nrow = ngs, ncol = nperm)
+    for(i in 1:nperm) {
         if(verbose) {
-            cat(strrep("\b", 100)); cat(strrep(" ", 100)); cat(strrep("\b", 100)); cat(i, "/", perm)
+            cat(strrep("\b", 100)); cat(strrep(" ", 100)); cat(strrep("\b", 100)); cat(i, "/", nperm)
         }
         genes_random = sample(universe, length(genes))
         stat_random[, i] = sapply(cen, function(x) {
@@ -130,9 +130,9 @@ ora_kegg_topology = function(genes, universe = NULL, centrality = igraph::degree
     if(verbose) cat("\n")
 
     p = sapply(1:ngs, function(i) {
-        l = stat_random[i, ] > s[i]
+        l = stat_random[i, ] >= s[i]
         l[is.na(l)] = FALSE
-        sum(l)/perm
+        sum(l)/nperm
     })
 
     log2fe = log2(s/rowMeans(stat_random, na.rm = TRUE))
@@ -151,14 +151,18 @@ ora_kegg_topology = function(genes, universe = NULL, centrality = igraph::degree
 
 #' @rdname topology_kegg
 #' @export
-#' @param s A numeric vector of gene scores.
+#' @param s A numeric vector of gene scores. Names must be in the EntreZ ID type.
+#' @param null_side How to calculate p-values?
+#' @param abs Whether use absolute values of `s`?
 #' 
 #' @details
 #' `gsea_kegg_topology()` is the GSEA extension. The geneset-level score is calculated as `mean(abs(s*w))`.
 #' 
 #' @importFrom utils read.table
-gsea_kegg_topology = function(s, centrality = igraph::degree, organism = "hsa", pl = NULL,
-    min_size = 5, max_size = 2500, verbose = TRUE) {
+gsea_kegg_topology = function(s, centrality = igraph::degree, 
+    null_side = c("both", "right", "left"), abs = TRUE,
+    organism = "hsa", pl = NULL,
+    nperm = 1000, min_size = 5, max_size = 2500, verbose = TRUE) {
 
     if(organism %in% c("hsa", "mmu", "rno")) {
         pl = readRDS(system.file("extdata", paste0("kegg_", organism, "_pathway_graphs.rds"), package = "GSEAtutorial"))
@@ -183,27 +187,42 @@ gsea_kegg_topology = function(s, centrality = igraph::degree, organism = "hsa", 
     nl = nl[nl >= min_size & nl <= max_size]
     
     stat = sapply(cen, function(x) {
-        mean(abs(s[names(x)]) * x)
+        if(abs) {
+            mean(abs(s[names(x)]) * x)
+        } else {
+            mean(s[names(x)] * x)
+        }
     })
     
     ngs = length(cen)
 
-    stat_random = matrix(nrow = ngs, ncol = 1000)
-    for(i in 1:1000) {
+    stat_random = matrix(nrow = ngs, ncol = nperm)
+    for(i in 1:nperm) {
         if(verbose) {
-            cat(strrep("\b", 100)); cat(strrep(" ", 100)); cat(strrep("\b", 100)); cat(i, "/", 1000)
+            cat(strrep("\b", 100)); cat(strrep(" ", 100)); cat(strrep("\b", 100)); cat(i, "/", nperm)
         }
         stat_random[, i] = sapply(cen, function(x) {
             s_random = sample(s, length(x))
-            mean(abs(s_random)*x)
+            if(abs) {
+                mean(abs(s_random)*x)
+            } else {
+                mean(s_random*x)
+            }
         })
     }
     if(verbose) cat("\n")
 
+    null_side = match.arg(null_side)[1]
     p = sapply(1:ngs, function(i) {
-        l = stat_random[i, ] > stat[i]
+        if(null_side == "both") {
+            l = abs(stat_random[i, ]) >= abs(stat[i])
+        } else if(null_side == "right") {
+            l = stat_random[i, ] >= stat[i]
+        } else {
+            l = stat_random[i, ] <= stat[i]
+        }
         l[is.na(l)] = FALSE
-        sum(l)/1000
+        sum(l)/nperm
     })
 
     log2fe = log2(stat/rowMeans(stat_random, na.rm = TRUE))

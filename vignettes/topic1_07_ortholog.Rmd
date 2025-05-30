@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 In the Bioconductor ecosystem, there are already a huge number of gene set resources for a large number of organisms. However, there can still be cases where a poor-studied organism does not have a well-annotated gene set resource. Human, of course, is the most studied organism and it has the richest annotation resources. For other organisms, we can built similar gene sets by mapping to orthologues to human genes.

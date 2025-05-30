@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 ## ORA result
@@ -39,7 +40,7 @@ condition = p53_dataset$condition
 library(genefilter)
 tdf = rowttests(expr, condition)
 diff = rownames(expr)[abs(tdf$statistic) > 2]
-diff = convert_to_entrez_id(diff)
+diff = convert_to_entrez(diff)
 ```
 
 We use the GO BP gene sets.
@@ -183,7 +184,7 @@ ggplot(tb, aes(x = sample, y = wrap_text(description, width = 50), size = -log10
 
 ```{r}
 s = p53_dataset$s2n
-s = convert_to_entrez_id(s)
+s = convert_to_entrez(s)
 tb_gsea = fgsea_go(s, org.Hs.eg.db, "BP")
 ```
 

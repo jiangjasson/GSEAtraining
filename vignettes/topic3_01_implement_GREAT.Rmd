@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 We need the following input data
@@ -43,7 +44,7 @@ regions
 On Bioconductor, "gene models" for standard genome are provided via TxDb* packages. For
 human genome hg19, there is a **TxDb.Hsapiens.UCSC.hg19.knownGene** package.
 
-We use `genes()` to get gene coordinates, next `promoters()` to get TSSs of genes.
+We use `genes()` to get gene coordinates, next use `promoters()` to get TSSs of genes.
 
 ```{r}
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)

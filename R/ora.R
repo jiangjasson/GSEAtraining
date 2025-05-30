@@ -14,6 +14,20 @@
 #' @export
 #' @import fastmatch
 #' @rdname ora
+#' @details
+#' Except `ora()`, gene IDs in `s` in all `ora_*()` functions must be EntreZ IDs.
+#' 
+#' @examples
+#' data(p53_dataset)
+#' s = p53_dataset$s2n
+#' gs = p53_dataset$gs
+#' diff = names(s)[abs(s) > 0.3]
+#' 
+#' ora(diff, gs) |> head()
+#' 
+#' diff2 = convert_to_entrez(diff)
+#' ora_go(diff2) |> head()
+#' ora_msigdb(diff2) |> head()
 ora = function(genes, gs, universe = NULL, min_hits = 3, min_size = 5, max_size = 2000) {
 
     if(is.null(universe)) {
@@ -85,6 +99,13 @@ ora_go = function(genes, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", .
 #' - for `ora_reactome()`, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.
 #' - for `ora_keywords()`, the value can be a organism name, e.g. "human", the latin name or the taxon ID.
 #' - for `ora_phenotype()` and `fgsea_disease()`, the value can only be one of "human", "mouse" and "rat".
+#' 
+#' All valid values for `fgsea_reactome()` are:
+#' 
+#' ```
+#' c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+#'   "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+#' ```
 #' 
 ora_kegg = function(genes, organism = "hsa", db = "pathway", ...) {
     lt = load_kegg_genesets(organism, db)

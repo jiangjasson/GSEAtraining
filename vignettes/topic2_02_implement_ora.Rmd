@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 Implementing ORA is very simple. As long as genes and gene sets are already in
@@ -97,6 +98,18 @@ Note, `phyper()` calculates $P(X > x)$, thus we write `phyper(x - 1, ...)` which
 
 ## Wrap into a function
 
+We use a list of random DE genes and GO BP gene sets for testing.
+
+```{r}
+library(org.Hs.eg.db)
+library(GSEAtopics)
+lt = load_go_genesets(org.Hs.eg.db, "BP")
+gs_go = lt$gs
+
+genes = random_genes(org.Hs.eg.db, 1000)
+universe = protein_coding_genes(org.Hs.eg.db)
+```
+
 A quick and dirty way by first implementing a function working on single gene set, then applying it to a list of gene sets.
 
 ```{r}
@@ -121,9 +134,10 @@ ora =  function(genes, gene_sets, universe) {
     }
     p
 }
+ora(genes, gs_go, universe) |> head()
 ```
 
-Or we can do it in a vectorized way:
+Or we can do it in a vectorized way. We also wrap the results as a data frame not only reporting p-values.
 
 ```{r}
 ora = function(genes, gene_sets, universe) {
@@ -145,8 +159,8 @@ ora = function(genes, gene_sets, universe) {
         p_value = p
     )
 }
+ora(genes, gs_go, universe) |> head()
 ```
-
 
 We can further improve the function by:
 
@@ -189,27 +203,15 @@ ora = function(genes, gene_sets, universe = NULL) {
     df$p_adjust = p.adjust(df$p_value, "BH")
     df[order(df$p_adjust, df$p_value), ,drop = FALSE]
 }
-```
-
-Let's try our `ora()` with 1000 random genes on the GO BP gene sets:
-
-```{r}
-library(org.Hs.eg.db)
-library(GSEAtopics)
-lt = load_go_genesets(org.Hs.eg.db, "BP")
-gs = lt$gs
-
-genes = random_genes(org.Hs.eg.db, 1000, "ENTREZID")
-
-df = ora(genes, gs)
-head(df)
+ora(genes, gs_go) |> head()
 ```
 
 
 ## Further optimization
 
 **Why do we need to further optimize ORA?** The hypergeometric method is not only used in ORA, but is more like an universal method. 
-In many cases, the tests are applied for a huge number of times (> thousands).
+In many cases, the tests are applied for a huge number of times (> thousands). Also the methods for optimization can
+be applied to a large number of other scenarios.
 
 We first rename `ora()` to `ora_old()` later for comparison.
 
@@ -222,7 +224,7 @@ Let't first do a code profiling.
 
 ```{r}
 Rprof()
-df = ora(genes, gs)
+df = ora(genes, gs_go)
 Rprof(NULL)
 summaryRprof()
 ```
@@ -277,13 +279,13 @@ Now let's benchmark `ora_old()` and the new `ora()`:
 ```{r}
 library(microbenchmark)
 microbenchmark(
-    ora_old = ora_old(genes, gs),
-    ora = ora(genes, gs),
+    ora_old = ora_old(genes, gs_go),
+    ora = ora(genes, gs_go),
     times = 10
 )
 ```
 
-`ora()` is more than 40x faster than `ora_old()`! We have a very fast implementation of ORA 
+`ora()` is more than 40x faster than `ora_old()`! We have a very faster implementation of ORA 
 than majority of others from R/Bioconductor.
 
 ## More
@@ -297,7 +299,7 @@ genes in objects `genes` and `gene_sets` all to the corresponding integer indici
 This is done by `fmatch()`.
 
 ```{r}
-ora2 = function(genes, gene_sets, universe = NULL) {
+ora_int = function(genes, gene_sets, universe = NULL) {
 
     if(is.null(universe)) {
         universe = unique(unlist(gene_sets, use.names = FALSE))
@@ -339,61 +341,13 @@ ora2 = function(genes, gene_sets, universe = NULL) {
 
 ```{r}
 microbenchmark(
-    ora  = ora(genes, gs),
-    ora2 = ora2(genes, gs),
+    ora  = ora(genes, gs_go),
+    ora_int = ora_int(genes, gs_go),
     times = 10
 )
 ```
 
-Let's make a final version of `ora()`:
-
-
-```{r}
-ora = function(genes, gene_sets, universe = NULL, min_hits = 3, min_size = 5, max_size = 2500) {
-
-    if(is.null(universe)) {
-        universe = unique(unlist(gene_sets, use.names = FALSE))
-    } else {
-        universe = unique(universe)
-    }
-
-    # convert genes to integer indicies
-    genes = fmatch(genes, universe); genes = genes[!is.na(genes)]
-    gene_sets = lapply(gene_sets, function(x) {
-        v = fmatch(x, universe)
-        v[!is.na(v)]
-    })
-
-    nl = sapply(gene_sets, length)
-    gene_sets = gene_sets[nl >= min_size & nl <= max_size]
-
-    n_universe = length(universe)
-    k = length(genes)
-    
-    x = sapply(gene_sets, function(x) sum(x %fin% genes)) # now %fin% is applied on integer vectors
-    m = sapply(gene_sets, length)
-    n = n_universe - m
-    
-    p = phyper(x - 1, m, n, k, lower.tail = FALSE)
-
-    df = data.frame(
-        gene_set = names(gene_sets),
-        n_hits = x,
-        n_genes = k,
-        n_gs = m,
-        n_total = n_universe,
-        log2fe = log2(x*n_universe/k/m),
-        p_value = p
-    )
-
-    df = df[df$n_hits >= min_hits, , drop = FALSE]
-
-    df$p_adjust = p.adjust(df$p_value, "BH")
-    df = df[order(df$p_adjust, df$p_value), ,drop = FALSE]
-    rownames(df) = NULL
-    df
-}
-```
+And this is how `GSEAtopics::ora()` is optimized.
 
 ## Practice 
 
@@ -433,7 +387,7 @@ de_genes_3 = de$symbol[de$p_value < 0.001]
 Since genes are in symbols, we first obtain a global mapping from symbols to EntreZ IDs:
 
 ```{r}
-map = map_to_entrez_id("SYMBOL", org.Hs.eg.db)
+map = map_to_entrez("SYMBOL", org.Hs.eg.db)
 
 de_genes_1 = unique(map[de_genes_1])
 de_genes_1 = de_genes_1[!is.na(de_genes_1)]

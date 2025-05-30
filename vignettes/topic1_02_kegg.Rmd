@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 <style>
@@ -164,6 +165,31 @@ write.table(settings, file = stdout(), row.names = FALSE,
 How to set gene colors: https://www.genome.jp/kegg/webapp/color_gui.html
 
 The package **ggkegg** also supports customizing KEGG graph.
+
+## Other KEGG gene sets
+
+In the API URL: 
+
+```
+https://rest.kegg.jp/link/pathway/hsa
+https://rest.kegg.jp/list/pathway/hsa
+```
+
+The string `pathway` means to use the "pathway" database from KEGG. You can replace other databases on KEGG
+to get other types of gene sets. Useful databases are:
+
+- `network`, `module`, they are like sub-pathways.
+- `ko`: KEGG orthology, a hierarchical list of vocabularies to describe biological functions on different levels.
+- `disease`: disease-related genes.
+- `drug`: drug-related genes.
+
+But when applying the `list` API, no organism needs to be specified.
+
+```
+https://rest.kegg.jp/list/ko
+https://rest.kegg.jp/list/network
+https://rest.kegg.jp/list/drug
+```
 
 ## Practice
 

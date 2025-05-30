@@ -8,13 +8,13 @@
 An object of class \code{list} of length 4.
 }
 \usage{
-p53_dataset
+data(p53_dataset)
 }
 \description{
 P53 dataset
 }
 \details{
-P53 dataset as well as the c2 gene sets are from \url{https://data.broadinstitute.org/gsea-msigdb/gsea/dataset_files/}.
+P53 dataset as well as the C2 gene sets are from \url{https://data.broadinstitute.org/gsea-msigdb/gsea/dataset_files/}.
 
 The following code is used to generate the dataset:
 
@@ -38,7 +38,9 @@ m2 = expr[, condition == "WT"]
 s = (rowMeans(m1) - rowMeans(m2))/(rowSds(m1) + rowSds(m2)) 
 s = sort(s, decreasing = TRUE)
 
-p53_dataset = list(expr = expr, condition = condition, s2n = s)
+p53_dataset = list(expr = expr, condition = condition, s2n = s, gs = gs)
 }\if{html}{\out{</div>}}
+
+A positive signal-to-noise ratio (\code{s2n}) means up-regulation in \code{MUT}.
 }
 \keyword{datasets}

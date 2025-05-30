@@ -11,7 +11,7 @@
 \alias{fgsea_disease}
 \title{GSEA using fgsea}
 \usage{
-fgsea_wrapper(s, gs, min_size = 5, max_size = 1000, ...)
+fgsea_wrapper(s, gs, min_size = 5, max_size = 2000, ...)
 
 fgsea_go(s, org_db = org.Hs.eg.db::org.Hs.eg.db, ontology = "BP", ...)
 
@@ -54,11 +54,32 @@ fgsea_disease(s, organism = "human", ...)
 GSEA using fgsea
 }
 \details{
+Except \code{fgsea_wrapper()}, gene IDs in \code{s} in all \verb{fgsea_*()} functions must be EntreZ IDs.
+
 The value should be set differently for specific \verb{fgsea_*()} functions.
 \itemize{
 \item for \code{fgsea_kegg()}, the value should be a KEGG organism code, such as "hsa" or "mmu".
 \item for \code{fgsea_reactome()}, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.
-\item for \code{fgsea_keywords()}, the value can be a organism name, e.g. "human", the latin name or the taxon ID.
+\item for \code{fgsea_keywords()}, the value can be a organism name, e.g. "human", the latin name or the taxon ID. Please check \code{\link[UniProtKeywords:load_keyword_genesets]{UniProtKeywords::load_keyword_genesets()}}.
 \item for \code{fgsea_phenotype()} and \code{fgsea_disease()}, the value can only be one of "human", "mouse" and "rat".
 }
+
+All valid values for \code{fgsea_reactome()} are:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{c("BTA", "CEL", "CFA", "DRE", "DDI", "DME", "GGA", "HSA", "MMU", 
+  "MTU", "PFA", "RNO", "SCE", "SPO", "SSC", "XTR")
+}\if{html}{\out{</div>}}
+}
+\examples{
+data(p53_dataset)
+s = p53_dataset$s2n
+gs = p53_dataset$gs
+
+fgsea_wrapper(s, gs) |> head()
+
+s2 = convert_to_entrez(s)
+
+fgsea_go(s2) |> head()
+fgsea_kegg(s2) |> head()
+fgsea_msigdb(s2) |> head()
 }

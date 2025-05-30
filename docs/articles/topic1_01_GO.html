@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GSEAtopics</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,35 +29,50 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-00: Data representation of gene sets in R</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-01: GO gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-02: KEGG gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-03: MSigDB gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-04: Reactome gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-05: UniProt keywords gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-06: GO/KEGG gene sets for other organisms</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-07: Generate gene sets for other organisms by mapping to orthologues</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-08: Gene ID conversion</a></li>
+<li><h6 class="dropdown-header" data-toc-skip>Topic 1: Gene set resources</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-01: Data representation of gene sets in R</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-02: GO gene sets</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-03: Get pathways from KEGG</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-04: Get pathways from MSigDB</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-05: Get pathways from Reactome</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-06: Get gene sets from UniProt Keywords</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-07: Get GO/KEGG gene sets for other organisms</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-08: Generate gene sets for other organisms by mapping to orthologues</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-09: Gene ID conversion</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 2: ORA and GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic2_01_ora_single_gene_set.html">Topic 2-01: ORA on a single gene set</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_02_implement_ora.html">Topic 2-02: Implement ORA from scratch</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_03_implement_gsea.html">Topic 2-03: Implement GSEA from scratch</a></li>
-    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-05: fgsea</a></li>
+    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-04: fgsea</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_05_compare_ORA_GSEA.html">Topic 2-05: Compare ORA and GSEA</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 3: Application in genomics</h6></li>
     <li><a class="dropdown-item" href="../articles/topic3_01_implement_GREAT.html">Topic 3-01: Implement the GREAT method</a></li>
     <li><a class="dropdown-item" href="../articles/topic3_02_online_GREAT.html">Topic 3-02: Online GREAT analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-02: Local GREAT analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-03: Local GREAT analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 4: Topology-based</h6></li>
     <li><a class="dropdown-item" href="../articles/topic4_01_centrality.html">Topic 4-01: Centrality-based pathway enrichment analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 5: Single-sample GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic5_01_single_sample.html">Topic 5-01: Single-sample GSEA</a></li>
-    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarity of gene sets</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 6: Similarity, clustering and summarization</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarities of terms</a></li>
     <li><a class="dropdown-item" href="../articles/topic6_02_cluster_and_summarize.html">Topic 6-02: Cluster and summarize</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 7: Visualization</h6></li>
     <li><a class="dropdown-item" href="../articles/topic7_01_visualization.html">Topic 7-01: Visualization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 8: GSEA framework</h6></li>
     <li><a class="dropdown-item" href="../articles/topic8_01_GSEA_framework.html">Topic 8-01: GSEA framework</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -81,7 +96,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-05-29</h4>
+            <h4 data-toc-skip class="date">2025-05-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtopics/blob/HEAD/vignettes/topic1_01_GO.Rmd" class="external-link"><code>vignettes/topic1_01_GO.Rmd</code></a></small>
       <div class="d-none name"><code>topic1_01_GO.Rmd</code></div>
@@ -193,15 +208,40 @@ is as:</p>
 <span><span class="co">## 2 GO:0000002       BP mitochondrial genome maintenance</span></span></code></pre>
 <p>It can be read as “select records in the ONTOLOGY and TERM columns of
 the GO.db table where GOID is <a href="GO:0000001" class="uri">GO:0000001</a> or <a href="GO:0000002" class="uri">GO:0000002</a>”.</p>
-<p>The valid columns names can be obtained by
-<code>columns(GO.db)</code>.</p>
+<p>The valid columns that can be searched in:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keytypes</a></span><span class="op">(</span><span class="va">GO.db</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "DEFINITION" "GOID"       "ONTOLOGY"   "TERM"</span></span></code></pre>
+<p>The valid columns that can be get value from.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">columns</a></span><span class="op">(</span><span class="va">GO.db</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "DEFINITION" "GOID"       "ONTOLOGY"   "TERM"</span></span></code></pre>
+<p>In most cases <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keytypes()</a></code> and <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">columns()</a></code>
+return the same set of columns.</p>
 <p><strong>Question:</strong> How to get all BP terms with
 <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code>?</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">GO.db</span>, keys <span class="op">=</span> <span class="st">"BP"</span>, keytype <span class="op">=</span> <span class="st">"ONTOLOGY"</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOID"</span>, <span class="st">"TERM"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Unfortunately, we cannot use <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> to query something
+like: “select go_id from GO.db where the namespace is ‘BP’ and go_name
+contains ‘cell cycle’”. <code><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select()</a></code> is not a full functional
+search interface of the internal SQLite database. You need to do it in
+two steps.</p>
+<ol style="list-style-type: decimal">
+<li>get the complete table of BP terms and save it as an R data
+frame.</li>
+<li>filter the data frame in R</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">GO.db</span>, keys <span class="op">=</span> <span class="st">"BP"</span>, keytype <span class="op">=</span> <span class="st">"ONTOLOGY"</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOID"</span>, <span class="st">"TERM"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">tb</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"cell cycle"</span>, <span class="va">tb</span><span class="op">$</span><span class="va">TERM</span><span class="op">)</span>, <span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    ONTOLOGY       GOID                                                    TERM</span></span>
+<span><span class="co">## 26       BP GO:0000075                         cell cycle checkpoint signaling</span></span>
+<span><span class="co">## 31       BP GO:0000082                   G1/S transition of mitotic cell cycle</span></span>
+<span><span class="co">## 34       BP GO:0000086                   G2/M transition of mitotic cell cycle</span></span>
+<span><span class="co">## 76       BP GO:0000278                                      mitotic cell cycle</span></span>
+<span><span class="co">## 93       BP GO:0000320                        re-entry into mitotic cell cycle</span></span>
+<span><span class="co">## 94       BP GO:0000321 re-entry into mitotic cell cycle after pheromone arrest</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="the-hierarchical-relations-of-go-terms">The hierarchical relations of GO terms<a class="anchor" aria-label="anchor" href="#the-hierarchical-relations-of-go-terms"></a>
@@ -222,10 +262,10 @@ parent-child relations. <code>GOBPOFFSPRING</code> contains all
 offspring terms of GO terms (i.e., all downstream terms of a term in the
 GO tree) and <code>GOBPANCESTOR</code> contains all ancestor terms of a
 GO term (i.e., all upstream terms of a term). The information in the
-four variables are actually redudant, e.g., all the other three objects
-can be constructed from <code>GOBPCHILDREN</code>. However, these
-pre-computated objects will save time in downstream analysis because
-traversing the GO tree is time-consuming.</p>
+four variables are actually redundant, e.g., <code>GOBPOFFSPRING</code>
+can be constructed from <code>GOBPCHILDREN</code> recursively. However,
+these pre-computated objects will save time in downstream analysis
+because traversing the GO tree is time-consuming.</p>
 <p>The four variables are in the same format (objects of the
 <code>AnnDbBimap</code> class). Taking <code>GOBPCHILDREN</code> as an
 example, we can convert it to a simpler format by:</p>
@@ -234,8 +274,8 @@ example, we can convert it to a simpler format by:</p>
 <li><code>asTable()</code></li>
 </ul>
 <p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> is also suggested by <strong>GO.db</strong> in
-its documentations.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+its documentation.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $`GO:0000001`</span></span>
@@ -271,8 +311,9 @@ the child term to the parent term. When the element vector has a value
 is a leaf in the GO tree, and it has no child term (in this scenario,
 using <code>character(0)</code> instead of <code>NA</code> might be more
 proper).</p>
-<p><code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code> converts to a data frame:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<p><code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code> converts the object to a data frame which
+provides identical information as the list:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##        go_id      go_id     RelationshipType</span></span>
@@ -284,7 +325,7 @@ proper).</p>
 <span><span class="co">## 6 GO:1990396 GO:0000012                  isa</span></span></code></pre>
 <p>Unfortunately, the first two columns in <code>tb</code> have the same
 name. A good idea is to add meaningful column names to it.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/row_colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"child"</span>, <span class="st">"parent"</span><span class="op">)</span></span></code></pre></div>
 <p>Please note, the previous column names
 <code>c("child", "parent")</code> are only valid for
@@ -294,7 +335,7 @@ determine proper column names for it. E.g. you should assign
 <code>c("parent", "child")</code> to <code>GOBPPARENTS</code>.</p>
 <p>With <code>tb</code>, we can calculate the fraction of different
 relations of GO terms.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -302,27 +343,27 @@ relations of GO terms.</p>
 <span><span class="co">##                46920                 2639                 4825 </span></span>
 <span><span class="co">## positively regulates            regulates </span></span>
 <span><span class="co">##                 2650                 3040</span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"BP"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOMFCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##     isa part of </span></span>
 <span><span class="co">##   12827       8</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"MF"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-12-2.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-14-2.png" width="576" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOCCCHILDREN</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">##     isa part of </span></span>
 <span><span class="co">##    4617    1787</span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-12-3.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-14-3.png" width="576" style="display: block; margin: auto;"></p>
 <p>We can look at the distribution of the numbers of GO terms in each
 object.</p>
 <ol style="list-style-type: decimal">
@@ -330,7 +371,7 @@ object.</p>
 power-law distribution (majority of GO terms have very few child
 terms).</li>
 </ol>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">)</span></span>
@@ -342,13 +383,13 @@ terms).</li>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of child terms"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBPCHILDREN"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Number of parent terms. The term “<a href="GO:0008150" class="uri">GO:0008150</a>” (biological process) is removed from the
 analysis because it is the top node in BP namespace and it has no parent
 term.</li>
 </ol>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPPARENTS</span><span class="op">)</span></span>
 <span><span class="va">lt</span> <span class="op">=</span> <span class="va">lt</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span> <span class="op">!=</span> <span class="st">"GO:0008150"</span><span class="op">]</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">length</span><span class="op">)</span><span class="op">)</span></span>
@@ -359,12 +400,12 @@ term.</li>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of parent terms"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBOPARENTS"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;"></p>
 <p><code>GOBPCHILDREN</code> and <code>GOBPPARENTS</code> contain
 “local/direct” relations between GO terms, <code>GOBPOFFSPRING</code>
 and <code>GOBPANCESTOR</code> contain “local + distal” relations between
 GO terms.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPOFFSPRING</span><span class="op">)</span></span>
 <span><span class="va">lt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $`GO:0000001`</span></span>
@@ -374,7 +415,7 @@ GO terms.</p>
 <span><span class="co">##  [1] "GO:0006264" "GO:0032042" "GO:0032043" "GO:0043504" "GO:0090296"</span></span>
 <span><span class="co">##  [6] "GO:0090297" "GO:0090298" "GO:0110166" "GO:0140909" "GO:1901858"</span></span>
 <span><span class="co">## [11] "GO:1901859" "GO:1901860" "GO:1905951"</span></span></code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">GOBPOFFSPRING</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##        go_id      go_id</span></span>
@@ -384,20 +425,40 @@ GO terms.</p>
 <span><span class="co">## 4 GO:0043504 GO:0000002</span></span>
 <span><span class="co">## 5 GO:0090296 GO:0000002</span></span>
 <span><span class="co">## 6 GO:0090297 GO:0000002</span></span></code></pre>
+<p>For querying single GO terms, you don’t need to explicitly convert
+the object to a list, but using <code>[[</code> instead.</p>
 <p>We can compare child terms and all offspring terms of “<a href="GO:0000002" class="uri">GO:0000002</a>”:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GOBPCHILDREN</span><span class="op">[[</span><span class="st">"GO:0000002"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##      part of </span></span>
 <span><span class="co">## "GO:0032042"</span></span></code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">GOBPOFFSPRING</span><span class="op">[[</span><span class="st">"GO:0000002"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "GO:0006264" "GO:0032042" "GO:0032043" "GO:0043504" "GO:0090296"</span></span>
 <span><span class="co">##  [6] "GO:0090297" "GO:0090298" "GO:0110166" "GO:0140909" "GO:1901858"</span></span>
 <span><span class="co">## [11] "GO:1901859" "GO:1901860" "GO:1905951"</span></span></code></pre>
-<p>Constructing <code>GOBPOFFSPRING</code> from
-<code>GOBPCHILDREN</code> needs a recursive processing and it takes
-time:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<p>There is a pseudo term in <strong>GO.db</strong> with the name “all”,
+which connects three ontologies of GO.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">GOTERM</span><span class="op">[[</span><span class="st">"all"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">## GOID: all</span></span>
+<span><span class="co">## Term: all</span></span>
+<span><span class="co">## Ontology: universal</span></span>
+<span><span class="co">## Definition: NA</span></span></code></pre>
+<p>This <code>all</code> term is only recorded in
+<code>GOBPPARENTS</code> and <code>GOBPANCESTOR</code>.</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">GOBPPARENTS</span><span class="op">[[</span><span class="st">"GO:0008150"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##   isa </span></span>
+<span><span class="co">## "all"</span></span></code></pre>
+<p>There are several methods to construct <code>GOBPOFFSPRING</code>
+from <code>GOBPCHILDREN</code>/<code>GOBPPARENTS</code>.</p>
+<ol style="list-style-type: decimal">
+<li>For each term, we can recursively add child terms until reaching the
+leaf terms. This method traverses the GO DAG from top (root) to bottom
+(leaves) in a depth-first search manner.</li>
+</ol>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_children</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPCHILDREN</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">add_children</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">term</span>, <span class="va">env</span><span class="op">)</span> <span class="op">{</span></span>
@@ -424,6 +485,32 @@ time:</p>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">env</span><span class="op">$</span><span class="va">offspring</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>This method is very slow due to that a term may have multiple
+parents. Then a parent-child relation may be repeated visited for terms
+close to root.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Or we traverse the DAG from bottom to top, and we recursively add
+the set of offsprings of a term to its parent terms. This method also
+sues <code>GOBPPARENTS</code>.</li>
+</ol>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">current_terms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_children</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt_children</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">lt_offspring</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">lt_children</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_offspring</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_children</span><span class="op">)</span></span>
+<span><span class="va">lt_parents</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPPARENTS</span><span class="op">)</span></span>
+<span><span class="kw">while</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">current_terms</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">current_terms2</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>    <span class="kw">for</span><span class="op">(</span><span class="va">t</span> <span class="kw">in</span> <span class="va">current_terms</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">lt_parents</span><span class="op">[[</span><span class="va">t</span><span class="op">]</span><span class="op">]</span>, <span class="st">"all"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">lt_offspring</span><span class="op">[[</span><span class="va">p</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">union</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lt_offspring</span><span class="op">[[</span><span class="va">t</span><span class="op">]</span><span class="op">]</span>, <span class="va">t</span><span class="op">)</span>, <span class="va">lt_offspring</span><span class="op">[[</span><span class="va">p</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>            <span class="va">current_terms2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">current_terms2</span>, <span class="va">p</span><span class="op">)</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="va">current_terms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">current_terms2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">lt_offspring</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">lt_offspring</span>, <span class="va">unique</span><span class="op">)</span></span></code></pre></div>
+<p>This method is more efficient because the parent-child relation is
+only visited once in the traversal.</p>
 </div>
 </div>
 <div class="section level2">
@@ -433,19 +520,19 @@ time:</p>
 also provides gene annotated to GO terms, by manual curation or
 computational prediction. Such annotations are represented as mappings
 between GO IDs and gene IDs from external databases, which are usually
-synchronized between major public databases such NCBI.</p>
+synchronized between major public databases such as NCBI.</p>
 <div class="section level3">
 <h3 id="org-hs-eg-db">org.Hs.eg.db<a class="anchor" aria-label="anchor" href="#org-hs-eg-db"></a>
 </h3>
 <p>To obtains genes in each GO term in R, Bioconductor provides a family
 of packages with name of <strong>org.*.db</strong>. Let’s take human for
 example, the corresponding package is <strong>org.Hs.eg.db</strong>.
-<strong>org.Hs.eg.db</strong> provides a standard way to provide
+<strong>org.Hs.eg.db</strong> provides a standard way of providing
 mappings from Entrez gene IDs to a variaty of other databases.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, <code>org.Hs.eg.db</code> is a database object.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">org.Hs.eg.db</span></span></code></pre></div>
 <pre><code><span><span class="co">## OrgDb object:</span></span>
 <span><span class="co">## | DBSCHEMAVERSION: 2.1</span></span>
@@ -488,18 +575,18 @@ package, there are two objects for mapping between GO IDs and genes:</p>
 contains genes that are <em>directly annotated</em> to every GO term,
 while <code>org.Hs.egGO2ALLEGS</code> contains genes that directly
 assigned to the GO term, <em>as well as</em> genes assigned to all its
-ancestor terms. For example if term A is a parent of term B where A is
+offspring terms. For example if term A is a parent of term B where A is
 more general, genes with function B should also have function A. Thus
-<code>org.Hs.egGO2ALLEGS</code> is the proper object for GO gene
+<code>org.Hs.egGO2ALLEGS</code> is the correct object for GO gene
 sets.</p>
 <p><img src="go_anno_true_path.png"></p>
-<p>Again, <code>org.Hs.egGO2ALLEGS</code> is a database object. There
+<p>Again, <code>org.Hs.egGO2ALLEGS</code> is a vector-like object. There
 are two ways to obtain gene annotations to GO terms.</p>
 <ul>
 <li><code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code></li>
 <li><code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code></li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="va">lt</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $`GO:0000017`</span></span>
@@ -565,7 +652,7 @@ are two ways to obtain gene annotations to GO terms.</p>
 <span><span class="co">## "112441434" "112441434"</span></span></code></pre>
 <p>If we compare to <code>org.Hs.egGO2EG</code> which contains
 incomplete genes:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2EG</span><span class="op">)</span></span>
 <span><span class="va">lt2</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">## $`GO:0000017`</span></span>
@@ -575,10 +662,10 @@ incomplete genes:</p>
 <span><span class="co">## $`GO:0000018`</span></span>
 <span><span class="co">##     TAS     TAS     TAS     IEP </span></span>
 <span><span class="co">##  "3575"  "3836"  "3838" "56916"</span></span></code></pre>
-<p>The gene IDs have names. They are evidence of how genes are annotated
-to GO terms.</p>
+<p>The gene IDs have names. They are evidence codes of how genes are
+annotated to GO terms.</p>
 <p>Let’s try <code><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable()</a></code>:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   gene_id      go_id Evidence Ontology</span></span>
@@ -592,19 +679,19 @@ to GO terms.</p>
 convinient because <code>org.Hs.egGO2ALLEGS</code> contains GO terms
 from the three namespaces and the <code><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list()</a></code> cannot
 distinguish the different namespaces.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span><span class="op">[</span><span class="va">tb</span><span class="op">$</span><span class="va">Ontology</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="va">onto</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/Ontology.html" class="external-link">Ontology</a></span><span class="op">(</span><span class="va">GOTERM</span><span class="op">)</span></span>
 <span><span class="va">lt</span><span class="op">[</span> <span class="fu">onto</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="st">"BP"</span> <span class="op">]</span></span></code></pre></div>
 <p>Let’s calculate the frequency of evidence code:</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">$</span><span class="va">Evidence</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Now it seems we have obtained the complete gene-GO relations. Can we
 directly use <code>org.Hs.egGO2ALLEGS</code> as the GO gene sets? The
 answer is no, check the gene annotation for “<a href="GO:0000002" class="uri">GO:0000002</a>”:</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">[[</span><span class="st">"GO:0000002"</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code><span><span class="co">##      IMP      TAS      IDA      IMP      IMP      IMP      ISS      IBA </span></span>
 <span><span class="co">##    "142"    "291"   "1763"   "1890"   "2021"   "3980"   "4205"   "4358" </span></span>
@@ -618,29 +705,25 @@ answer is no, check the gene annotation for “<a href="GO:0000002" class="uri">
 <span><span class="co">##  "83667"  "84275"  "84275"  "84461"  "92667"  "92667"  "92667" "131474" </span></span>
 <span><span class="co">##      IBA      IMP      ISS      IMP </span></span>
 <span><span class="co">## "201973" "201973" "201973" "219736"</span></span></code></pre>
-<p>A gene can be duplicatedly annotated to a GO term with differnet
+<p>A gene can be duplicatedly annotated to a GO term with different
 evidence code. Thus, to obtain the GO gene sets, we need to take the
 unique genes.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<p>Let’s compare gene duplications in GO gene sets:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">length</span><span class="op">)</span></span>
 <span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">unique</span><span class="op">)</span></span>
 <span><span class="va">n2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="va">length</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">n1</span><span class="op">)</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">n1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"with duplicated"</span>, ylab <span class="op">=</span> <span class="st">"without duplicated"</span>,</span>
-<span>    main <span class="op">=</span> <span class="st">"number of genes in GO BP gene sets"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">/</span><span class="va">n1</span>, ylab <span class="op">=</span> <span class="st">"n2/n1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="va">tb</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
-<span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
+<span>    main <span class="op">=</span> <span class="st">"number of genes in GO BP gene sets"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>With <code>tb</code>, we can look at the distribution of numbers of
 genes in GO gene sets. It approximately follows a power-law
 distribution. This means majority of GO gene sets only contain
 intermediate numbers of genes.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<p>Let’s compare gene duplications in GO gene sets:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/toTable.html" class="external-link">toTable</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span><span class="va">tb</span><span class="op">$</span><span class="va">Ontology</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">t1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">$</span><span class="va">go_id</span><span class="op">)</span><span class="op">)</span></span>
@@ -651,10 +734,10 @@ intermediate numbers of genes.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of annotated genes"</span>, y <span class="op">=</span> <span class="st">"Number of GO terms"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBP"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>And the distribution of numbers of GO gene sets that a gene is
 annotated.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">t2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">tb</span><span class="op">$</span><span class="va">gene_id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">x2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">y2</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">as.vector</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span></span>
@@ -663,8 +746,8 @@ annotated.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>trans<span class="op">=</span><span class="st">'log10'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Number of gene sets"</span>, y <span class="op">=</span> <span class="st">"Number of genes"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GOBP"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;"></p>
-<p>Biocondutor core team maintaines <strong>org.*.db</strong> for 18
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;"></p>
+<p>Biocondutor core team maintains <strong>org.*.db</strong> for 18
 organisms</p>
 <table class="table">
 <colgroup>
@@ -745,7 +828,9 @@ organisms</p>
 <li>get all genes</li>
 <li>get all GO terms</li>
 </ol>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<p>because <strong>org.Hs.eg.db</strong> is thought of to provide ID
+mappings between databases.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">keys</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, keytype <span class="op">=</span> <span class="st">"ENTREZID"</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, keys <span class="op">=</span> <span class="va">all_genes</span>, keytype <span class="op">=</span> <span class="st">"ENTREZID"</span>, </span>
 <span>    columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GOALL"</span>, <span class="st">"ONTOLOGYALL"</span><span class="op">)</span><span class="op">)</span></span>
@@ -758,7 +843,7 @@ organisms</p>
 <span><span class="co">## 5        1 GO:0005575         HDA          CC</span></span>
 <span><span class="co">## 6        1 GO:0005575         IBA          CC</span></span></code></pre>
 <p>Then you might need to take the unique genes:</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="va">tb</span><span class="op">[</span><span class="va">tb</span><span class="op">$</span><span class="va">ONTOLOGYALL</span> <span class="op">==</span> <span class="st">"BP"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span></span></code></pre></div>
@@ -769,6 +854,14 @@ organisms</p>
 <span><span class="co">## 16        1 GO:0006955</span></span>
 <span><span class="co">## 17        1 GO:0007154</span></span>
 <span><span class="co">## 18        1 GO:0007165</span></span></code></pre>
+<p>Note the column <code>ONTOLOGYALL</code> can also be a valid
+“keytype” column, then actually we can do “select all genes and GO terms
+where ontology is BP”:</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html" class="external-link">select</a></span><span class="op">(</span><span class="va">org.Hs.eg.db</span>, keys <span class="op">=</span> <span class="st">"BP"</span>, keytype <span class="op">=</span> <span class="st">"ONTOLOGYALL"</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENTREZID"</span>, <span class="st">"GOALL"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># and remember to remove duplicated genes</span></span></code></pre></div>
+<p>Pay attention you should always use the columns with suffix “ALL” in
+the names for getting complete GO gene sets.</p>
 </div>
 </div>
 <div class="section level2">
@@ -792,7 +885,7 @@ percent of GO terms that have duplicated genes?</p>
 </div>
 <div class="tab-pane" id="solution" role="tabpanel" aria-labelledby="solution-tab">
 
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">lt</span><span class="op">)</span></span>
 <span><span class="va">nd</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -820,29 +913,29 @@ compare to gene sets in <code>org.Hs.egGO2ALLEGS</code>.</p>
 </div>
 <div class="tab-pane" id="solution-1" role="tabpanel" aria-labelledby="solution-1-tab">
 
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_genes</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2EG</span><span class="op">)</span></span>
 <span><span class="va">lt_terms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">GOBPOFFSPRING</span><span class="op">)</span></span></code></pre></div>
 <p>For a GO term, we need to consider its offspring terms + the term
 itself:</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">nm</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_terms</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">lt_terms</span><span class="op">[[</span><span class="va">nm</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">lt_terms</span><span class="op">[[</span><span class="va">nm</span><span class="op">]</span><span class="op">]</span>, <span class="va">nm</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Merge annotated genes for all offspring terms:</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_genes_manual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">lt_terms</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">lt_genes</span><span class="op">[</span><span class="va">x</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Compare to <code>org.Hs.egGO2ALLEGS</code>:</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lt_genes_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">org.Hs.egGO2ALLEGS</span><span class="op">)</span></span>
 <span><span class="va">lt_genes_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">lt_genes_all</span>, <span class="va">unique</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cn</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_genes_manual</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lt_genes_all</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt_genes_manual</span><span class="op">[</span><span class="va">cn</span><span class="op">]</span>, <span class="va">length</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">lt_genes_all</span><span class="op">[</span><span class="va">cn</span><span class="op">]</span>, <span class="va">length</span><span class="op">)</span>, log <span class="op">=</span> <span class="st">"xy"</span>,</span>
 <span>    xlab <span class="op">=</span> <span class="st">"manual gene sets"</span>, ylab <span class="op">=</span> <span class="st">"org.Hs.egGO2ALLEGS"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="topic1_01_GO_files/figure-html/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
 </div>
 </div>

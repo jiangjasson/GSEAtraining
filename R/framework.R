@@ -44,12 +44,12 @@ gene_level_s2n = function(mat, condition) {
 #' @importFrom matrixStats rowVars
 gene_level_tvalue = function(mat, condition) {
     lt = .split_mat(mat, condition)
-    n1 = ncol(m1)
-    n2 = ncol(m2)
-    v1 = rowVars(m1)
-    v2 = rowVars(m2)
+    n1 = ncol(lt$mat1)
+    n2 = ncol(lt$mat2)
+    v1 = rowVars(lt$mat1)
+    v2 = rowVars(lt$mat2)
     sp = sqrt( ((n1-1)*v1 + (n2-1)*v2)/(n1 + n2 - 2) )*sqrt(1/n1 + 1/n2)
-    (rowMeans(m1) - rowMeans(m2))/sp
+    (rowMeans(lt$mat1) - rowMeans(lt$mat2))/sp
 }
 
 #' @export
@@ -57,12 +57,12 @@ gene_level_tvalue = function(mat, condition) {
 #' @importFrom stats quantile
 gene_level_sam = function(mat, condition) {
     lt = .split_mat(mat, condition)
-    n1 = ncol(m1)
-    n2 = ncol(m2)
-    v1 = rowVars(m1)
-    v2 = rowVars(m2)
+    n1 = ncol(lt$mat1)
+    n2 = ncol(lt$mat2)
+    v1 = rowVars(lt$mat1)
+    v2 = rowVars(lt$mat2)
     sp = sqrt( ((n1-1)*v1 + (n2-1)*v2)/(n1 + n2 - 2) )*sqrt(1/n1 + 1/n2)
-    (rowMeans(m1) - rowMeans(m2))/(sp + quantile(sp, 0.1))
+    (rowMeans(lt$mat1) - rowMeans(lt$mat2))/(sp + quantile(sp, 0.1))
 }
 
 #' @export
@@ -179,6 +179,9 @@ set_level_ks = function(s, l) {
     f1 = cumsum(s_set)/sum(s_set)
     f2 = cumsum(l_other)/sum(l_other)
 
-    max(abs(f2 - f1))
+    m1 = max(f1 - f2)
+    m2 = min(f1 - f2)
+
+    stat = max(abs(m1), abs(m2)) * ifelse(abs(m1) > abs(m2), sign(m1), sign(m2))
 }
 

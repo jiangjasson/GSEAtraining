@@ -12,6 +12,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 8,
+    fig.height = 8,
+    fig.align = "center"
+)
+rm(list = ls())
+```
 
 # Examples of ORA analysis
 

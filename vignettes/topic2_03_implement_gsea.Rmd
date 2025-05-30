@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 6,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 In this document, we will implement the two versions of GSEA in R, using the p53 dataset
@@ -32,9 +33,9 @@ also from the GSEA 2005 paper.
 ```{r}
 library(GSEAtopics)
 data(p53_dataset)
-expr = p53_dataset$expr
-condition = p53_dataset$condition
-gs = p53_dataset$gs
+expr = p53_dataset$expr  # expression matrix
+condition = p53_dataset$condition  # experimental labels
+gs = p53_dataset$gs  # C2 gene sets
 
 geneset = gs[["p53hypoxiaPathway"]]
 geneset = intersect(geneset, rownames(expr))
@@ -48,7 +49,7 @@ length(geneset)
 
 Note, in all other vignettes, we use "MUT" as the treatment and "WT" as the control. But in this vignette,
 the p53hypoxiaPathway is a perfect example to show the ideas of GSEA, but it is down-regulated in MUT. Thus 
-we change the direction of the comparison to let "WT" as the treatment then the p53hypoxiaPathway gene set 
+we change the direction of the comparison to let "WT" be the treatment then the p53hypoxiaPathway gene set 
 has an up-regulation.
 
 ```{r}
@@ -75,11 +76,6 @@ Note here gene IDs in the expression matrix and in the gene set are all gene
 symbols, thus no more adjustment needs to be done here.
 
 The gene-level difference score is set as signal-to-noise ratios, which is:
-
-- mean in group 1
-- mean in group 2
-- sd in group 1
-- sd in group 2
 
 $$ \frac{\mu_1 - \mu_2}{\sigma_1 + \sigma_2} $$
 
@@ -109,8 +105,6 @@ s = sort(s, decreasing = TRUE)
 ```
 
 For simplicity, we mainly demonstrate the implementation for enrichment of up-regulation (right-sided).
-
-$$ P(X \ge x) \textnormal{ where } X = \max \left( F(g:g \in S) - F(g:g \notin S) \right) $$
 
 
 ## GSEA version 1
@@ -266,12 +260,16 @@ abline(v = es, col = "red")
 
 ## GSEA version 2
 
-Next we implement the improved GSEA (Subramanian et al., PNAS, 2005) where gene-level scores are taken as the weight.
+Next we implement the improved GSEA (Subramanian et al., PNAS, 2005) where gene-level scores are taken as the weights.
 The CDF of genes in the gene set is adjusted to:
 
-$$ f_{1p} = \frac{1}{S} \sum_{i=1}^p I(g_i \in G_k)\cdot |t_i|^a \textnormal{ where } S = \sum_{i=1}^{N_k} I(g_i \in G_k)\cdot |t_i|^a $$
+$$ f_{1p} = \frac{1}{S} \sum_{i=1}^p I(g_i \in G_k)\cdot |t_i|^a $$
 
-where $a$ is the power of the weight.
+where 
+
+$$ S = \sum_{i=1}^{N} I(g_i \in G_k)\cdot |t_i|^a $$
+
+$a$ is the power of the weight and $N$ is the total number of genes in the experiment.
 
 
 We directly modify `calculate_es()` to `calculate_es_v2()` where there is only two lines new, which we highlight in the code chunk:
@@ -373,6 +371,7 @@ calculate_es_v2_gene_perm = function(s, geneset, perm = FALSE, plot = FALSE, pow
 	if(perm) {
 	    # s is still sorted, but the gene labels are randomly shuffled
 	    # to break the associations between gene scores and gene labels.
+	    # also s is still sorted
 		names(s) = sample(names(s))  ## <<- here
 	}
 
@@ -467,7 +466,8 @@ negative values in $f_2 - f_1$, the statistic is $\min(f_2 - f_1)$.
 Standard GSEA uses the first method, i.e. maximal deviation of $f_2$ and $f_1$.
 
 ```{r}
-calculate_es_v2_gene_perm_two_sided = function(s, geneset, perm = FALSE, plot = FALSE, power = 1, method = "std") {
+calculate_es_v2_gene_perm_two_sided = function(s, geneset, perm = FALSE, 
+	plot = FALSE, power = 1, method = "std") {
 	
 	if(perm) {
 	    # s is still sorted, but the gene labels are randomly shuffled
@@ -489,7 +489,13 @@ calculate_es_v2_gene_perm_two_sided = function(s, geneset, perm = FALSE, plot = 
 	if(method == "std") {
 		max(m1, -m2)*ifelse(m1 > -m2, sign(m1), sign(m2))
 	} else if(method == "diff") {
-		m1 + m2
+		if(m1 >= 0 && m2 >= 0) {
+			m1
+		} else if(m1 <= 0 && m2 <= 0) {
+			m2
+		} else {
+			m1 + m2
+		}
 	}
 }
 ```
@@ -534,7 +540,7 @@ abline(v = es, col = "red")
 
 p-value can be calculated as right-sided or left-sided according to the sign of ES, or calculated
 as `sum(abs(es_rand) > abs(es))/perm`. For this method, to scale all ES, NES can be defined as
-a z-score `(es-mean(es_ran))/sd(es_rand)`.
+a z-score `(es-mean(es_rand))/sd(es_rand)`.
 
 
 ## Practice 
@@ -654,6 +660,8 @@ In GSEA v1, the enrichment score is basically a KS-statistics. Can you compare p
 sample-permutation? For this comparison, use the `calculate_es()` for GSEA v1. Note we demonstrated the enrichment
 on up-regulated genes, then in `ks.test()`, set `alternative = "great"`.
 
+#### Solution
+
 ```{r}
 condition = factor(condition, levels = c("WT", "MUT"))
 m1 = expr[, condition == "WT"]
@@ -682,4 +690,4 @@ for(i in 1:n_gs) {
 plot(p_perm, p_ks)
 ```
 
-#### Solution
+

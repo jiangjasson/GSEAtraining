@@ -6,11 +6,12 @@
 #' @param org_db An `OrgDb` object.
 #' 
 #' @export
+#' @importFrom utils getFromNamespace
 #' @rdname id_mapping
 #' 
 #' @details
-#' `map_to_entrez_id()` returns a gene ID mapping from the "from" type to EntreZ IDs, only for protein-coding genes.
-map_to_entrez_id = function (from, org_db = org.Hs.eg.db::org.Hs.eg.db) {
+#' `map_to_entrez()` returns a gene ID mapping from the "from" type to EntreZ IDs, only for protein-coding genes.
+map_to_entrez = function (from, org_db = org.Hs.eg.db::org.Hs.eg.db) {
 
     if(is.character(org_db)) {
         org_db = getFromNamespace(org_db, ns = org_db)
@@ -77,7 +78,7 @@ guess_id_mapping = function (id, org_db = org.Hs.eg.db::org.Hs.eg.db, verbose = 
     if (col == "ENTREZID") {
         return(NULL)
     }
-    id_mapping = map_to_entrez_id(col, org_db)
+    id_mapping = map_to_entrez(col, org_db)
     l = grepl("^ENS.*(G|T)", id) | grepl("^(NC|NG|NM|NR|NP|XM|XR|XP|WP)_\\d+", id)
     if (sum(l)/length(l) > 0.5) {
         fun = local({
@@ -100,9 +101,9 @@ guess_id_mapping = function (id, org_db = org.Hs.eg.db::org.Hs.eg.db, verbose = 
 #' @rdname id_mapping
 #' 
 #' @details
-#' For `convert_to_entrez_id()`, if mapping is applied on a character gene ID vector, IDs that cannot be mapped are removed, and for duplicated mappings only 
+#' For `convert_to_entrez()`, if mapping is applied on a character gene ID vector, IDs that cannot be mapped are removed, and for duplicated mappings only 
 #' the first one is picked. If mapping is applied on a numeric vector or a matrix, and if there are multiple mappings, the mean is taken as the final value.
-convert_to_entrez_id = function(x, org_db = org.Hs.eg.db::org.Hs.eg.db) {
+convert_to_entrez = function(x, org_db = org.Hs.eg.db::org.Hs.eg.db) {
     if(is.matrix(x)) {
         map = guess_id_mapping(rownames(x), org_db = org_db)
         if(is.null(map)) stop("Cannot detect gene ID type.")

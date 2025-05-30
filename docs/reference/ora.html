@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">GSEAtopics</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.20.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,33 +15,48 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-00: Data representation of gene sets in R</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-01: GO gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-02: KEGG gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-03: MSigDB gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-04: Reactome gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-05: UniProt keywords gene sets</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-06: GO/KEGG gene sets for other organisms</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-07: Generate gene sets for other organisms by mapping to orthologues</a></li>
-    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-08: Gene ID conversion</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><h6 class="dropdown-header" data-toc-skip>Topic 1: Gene set resources</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic1_00_format.html">Topic 1-01: Data representation of gene sets in R</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_01_GO.html">Topic 1-02: GO gene sets</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_02_kegg.html">Topic 1-03: Get pathways from KEGG</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_03_msigdb.html">Topic 1-04: Get pathways from MSigDB</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_04_Reactome.html">Topic 1-05: Get pathways from Reactome</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_05_UniProtKeywords.html">Topic 1-06: Get gene sets from UniProt Keywords</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_06_more_gene_sets.html">Topic 1-07: Get GO/KEGG gene sets for other organisms</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_07_ortholog.html">Topic 1-08: Generate gene sets for other organisms by mapping to orthologues</a></li>
+    <li><a class="dropdown-item" href="../articles/topic1_08_gene_id.html">Topic 1-09: Gene ID conversion</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 2: ORA and GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic2_01_ora_single_gene_set.html">Topic 2-01: ORA on a single gene set</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_02_implement_ora.html">Topic 2-02: Implement ORA from scratch</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_03_implement_gsea.html">Topic 2-03: Implement GSEA from scratch</a></li>
-    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-05: fgsea</a></li>
+    <li><a class="dropdown-item" href="../articles/topic2_04_fgsea.html">Topic 2-04: fgsea</a></li>
     <li><a class="dropdown-item" href="../articles/topic2_05_compare_ORA_GSEA.html">Topic 2-05: Compare ORA and GSEA</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 3: Application in genomics</h6></li>
     <li><a class="dropdown-item" href="../articles/topic3_01_implement_GREAT.html">Topic 3-01: Implement the GREAT method</a></li>
     <li><a class="dropdown-item" href="../articles/topic3_02_online_GREAT.html">Topic 3-02: Online GREAT analysis</a></li>
-    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-02: Local GREAT analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/topic3_03_local_GREAT.html">Topic 3-03: Local GREAT analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 4: Topology-based</h6></li>
     <li><a class="dropdown-item" href="../articles/topic4_01_centrality.html">Topic 4-01: Centrality-based pathway enrichment analysis</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 5: Single-sample GSEA</h6></li>
     <li><a class="dropdown-item" href="../articles/topic5_01_single_sample.html">Topic 5-01: Single-sample GSEA</a></li>
-    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarity of gene sets</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 6: Similarity, clustering and summarization</h6></li>
+    <li><a class="dropdown-item" href="../articles/topic6_01_similarity.html">Topic 6-01: Similarities of terms</a></li>
     <li><a class="dropdown-item" href="../articles/topic6_02_cluster_and_summarize.html">Topic 6-02: Cluster and summarize</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 7: Visualization</h6></li>
     <li><a class="dropdown-item" href="../articles/topic7_01_visualization.html">Topic 7-01: Visualization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Topic 8: GSEA framework</h6></li>
     <li><a class="dropdown-item" href="../articles/topic8_01_GSEA_framework.html">Topic 8-01: GSEA framework</a></li>
   </ul></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/jokergoo/GSEAtopics/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -64,7 +79,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ora</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span>, universe <span class="op">=</span> <span class="cn">NULL</span>, min_hits <span class="op">=</span> <span class="fl">3</span>, min_size <span class="op">=</span> <span class="fl">5</span>, max_size <span class="op">=</span> <span class="fl">2500</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ora</span><span class="op">(</span><span class="va">genes</span>, <span class="va">gs</span>, universe <span class="op">=</span> <span class="cn">NULL</span>, min_hits <span class="op">=</span> <span class="fl">3</span>, min_size <span class="op">=</span> <span class="fl">5</span>, max_size <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ora_go</span><span class="op">(</span><span class="va">genes</span>, org_db <span class="op">=</span> <span class="fu">org.Hs.eg.db</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/org.Hs.eg.db/man/org.Hs.egBASE.html" class="external-link">org.Hs.eg.db</a></span>, ontology <span class="op">=</span> <span class="st">"BP"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -139,12 +154,74 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The value should be set differently for specific <code>ora_*()</code> functions.</p><ul><li><p>for <code>ora_kegg()</code>, the value should be a KEGG organism code, such as "hsa" or "mmu".</p></li>
+    <p>Except <code>ora()</code>, gene IDs in <code>s</code> in all <code>ora_*()</code> functions must be EntreZ IDs.</p>
+<p>The value should be set differently for specific <code>ora_*()</code> functions.</p><ul><li><p>for <code>ora_kegg()</code>, the value should be a KEGG organism code, such as "hsa" or "mmu".</p></li>
 <li><p>for <code>ora_reactome()</code>, the value should a prefix of the Reactome pathway ID that represents the organism. E.g. "HSA" for human.</p></li>
 <li><p>for <code>ora_keywords()</code>, the value can be a organism name, e.g. "human", the latin name or the taxon ID.</p></li>
 <li><p>for <code>ora_phenotype()</code> and <code><a href="fgsea.html">fgsea_disease()</a></code>, the value can only be one of "human", "mouse" and "rat".</p></li>
-</ul></div>
+</ul><p>All valid values for <code><a href="fgsea.html">fgsea_reactome()</a></code> are:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">c</span>(<span class="st">"BTA"</span>, <span class="st">"CEL"</span>, <span class="st">"CFA"</span>, <span class="st">"DRE"</span>, <span class="st">"DDI"</span>, <span class="st">"DME"</span>, <span class="st">"GGA"</span>, <span class="st">"HSA"</span>, <span class="st">"MMU"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="st">"MTU"</span>, <span class="st">"PFA"</span>, <span class="st">"RNO"</span>, <span class="st">"SCE"</span>, <span class="st">"SPO"</span>, <span class="st">"SSC"</span>, <span class="st">"XTR"</span>)</span></code></pre><p></p></div>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">p53_dataset</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">=</span> <span class="va">p53_dataset</span><span class="op">$</span><span class="va">s2n</span></span></span>
+<span class="r-in"><span><span class="va">gs</span> <span class="op">=</span> <span class="va">p53_dataset</span><span class="op">$</span><span class="va">gs</span></span></span>
+<span class="r-in"><span><span class="va">diff</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.3</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">ora</span><span class="op">(</span><span class="va">diff</span>, <span class="va">gs</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               gene_set n_hits n_genes n_gs n_total   log2fe  z_score</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 347 SA_G1_AND_S_PHASES      6     307   15    5602 2.867703 5.881640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 466             P53_UP      9     307   40    5602 2.037628 4.746167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160       hsp27Pathway      5     307   16    5602 2.511560 4.535180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 302         p53Pathway      5     307   16    5602 2.511560 4.535180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154          gsPathway      3     307    6    5602 3.189631 4.793623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       chrebpPathway      5     307   20    5602 2.189631 3.842107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          p_value   p_adjust</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 347 8.475401e-05 0.04237701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 466 2.397667e-04 0.05994168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 160 1.265963e-03 0.15824542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 302 1.265963e-03 0.15824542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 154 2.879892e-03 0.23433797</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66  3.749408e-03 0.23433797</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">diff2</span> <span class="op">=</span> <span class="fu"><a href="id_mapping.html">convert_to_entrez</a></span><span class="op">(</span><span class="va">diff</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   gene id might be SYMBOL (p =  0.660 )</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 'select()' returned 1:many mapping between keys and columns</span>
+<span class="r-in"><span><span class="fu">ora_go</span><span class="op">(</span><span class="va">diff2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        gene_set n_hits n_genes n_gs n_total    log2fe  z_score      p_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8046 GO:1901700     93     497 1704   18986 1.0599955 7.695987 5.433047e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1280 GO:0007155     86     497 1553   18986 1.0809690 7.521060 1.916316e-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4185 GO:0042592     90     497 1767   18986 0.9603131 6.843988 4.892569e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5355 GO:0048871     54     497  832   18986 1.3099941 7.154667 7.558000e-10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5620 GO:0051240     87     497 1724   18986 0.9469458 6.623663 1.598871e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1697 GO:0009607     86     497 1704   18986 0.9471015 6.582795 2.015310e-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          p_adjust                                             description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8046 4.989710e-08                  response to oxygen-containing compound</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1280 8.799723e-08                                           cell adhesion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4185 1.497778e-06                                     homeostatic process</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5355 1.735317e-06              multicellular organismal-level homeostasis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5620 2.936806e-06 positive regulation of multicellular organismal process</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1697 3.084768e-06                             response to biotic stimulus</span>
+<span class="r-in"><span><span class="fu">ora_msigdb</span><span class="op">(</span><span class="va">diff2</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            gene_set n_hits n_genes n_gs n_total    log2fe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37             HALLMARK_P53_PATHWAY     21     207  200    4384 1.1530064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34              HALLMARK_MYOGENESIS     20     207  200    4384 1.0826170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                HALLMARK_APOPTOSIS     14     207  161    4384 0.8809832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      HALLMARK_ALLOGRAFT_REJECTION     16     207  200    4384 0.7606889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   HALLMARK_INFLAMMATORY_RESPONSE     16     207  200    4384 0.7606889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 HALLMARK_TNFA_SIGNALING_VIA_NFKB     15     207  200    4384 0.6675795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     z_score      p_value   p_adjust</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 3.943274 0.0003993388 0.01996694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 3.602059 0.0010293788 0.02573447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.421934 0.0188585130 0.25586664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.237199 0.0255866637 0.25586664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.237199 0.0255866637 0.25586664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 1.895984 0.0490656010 0.40888001</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

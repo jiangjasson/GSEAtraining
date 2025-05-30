@@ -24,6 +24,7 @@ knitr::opts_chunk$set(
     fig.height = 8,
     fig.align = "center"
 )
+rm(list = ls())
 ```
 
 Load the p53 dataset.
@@ -37,11 +38,11 @@ gs = p53_dataset$gs
 ```
 
 
-The process of GSEA analysis:
+The process of GSEA framework:
 
 <img src="framework.png">
 
-
+In this document, we only implement the framework for the univariant procedure.
 
 ## Gene-level
 
@@ -171,7 +172,7 @@ trans_gene_level = function(gene_stat, method = "abs", binarize) {
 
 Examples of the self-defined function `binarize` are:
 
-```{r}
+```r
 function(x) x < 0.05  # if the gene scores are p-values
 function(x) abs(x) > 2  # if the gene scores are t-values
 function(x) abs(x) > 1  # if the gene scores are log2 fold changes
@@ -185,11 +186,11 @@ Actually `trans_gene_level()` can be integrated into `gene_level()` as `f'(f(...
 The geneset-level function accepts two inputs:
 
 - A gene-level vector
-- A gene set represented as a vector of gene IDs
+- A gene set represented as a vector of gene IDs, or a logical vector representing whether the genes are in the gene set.
 
 Output is simply
 
-- The geneset-level statistic
+- A geneset-level statistic.
 
 Let's implement the following methods:
 
@@ -197,7 +198,7 @@ Let's implement the following methods:
 - median
 - maxmean
 - wilcox
-- ks
+- ks (two-sided statistic)
 
 ```{r}
 set_level = function(gene_stat, l_set, method) {
@@ -216,7 +217,9 @@ set_level = function(gene_stat, l_set, method) {
             stat = ifelse(s1 > s2, s1, -s2)
         }
     } else if(method == "wilcox") {
-        stat = wilcox.test(gene_stat[l_set], gene_stat[!l_set])$statistic
+        # stat = wilcox.test(gene_stat[l_set], gene_stat[!l_set])$statistic
+        # we use a faster version
+        stat = set_level_wilcox(gene_stat, l_set)
     } else if(method == "ks") {
         od = order(gene_stat, decreasing = TRUE)
         gene_stat = gene_stat[od]
@@ -282,7 +285,7 @@ Now we have all the components ready.
 - `set_level`: five methods,
 - `p_null`: three methods.
 
-ORA and GSEA can be constructed from different combinations of these components:
+ORA and GSEA can be constructed by different combinations of these components:
 
 For ORA:
 
@@ -298,7 +301,8 @@ For GSEA (v2):
 - `set_level`: ks
 - `p_null`: sample or gene permutation, one or two-sided
 
-Now we can wrap them into a "framework" function.
+Now we can wrap them into a "framework" function. First let the function
+only return set-level statistics.
 
 ```{r}
 gsea_framework = function(mat, condition, gene_sets,
@@ -319,17 +323,18 @@ gsea_framework = function(mat, condition, gene_sets,
 }
 ```
 
-<img src="all_methods.png" />
 
 Let's test it:
 
 ```{r}
-gsea_framework(expr, condition, gs["p53hypoxiaPathway"])
+gsea_framework(expr, condition, gs) |> head()
 ```
 
-Let's extend it to a list of gene sets and output more columns in the result object.
+
+Next we add the permutations and let the function return a complete data frame.
 
 ```{r}
+library(fastmatch)
 gsea_framework = function(mat, condition, gene_sets,
     gene_level_method = "tvalue", 
     transform = "identity", binarize = NULL,
@@ -342,7 +347,7 @@ gsea_framework = function(mat, condition, gene_sets,
     gene_stat = trans_gene_level(gene_stat, transform, binarize = binarize)
         
     l_set_list = lapply(gene_sets, function(set) {
-        rownames(mat) %in% set
+        rownames(mat) %fin% set
     })
     
     set_stat = sapply(l_set_list, function(l_set) {
@@ -363,6 +368,7 @@ gsea_framework = function(mat, condition, gene_sets,
                 set_level(gene_stat_random, l_set, set_level_method)
             })
         } else if(perm_type == "gene") {
+            # because l_set_list is pre-calculated, so we permute the values while keeping the order of genes
             gene_stat_random = structure(sample(gene_stat), names = names(gene_stat))
             
             set_stat_random[[i]] = sapply(l_set_list, function(l_set) {
@@ -391,11 +397,125 @@ gsea_framework = function(mat, condition, gene_sets,
                     p_value = p)
     df$p_adjust = p.adjust(p, "BH")
     df = df[order(df$p_value), ]
-    
+    rownames(df) = NULL
+
     return(df)
 }
 ```
 
+
 ```{r}
 gsea_framework(expr, condition, gs) |> head()
 ```
+
+With different combinations of methods, the total number of methods is huge!
+
+
+<img src="all_methods.png" />
+
+## Comparison
+
+Let's do the comparisons on the following combinations:
+
+| gene-level | transformation | set-level | permutation | null side |
+| ---------- | -------------- | --------- | ----------- | --------- |
+| log2fc     |  identity      |   mean    |   sample    |  both     |
+| log2fc     |  abs           |   median  |   sample    |  right    |
+| tvalue     |  identity      |   ks      |   sample    |  both     |
+| tvalue     |  identity      |   maxmean |   sample    |  both     |
+| tvalue     |  abs           |   wilcox  |   sample    |  right    |
+| tvalue     |  binary        |   sum (mean)   |   sample    |  right    |
+| log2fc     |  identity      |   mean    |   gene      |  both     |
+| log2fc     |  abs           |   median  |   gene      |  right    |
+| tvalue     |  identity      |   ks      |   gene      |  both     |
+| tvalue     |  identity      |   maxmean |   gene      |  both     |
+| tvalue     |  abs           |   wilcox  |   gene      |  right    |
+| tvalue     |  binary        |   sum (mean)    |   gene      |  right    |
+
+
+```{r}
+tbl = list(
+    "log2fc-mean-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "log2fc", 
+        transform = "identity", 
+        set_level_method = "mean", 
+        perm_type = "sample", p_null_side = "both"),
+    "log2fc-abs-median-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "log2fc", 
+        transform = "abs", 
+        set_level_method = "median", 
+        perm_type = "sample", p_null_side = "right"),
+    "tvalue-ks-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "identity", 
+        set_level_method = "ks", 
+        perm_type = "sample", p_null_side = "both"),
+    "tvalue-maxmean-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "identity", 
+        set_level_method = "maxmean", 
+        perm_type = "sample", p_null_side = "both"),
+    "tvalue-abs-wilcox-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "abs", 
+        set_level_method = "wilcox", 
+        perm_type = "sample", p_null_side = "right"),
+    "tvalue-binary-sample" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "binary", binarize = function(x) abs(x) > 2, 
+        set_level_method = "mean", 
+        perm_type = "sample", p_null_side = "right"),
+
+    # the same combinations, but using gene permutations
+    "log2fc-mean-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "log2fc", 
+        transform = "identity", 
+        set_level_method = "mean", 
+        perm_type = "gene", p_null_side = "both"),
+    "log2fc-abs-median-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "log2fc", 
+        transform = "abs", 
+        set_level_method = "median", 
+        perm_type = "gene", p_null_side = "right"),
+    "tvalue-ks-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "identity", 
+        set_level_method = "ks", 
+        perm_type = "gene", p_null_side = "both"),
+    "tvalue-maxmean-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "identity", 
+        set_level_method = "maxmean", 
+        perm_type = "gene", p_null_side = "both"),
+    "tvalue-abs-wilcox-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "abs", 
+        set_level_method = "wilcox", 
+        perm_type = "gene", p_null_side = "right"),
+    "tvalue-binary-gene" = gsea_framework(expr, condition, gs, 
+        gene_level_method = "tvalue", 
+        transform = "binary", binarize = function(x) abs(x) > 2, 
+        set_level_method = "mean", 
+        perm_type = "gene", p_null_side = "right")
+)
+```
+
+For each analysis, we compare the top 10 most significant gene sets.
+
+```{r, fig.width = 7, fig.height = 13}
+lt_sig = lapply(tbl, function(x) {
+    x$gene_set[1:10]
+})
+all_sig_terms = unique(unlist(lt_sig))
+cm = matrix(0, nrow = length(all_sig_terms), ncol = length(tbl))
+rownames(cm) = all_sig_terms
+colnames(cm) = names(tbl)
+for(i in seq_along(lt_sig)) {
+    cm[lt_sig[[i]], i] = 1
+}
+
+library(ComplexHeatmap)
+Heatmap(cm, col = c("0" = "white", "1" = 2), rect_gp = gpar(col = "black"),
+    right_annotation = rowAnnotation(agreement = anno_barplot(rowSums(cm), width = unit(3, "cm"))))
+```
+

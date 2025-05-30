@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{wrap_text}
 \alias{wrap_text}
-\title{Wrap long text into several lines}
+\title{Wrap long text into multiple lines}
 \usage{
 wrap_text(x, width = 60)
 }
@@ -12,5 +12,5 @@ wrap_text(x, width = 60)
 \item{width}{Maximal number of chararacters per line.}
 }
 \description{
-Wrap long text into several lines
+Wrap long text into multiple lines
 }

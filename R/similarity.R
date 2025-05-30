@@ -82,6 +82,10 @@ overlap_single = function(x, y) {
 #' @export
 #' @rdname jaccard
 #' @importFrom methods as
+#' @examples
+#' data(p53_dataset)
+#' gs = p53_dataset$gs
+#' jaccard(gs[grep("p53", names(gs), ignore.case = TRUE)])
 jaccard = function(lt, weight = NULL) {
     n = length(lt)
     nm = names(lt)
@@ -135,7 +139,7 @@ jaccard = function(lt, weight = NULL) {
 
 #' @param min_pct Minimal recurreny of genes in a geneset cluster.
 #' @param max_k Maximal number of recurrent genes to use on the plot.
-#' @param resolution For controlling the graph clustering method.
+#' @param resolution For controlling the graph clustering method, pass to [`igraph::cluster_louvain()`].
 #' @export
 #' @rdname jaccard
 genesets_similarity_heatmap = function(lt, weight = NULL, min_pct = 0.5, max_k = 5, resolution = 1) {
@@ -146,6 +150,7 @@ genesets_similarity_heatmap = function(lt, weight = NULL, min_pct = 0.5, max_k =
     cl = membership(cluster_louvain(g, resolution = resolution))
 
     ht = Heatmap(sm, col = c("white", "red"), name = "similarity", 
+        border = "black",
         row_split = cl, column_split = cl, show_row_dend = FALSE, 
         show_column_dend = FALSE, row_names_side = "left", 
         row_title = NULL, column_title = NULL)
