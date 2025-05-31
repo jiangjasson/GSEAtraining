@@ -10,7 +10,8 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Topic 2-01: ORA on a single gene set">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Topic 2-01: ORA on a single gene set">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -300,12 +301,12 @@ and non-diff genes:</p>
 <span>    times <span class="op">=</span> <span class="fl">1000</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: nanoseconds</span></span>
-<span><span class="co">##    expr    min       lq       mean median     uq     max neval</span></span>
-<span><span class="co">##   hyper    410    615.0    709.874    697    738   12054  1000</span></span>
-<span><span class="co">##  fisher 219719 238558.5 274485.693 245057 252970 4588679  1000</span></span>
-<span><span class="co">##   binom    369    492.0    668.751    656    738    4223  1000</span></span>
-<span><span class="co">##   chisq  22058  25194.5  26883.782  26814  27675   56539  1000</span></span>
-<span><span class="co">##   ztest    902   1148.0   1507.365   1558   1681    9553  1000</span></span></code></pre>
+<span><span class="co">##    expr    min     lq       mean   median       uq     max neval</span></span>
+<span><span class="co">##   hyper    410    574    655.672    656.0    697.0    9553  1000</span></span>
+<span><span class="co">##  fisher 201228 223081 252342.659 230440.5 237328.5 3575774  1000</span></span>
+<span><span class="co">##   binom    369    492    610.121    615.0    697.0    2542  1000</span></span>
+<span><span class="co">##   chisq  21115  23985  25276.377  24846.0  26732.0   40303  1000</span></span>
+<span><span class="co">##   ztest    820   1066   1363.988   1435.0   1558.0   10373  1000</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="the-effect-of-background-size">The effect of background size<a class="anchor" aria-label="anchor" href="#the-effect-of-background-size"></a>

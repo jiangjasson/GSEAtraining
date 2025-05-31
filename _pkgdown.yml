@@ -2,7 +2,6 @@ destination: docs
 template:
   bootstrap: 5
 
-
 navbar:
   title: "GSEAtopics"
   left:

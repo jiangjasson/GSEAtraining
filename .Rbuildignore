@@ -17,6 +17,7 @@ man/temp__*
 ^Meta$
 
 bk/
+pkgdown/
 
 vignettes/*.html
 vignettes/*.R
