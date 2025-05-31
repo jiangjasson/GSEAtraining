@@ -1,5 +1,9 @@
 .dropdown-menu {
-	font-size: 0.7em;
+	font-size: 0.8em;
+}
+
+body {
+	font-size: 0.95em;
 }
 
 #main {
