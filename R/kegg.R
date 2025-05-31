@@ -36,11 +36,11 @@ retrieve_all_kegg_graphs = function(organism = "hsa") {
 
 
 # pl = retrieve_all_kegg_graphs("hsa")
-# saveRDS(pl, file = "~/project/GSEAtraining/inst/extdata/kegg_hsa_pathway_graphs.rds", compress = "xz")
+# saveRDS(pl, file = "~/project/GSEAtopics/inst/extdata/kegg_hsa_pathway_graphs.rds", compress = "xz")
 # pl = retrieve_all_kegg_graphs("mmu")
-# saveRDS(pl, file = "~/project/GSEAtraining/inst/extdata/kegg_mmu_pathway_graphs.rds", compress = "xz")
+# saveRDS(pl, file = "~/project/GSEAtopics/inst/extdata/kegg_mmu_pathway_graphs.rds", compress = "xz")
 # pl = retrieve_all_kegg_graphs("rno")
-# saveRDS(pl, file = "~/project/GSEAtraining/inst/extdata/kegg_rno_pathway_graphs.rds", compress = "xz")
+# saveRDS(pl, file = "~/project/GSEAtopics/inst/extdata/kegg_rno_pathway_graphs.rds", compress = "xz")
 
 #' Centrality-based KEGG enrichment analysis
 #' 

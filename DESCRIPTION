@@ -1,6 +1,6 @@
 Package: GSEAtopics
 Type: Package
-Title: Various topics in gene set enrichment analysis
+Title: Various Topics on Gene Set Enrichment Analysis
 Version: 0.99.0
 Date: 2025-05-29
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
@@ -19,7 +19,7 @@ VignetteBuilder: knitr
 Description: The package provides a comprehensive introduction of various topics
     of gene set enrichment analysis. It also includes helper functions that provides
     efficient ways for the analysis.
-URL: https://github.com/jokergoo/GSEAtopics
+URL: https://github.com/jokergoo/GSEAtopics, https://jokergoo.github.io/GSEAtopics/index.html
 License: file LICENSE
 RoxygenNote: 7.3.2
 Encoding: UTF-8

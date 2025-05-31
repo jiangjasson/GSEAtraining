@@ -96,7 +96,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-05-30</h4>
+            <h4 data-toc-skip class="date">2025-05-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtopics/blob/HEAD/vignettes/topic6_01_similarity.Rmd" class="external-link"><code>vignettes/topic6_01_similarity.Rmd</code></a></small>
       <div class="d-none name"><code>topic6_01_similarity.Rmd</code></div>
@@ -263,7 +263,8 @@ example.</p>
 <p>We use the <code><a href="../reference/jaccard.html">jaccard()</a></code> function that is already
 implemented in the <strong>GSEAtopics</strong> package.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sm</span> <span class="op">=</span> <span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">gs_go</span><span class="op">[</span><span class="va">sig_go</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"~/test.RData"</span><span class="op">)</span></span>
+<span><span class="va">sm</span> <span class="op">=</span> <span class="fu"><a href="../reference/jaccard.html">jaccard</a></span><span class="op">(</span><span class="va">gs_go</span><span class="op">[</span><span class="va">sig_go</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">sm</span><span class="op">)</span> <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/ComplexHeatmap/man/Heatmap.html" class="external-link">Heatmap</a></span><span class="op">(</span><span class="va">sm</span>, name <span class="op">=</span> <span class="st">"jaccard"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"white"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="topic6_01_similarity_files/figure-html/unnamed-chunk-14-1.png" width="768" style="display: block; margin: auto;"></p>

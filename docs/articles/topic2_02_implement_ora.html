@@ -96,7 +96,7 @@
                         <h4 data-toc-skip class="author">Zuguang Gu <a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>
 </h4>
             
-            <h4 data-toc-skip class="date">2025-05-30</h4>
+            <h4 data-toc-skip class="date">2025-05-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/GSEAtopics/blob/HEAD/vignettes/topic2_02_implement_ora.Rmd" class="external-link"><code>vignettes/topic2_02_implement_ora.Rmd</code></a></small>
       <div class="d-none name"><code>topic2_02_implement_ora.Rmd</code></div>
@@ -329,56 +329,59 @@ function. Let’t first do a code profiling.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/Rprof.html" class="external-link">Rprof</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/summaryRprof.html" class="external-link">summaryRprof</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $by.self</span></span>
-<span><span class="co">##                   self.time self.pct total.time total.pct</span></span>
-<span><span class="co">## "base::intersect"      2.32    95.08       2.34     95.90</span></span>
-<span><span class="co">## "unlist"               0.10     4.10       0.10      4.10</span></span>
-<span><span class="co">## "c"                    0.02     0.82       0.02      0.82</span></span>
+<span><span class="co">##                      self.time self.pct total.time total.pct</span></span>
+<span><span class="co">## "base::intersect"         2.48    93.23       2.54     95.49</span></span>
+<span><span class="co">## "unlist"                  0.10     3.76       0.10      3.76</span></span>
+<span><span class="co">## "duplicated.default"      0.06     2.26       0.06      2.26</span></span>
+<span><span class="co">## "unique.default"          0.02     0.75       0.02      0.75</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $by.total</span></span>
 <span><span class="co">##                             total.time total.pct self.time self.pct</span></span>
-<span><span class="co">## "&lt;Anonymous&gt;"                     2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::do.call"                   2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::saveRDS"                   2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::tryCatch"                  2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::withCallingHandlers"       2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "block_exec"                      2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "call_block"                      2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "doTryCatch"                      2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "doWithOneRestart"                2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "eng_r"                           2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "eval"                            2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "evaluate"                        2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "evaluate::evaluate"              2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "in_dir"                          2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "in_input_dir"                    2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "knitr::knit"                     2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "ora"                             2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "process_file"                    2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "process_group"                   2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "rmarkdown::render"               2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "tryCatchList"                    2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "tryCatchOne"                     2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withCallingHandlers"             2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withOneRestart"                  2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withRestartList"                 2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withRestarts"                    2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "withVisible"                     2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "with_handlers"                   2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "xfun:::handle_error"             2.44    100.00      0.00     0.00</span></span>
-<span><span class="co">## "base::intersect"                 2.34     95.90      2.32    95.08</span></span>
-<span><span class="co">## "FUN"                             2.34     95.90      0.00     0.00</span></span>
-<span><span class="co">## "intersect"                       2.34     95.90      0.00     0.00</span></span>
-<span><span class="co">## "lapply"                          2.34     95.90      0.00     0.00</span></span>
-<span><span class="co">## "sapply"                          0.18      7.38      0.00     0.00</span></span>
-<span><span class="co">## "unlist"                          0.10      4.10      0.10     4.10</span></span>
-<span><span class="co">## "unique"                          0.10      4.10      0.00     0.00</span></span>
-<span><span class="co">## "c"                               0.02      0.82      0.02     0.82</span></span>
+<span><span class="co">## "&lt;Anonymous&gt;"                     2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::do.call"                   2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::saveRDS"                   2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::tryCatch"                  2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::withCallingHandlers"       2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "block_exec"                      2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "call_block"                      2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "doTryCatch"                      2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "doWithOneRestart"                2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "eng_r"                           2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "eval"                            2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "evaluate"                        2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "evaluate::evaluate"              2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "in_dir"                          2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "in_input_dir"                    2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "knitr::knit"                     2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "ora"                             2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "process_file"                    2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "process_group"                   2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "rmarkdown::render"               2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "tryCatchList"                    2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "tryCatchOne"                     2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withCallingHandlers"             2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withOneRestart"                  2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withRestartList"                 2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withRestarts"                    2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "withVisible"                     2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "with_handlers"                   2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "xfun:::handle_error"             2.66    100.00      0.00     0.00</span></span>
+<span><span class="co">## "base::intersect"                 2.54     95.49      2.48    93.23</span></span>
+<span><span class="co">## "FUN"                             2.54     95.49      0.00     0.00</span></span>
+<span><span class="co">## "intersect"                       2.54     95.49      0.00     0.00</span></span>
+<span><span class="co">## "lapply"                          2.54     95.49      0.00     0.00</span></span>
+<span><span class="co">## "sapply"                          0.20      7.52      0.00     0.00</span></span>
+<span><span class="co">## "unique"                          0.12      4.51      0.00     0.00</span></span>
+<span><span class="co">## "unlist"                          0.10      3.76      0.10     3.76</span></span>
+<span><span class="co">## "duplicated.default"              0.06      2.26      0.06     2.26</span></span>
+<span><span class="co">## "duplicated"                      0.06      2.26      0.00     0.00</span></span>
+<span><span class="co">## "unique.default"                  0.02      0.75      0.02     0.75</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sample.interval</span></span>
 <span><span class="co">## [1] 0.02</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $sampling.time</span></span>
-<span><span class="co">## [1] 2.44</span></span></code></pre>
+<span><span class="co">## [1] 2.66</span></span></code></pre>
 <p>We can see the <code><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">intersect()</a></code> function consumes more than
 90% of the total runtime. <code><a href="https://rdrr.io/pkg/BiocGenerics/man/sets.html" class="external-link">intersect()</a></code> internally uses the
 <code><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html" class="external-link">match()</a></code> function, and there is a faster implementation in
@@ -431,9 +434,9 @@ the unlisted vector.</p>
 <span>    times <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##     expr        min        lq       mean     median        uq        max neval</span></span>
-<span><span class="co">##  ora_old 2461.49986 2517.6927 2594.36481 2622.99085 2638.7298 2718.99520    10</span></span>
-<span><span class="co">##      ora   56.21756   57.0681   62.43605   57.25498   72.8449   78.92734    10</span></span></code></pre>
+<span><span class="co">##     expr        min         lq       mean    median         uq        max neval</span></span>
+<span><span class="co">##  ora_old 2815.89628 2865.66027 2921.05895 2907.3149 2934.65655 3076.73676    10</span></span>
+<span><span class="co">##      ora   59.51486   60.39292   66.98644   61.6164   77.19718   87.50347    10</span></span></code></pre>
 <p><code><a href="../reference/ora.html">ora()</a></code> is more than 40x faster than
 <code>ora_old()</code>! We have a very faster implementation of ORA than
 majority of others from R/Bioconductor.</p>
@@ -497,9 +500,9 @@ corresponding integer indicies in <code>universe</code>. This is done by
 <span>    times <span class="op">=</span> <span class="fl">10</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Unit: milliseconds</span></span>
-<span><span class="co">##     expr      min       lq     mean   median       uq      max neval</span></span>
-<span><span class="co">##      ora 55.45078 56.85429 61.79112 57.49313 68.55270 70.66006    10</span></span>
-<span><span class="co">##  ora_int 54.58678 55.43823 60.59123 58.38123 66.34071 69.61644    10</span></span></code></pre>
+<span><span class="co">##     expr      min       lq     mean  median       uq      max neval</span></span>
+<span><span class="co">##      ora 60.26500 61.56929 68.06193 62.6840 75.99375 82.88474    10</span></span>
+<span><span class="co">##  ora_int 59.29424 59.60703 65.95814 63.9946 71.95016 75.39843    10</span></span></code></pre>
 <p>And this is how <code><a href="../reference/ora.html">GSEAtopics::ora()</a></code> is optimized.</p>
 </div>
 <div class="section level2">

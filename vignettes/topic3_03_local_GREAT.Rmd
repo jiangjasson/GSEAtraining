@@ -264,7 +264,7 @@ ah = AnnotationHub()
 hit = query(ah, c("Tursiops truncatus", "OrgDb"))
 orgdb = ah[[ hit$ah_id ]]
 
-library(GSEAtraining)
+library(GSEAtopics)
 gs = get_GO_gene_sets_from_orgdb(orgdb, "BP")
 gs[1:2]
 ```

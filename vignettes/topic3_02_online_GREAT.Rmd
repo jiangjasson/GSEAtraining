@@ -26,10 +26,10 @@ knitr::opts_chunk$set(
 rm(list = ls())
 ```
 
-We first read the peaks (https://github.com/jokergoo/GSEAtraining/blob/master/inst/extdata/mm9_chipseq_peaks.bed) as a data frame.
+We first read the peaks (https://github.com/jokergoo/GSEAtopics/blob/master/inst/extdata/mm9_chipseq_peaks.bed) as a data frame.
 
 ```{r}
-bed = read.table(system.file("extdata", "mm9_chipseq_peaks.bed", package = "GSEAtraining"))
+bed = read.table(system.file("extdata", "mm9_chipseq_peaks.bed", package = "GSEAtopics"))
 head(bed)
 dim(bed)
 ```

@@ -1,4 +1,6 @@
 
+This package aims to provide a comprehensive introduction on gene set enrichment analysis.
+
 ## Topics
 
 **Topic 1**: gene set resources
@@ -32,7 +34,7 @@
 
 - Topic 4-01: [Centrality-based pathway enrichment analysis](articles/topic4_01_centrality.html)
 
-**Topic 5**: Single-sample
+**Topic 5**: Single-sample GSEA
 
 - Topic 5-01: [Single-sample GSEA](articles/topic5_01_single_sample.html)
 
@@ -49,6 +51,12 @@
 
 - Topic 8-01: [GSEA framework](articles/topic8_01_GSEA_framework.html)
 
+## Install
+
+```r
+library(devtools)
+install_github("jokergoo/GSEAtopics")
+```
 
 ## License
 
