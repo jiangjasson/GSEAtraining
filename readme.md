@@ -58,6 +58,18 @@ library(devtools)
 install_github("jokergoo/GSEAtopics")
 ```
 
+To install all necessary packages for running the vignettes:
+
+```r
+setRepositories(ind = 1:4)
+
+install.packages(c("knitr", "rmarkdown", "circlize", "reactome.db", "UniProtKeywords",
+	"AnnotationHub", "Orthology.eg.db", "GSVA", "simona", "BiocManager", "CePa",
+	"ggplot2", "rGREAT", "KEGGgraph", "proxyC", "sparseMatrixStats", "HilbertCurve", 
+	"TxDb.Hsapiens.UCSC.hg19.knownGene", "cola", "cowplot", "eulerr", "golubEsets", 
+	"hu6800.db", "microbenchmark", "preprocessCore", "simplifyEnrichment"))
+```
+
 ## License
 
 Code is released under [the MIT licence](https://opensource.org/license/mit). Vignettes are under [the CC BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/4.0/).
