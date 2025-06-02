@@ -47,7 +47,7 @@ This package aims to provide a comprehensive introduction on gene set enrichment
 
 - Topic 7-01: [Visualization](articles/topic7_01_visualization.html)
 
-**Topic 8**: GSEA framrwork
+**Topic 8**: GSEA framework
 
 - Topic 8-01: [GSEA framework](articles/topic8_01_GSEA_framework.html)
 
@@ -56,6 +56,17 @@ This package aims to provide a comprehensive introduction on gene set enrichment
 ```r
 library(devtools)
 install_github("jokergoo/GSEAtopics")
+```
+
+To install all necessary packages for running the vignettes:
+
+```r
+setRepositories(ind = 1:4)
+install.packages(c("knitr", "rmarkdown", "circlize", "reactome.db", "UniProtKeywords",
+	"AnnotationHub", "Orthology.eg.db", "GSVA", "simona", "BiocManager", "CePa",
+	"ggplot2", "rGREAT", "KEGGgraph", "proxyC", "sparseMatrixStats", "HilbertCurve", 
+	"TxDb.Hsapiens.UCSC.hg19.knownGene", "cola", "cowplot", "eulerr", "golubEsets", 
+	"hu6800.db", "microbenchmark", "preprocessCore", "simplifyEnrichment"))
 ```
 
 ## License

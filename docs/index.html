@@ -158,7 +158,7 @@
 <li>Topic 7-01: <a href="articles/topic7_01_visualization.html">Visualization</a>
 </li>
 </ul>
-<p><strong>Topic 8</strong>: GSEA framrwork</p>
+<p><strong>Topic 8</strong>: GSEA framework</p>
 <ul>
 <li>Topic 8-01: <a href="articles/topic8_01_GSEA_framework.html">GSEA framework</a>
 </li>
@@ -170,6 +170,14 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"jokergoo/GSEAtopics"</span><span class="op">)</span></span></code></pre></div>
+<p>To install all necessary packages for running the vignettes:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/setRepositories.html" class="external-link">setRepositories</a></span><span class="op">(</span>ind <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"knitr"</span>, <span class="st">"rmarkdown"</span>, <span class="st">"circlize"</span>, <span class="st">"reactome.db"</span>, <span class="st">"UniProtKeywords"</span>,</span>
+<span>    <span class="st">"AnnotationHub"</span>, <span class="st">"Orthology.eg.db"</span>, <span class="st">"GSVA"</span>, <span class="st">"simona"</span>, <span class="st">"BiocManager"</span>, <span class="st">"CePa"</span>,</span>
+<span>    <span class="st">"ggplot2"</span>, <span class="st">"rGREAT"</span>, <span class="st">"KEGGgraph"</span>, <span class="st">"proxyC"</span>, <span class="st">"sparseMatrixStats"</span>, <span class="st">"HilbertCurve"</span>, </span>
+<span>    <span class="st">"TxDb.Hsapiens.UCSC.hg19.knownGene"</span>, <span class="st">"cola"</span>, <span class="st">"cowplot"</span>, <span class="st">"eulerr"</span>, <span class="st">"golubEsets"</span>, </span>
+<span>    <span class="st">"hu6800.db"</span>, <span class="st">"microbenchmark"</span>, <span class="st">"preprocessCore"</span>, <span class="st">"simplifyEnrichment"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
