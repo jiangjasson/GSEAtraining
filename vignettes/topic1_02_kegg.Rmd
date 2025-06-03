@@ -289,5 +289,5 @@ Prepare the color table:
 1869    grey,red
 ```
 
-Then go to https://www.genome.jp/pathway/`r pathway_id` and paste the color table there.
+Then go to https://www.kegg.jp/pathway/`r pathway_id` and paste the color table there.
 
