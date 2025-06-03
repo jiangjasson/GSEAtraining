@@ -69,6 +69,11 @@ install.packages(c("knitr", "rmarkdown", "circlize", "reactome.db", "UniProtKeyw
 	"hu6800.db", "microbenchmark", "preprocessCore", "simplifyEnrichment"))
 ```
 
+There is also an simplified version
+
+https://carpentries-incubator.github.io/bioc-rnaseq/07-gene-set-analysis.html
+
+
 ## License
 
 Code is released under [the MIT licence](https://opensource.org/license/mit). Vignettes are under [the CC BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/4.0/).
