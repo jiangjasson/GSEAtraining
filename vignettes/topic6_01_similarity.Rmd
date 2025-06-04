@@ -144,7 +144,7 @@ which is defined as:
 
 
 $$
-\mathrm{Jaccard}_w = \frac{\mathrm{avg}_{g_i \in A \bigcap B} w_i}{\mathrm{avg}_{g_j \in A \bigcup B} w_j}
+\mathrm{Jaccard}_w = \frac{\sum_{g_i \in A \bigcap B} w_i}{\sum_{g_j \in A \bigcup B} w_j}
 $$
 
 Let's implement the weighted Jaccard coeffcient:

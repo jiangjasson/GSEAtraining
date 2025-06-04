@@ -62,7 +62,7 @@ To install all necessary packages for running the vignettes:
 
 ```r
 setRepositories(ind = 1:4)
-install.packages(c("knitr", "rmarkdown", "circlize", "reactome.db", "UniProtKeywords",
+install.packages(c("circlize", "reactome.db", "UniProtKeywords",
 	"AnnotationHub", "Orthology.eg.db", "GSVA", "simona", "BiocManager", "CePa",
 	"ggplot2", "rGREAT", "KEGGgraph", "proxyC", "sparseMatrixStats", "HilbertCurve", 
 	"TxDb.Hsapiens.UCSC.hg19.knownGene", "cola", "cowplot", "eulerr", "golubEsets", 
