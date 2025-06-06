@@ -214,7 +214,6 @@ We use the `jaccard()` function that is already implemented in the **GSEAtopics*
 
 
 ```{r}
-save.image(file = "~/test.RData")
 sm = jaccard(gs_go[sig_go])
 diag(sm) = NA
 Heatmap(sm, name = "jaccard", col = c("white", "red"))

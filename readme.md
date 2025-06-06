@@ -74,16 +74,6 @@ There is also an simplified version
 https://carpentries-incubator.github.io/bioc-rnaseq/07-gene-set-analysis.html
 
 
-Slides:
-
-- Topic 1: https://docs.google.com/presentation/d/1sLof1idNQ1rWTV19EG5CiZr93Y9lojZBKnv6E2ARJh8/edit?usp=sharing
-- Topic 2: https://docs.google.com/presentation/d/1GGzfD-IhzHaLZEGDeoTBSOmoT47Et6poiKucAQTcjwA/edit?usp=sharing
-- Topic 3: https://docs.google.com/presentation/d/1RVKVFq7r3UC8a4CoEhbr6qqkBd5twFhASKelH59yWVo/edit?usp=sharing
-- Topic 4: https://docs.google.com/presentation/d/1DGvfwmTd6GrFMY20XBbbxCwWm7DXn6H_99mDVDJ9ZE4/edit?usp=sharing
-- Topic 5: https://docs.google.com/presentation/d/1l75R7zd9mOWEWlmTOtS06ZOJ3MZRUp79mTQGi6a6ly8/edit?usp=sharing
-- Topic 6: https://docs.google.com/presentation/d/1RtVmdxquc3GJFoM5dFMlUXCKjBZQyTFnD2CXXVp1ME0/edit?usp=sharing
-- Topic 7: https://docs.google.com/presentation/d/1T5BplXQHnZW2KwK2TujhWqNnhbJazmXPwPgsbuQOUZE/edit?usp=sharing
-
 ## License
 
 Code is released under [the MIT licence](https://opensource.org/license/mit). Vignettes are under [the CC BY-NC-ND license](https://creativecommons.org/licenses/by-nc-nd/4.0/).
