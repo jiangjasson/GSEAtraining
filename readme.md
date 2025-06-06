@@ -69,7 +69,7 @@ install.packages(c("circlize", "reactome.db", "UniProtKeywords",
 	"hu6800.db", "microbenchmark", "preprocessCore", "simplifyEnrichment"))
 ```
 
-There is also an simplified version
+There is also a simplified version
 
 https://carpentries-incubator.github.io/bioc-rnaseq/07-gene-set-analysis.html
 
